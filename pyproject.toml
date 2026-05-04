@@ -14,10 +14,21 @@ keywords = []
 authors = [
     { name = "Thor Whalen" },
 ]
-dependencies = []
+dependencies = [
+    "Pillow>=10",
+    "numpy>=1.26",
+    "dol",
+    "meshed",
+    "config2py",
+    "argh>=0.30",
+    "pydantic>=2.6",
+]
 
 [project.license]
 text = "mit"
+
+[project.scripts]
+lookbook = "lookbook.__main__:main"
 
 [project.urls]
 Homepage = "https://github.com/thorwhalen/lookbook"
@@ -33,6 +44,33 @@ dev = [
 docs = [
     "sphinx>=6.0",
     "sphinx-rtd-theme>=1.0",
+]
+# Phase 1+: cheap funnel — perceptual hash, OpenCV-based blur/exposure.
+funnel = [
+    "opencv-python-headless>=4.9",
+    "scikit-image>=0.22",
+    "imagededup>=0.3.2",
+]
+# Phase 2+: embeddings, IQA models, submodular selection. Pulls torch.
+embed = [
+    "torch>=2.1",
+    "open-clip-torch>=2.24",
+    "transformers>=4.40",
+    "pyiqa>=0.1.13",
+    "apricot-select>=0.6.1",
+    "scikit-learn>=1.4",
+]
+# Phase 3+: person-LoRA-specific.
+person = [
+    "insightface>=0.7.3",
+    "sixdrepnet>=0.1.6",
+    "mediapipe>=0.10",
+]
+# Phase 4: HTTP surface via qh.
+http = [
+    "qh",
+    "fastapi>=0.110",
+    "uvicorn>=0.27",
 ]
 
 [tool.ruff]
