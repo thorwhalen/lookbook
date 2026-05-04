@@ -3,6 +3,9 @@
 `fastmcp.Client(server)` runs the server in-memory over an internal
 transport. We avoid `pytest-asyncio` (not in the dev env) by driving
 each async tool call through `asyncio.run` inside a sync test.
+
+The module is skipped when fastmcp or qh isn't installed (the MCP layer
+depends on the HTTP layer's route functions).
 """
 
 from __future__ import annotations
@@ -14,6 +17,11 @@ import os
 
 import numpy as np
 import pytest
+
+# Module-level skip when the [mcp] / [http] extras are missing.
+pytest.importorskip("fastmcp", reason="fastmcp not installed (lookbook[mcp])")
+pytest.importorskip("qh", reason="qh not installed (lookbook[http])")
+
 from PIL import Image
 
 from lookbook import get_stores

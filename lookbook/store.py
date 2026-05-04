@@ -27,7 +27,11 @@ from lookbook._paths import default_data_root, subdir
 # Codecs and key transforms
 # ---------------------------------------------------------------------------
 
-_KEY_SEP = "::"
+# Separator must be filesystem-safe on every OS we care about. Windows
+# disallows `: \ / * ? " < > |` in filenames, so we can't use `::`.
+# `--` is safe on every OS, never appears in our image_ids (hex sha1
+# prefixes) or metric_ids (snake_case), and reads as "joined".
+_KEY_SEP = "--"
 
 
 def _key_to_str(key: ManifestKey) -> str:

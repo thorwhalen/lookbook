@@ -8,11 +8,18 @@ backend smoke tests live in `test_phase3_models.py` and require
 
 from __future__ import annotations
 
+import importlib.util
 import io
 
 import numpy as np
 import pytest
 from PIL import Image
+
+# The end-to-end profile test exercises cluster_coverage (sklearn-backed).
+_HAS_SKLEARN = importlib.util.find_spec("sklearn") is not None
+needs_sklearn = pytest.mark.skipif(
+    not _HAS_SKLEARN, reason="sklearn not installed (lookbook[embed])",
+)
 
 from lookbook import (
     BytesImageRef,
@@ -395,6 +402,7 @@ def test_load_unknown_profile():
 # ---------------------------------------------------------------------------
 
 
+@needs_sklearn
 def test_person_mock_profile_end_to_end(memory_stores):
     """Run the person_mock recipe through the facade. Synthesizes faces +
     poses + identity embeddings, applies quotas, and returns kept K."""

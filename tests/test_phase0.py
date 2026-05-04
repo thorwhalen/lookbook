@@ -149,8 +149,8 @@ def test_manifest_codec_keys_translate(tmp_path):
     wrapped = manifest_codec(raw)
     a = Annotation(image_id="abc", metric_id="blur", value=42)
     wrapped[("abc", "blur")] = a
-    # Underlying file name encodes the pair.
-    assert any("abc::blur" in k for k in raw)
+    # Underlying file name encodes the pair (filesystem-safe separator).
+    assert any("abc--blur" in k for k in raw)
     # Keys decoded back to tuples on read.
     assert ("abc", "blur") in list(wrapped)
 

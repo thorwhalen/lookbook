@@ -3,14 +3,24 @@
 Uses qh's TestClient (no real server bound) so the tests are fast and
 hermetic. The HTTP server's stores are replaced with in-memory ones via
 `reset_stores` so the user's app data folder is never touched.
+
+The whole module is skipped when the `[http]` extras (qh / fastapi /
+uvicorn) aren't installed.
 """
 
 from __future__ import annotations
 
+import importlib.util
 import io
 import os
 
 import pytest
+
+# Module-level skip if any of the [http] extras are missing — the import
+# of `lookbook.http` would already cascade-fail otherwise.
+pytest.importorskip("qh", reason="qh not installed (lookbook[http])")
+pytest.importorskip("fastapi", reason="fastapi not installed (lookbook[http])")
+
 from PIL import Image
 
 from lookbook import get_stores

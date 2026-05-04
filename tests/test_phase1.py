@@ -6,12 +6,22 @@ test suite stays fast and deterministic.
 
 from __future__ import annotations
 
+import importlib.util
 import io
 import os
 
 import numpy as np
 import pytest
 from PIL import Image, ImageFilter
+
+# Tests that require imagehash / cv2 are skipped when those optional
+# `[funnel]` deps aren't present. The core scorers (resolution, blur,
+# exposure, file_hash) still run.
+_HAS_IMAGEHASH = importlib.util.find_spec("imagehash") is not None
+needs_imagehash = pytest.mark.skipif(
+    not _HAS_IMAGEHASH,
+    reason="imagehash not installed (lookbook[funnel])",
+)
 
 from lookbook import (
     BytesImageRef,
@@ -156,11 +166,13 @@ def test_file_hash_distinguishes_different_bytes(sharp_ref, blurry_ref):
 # ---------------------------------------------------------------------------
 
 
+@needs_imagehash
 def test_phash_basic(sharp_ref):
     h = PerceptualHash().score(sharp_ref, {})
     assert isinstance(h, str) and len(h) > 0
 
 
+@needs_imagehash
 def test_phash_close_for_same_image(sharp_ref):
     """Re-encoding should yield the same (or very close) phash."""
     h1 = PerceptualHash().score(sharp_ref, {})
@@ -253,6 +265,7 @@ def test_no_exact_duplicate(sharp_ref):
     assert f.keep(other, manifest) is False
 
 
+@needs_imagehash
 def test_no_near_duplicate(sharp_ref):
     near = sharp_ref.open().filter(ImageFilter.GaussianBlur(radius=0.5))
     near_ref = BytesImageRef(payload=_png_bytes(near.convert("RGB")))
@@ -302,6 +315,7 @@ def test_attribute_drops_assigns_to_first_failing_filter():
     assert drops == {"a": 3}
 
 
+@needs_imagehash
 def test_curate_with_phase1_funnel(tmp_path):
     """End-to-end: a directory with one good + one duplicate + one tiny."""
     big_img = _gradient(800, 800, seed=42)

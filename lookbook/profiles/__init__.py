@@ -63,7 +63,7 @@ def load(name: str) -> dict:
 
     Raises `KeyError` if the profile is unknown.
 
-    >>> spec = load("person")  # doctest: +SKIP
+    >>> spec = load("person")
     >>> "scorers" in spec
     True
     """

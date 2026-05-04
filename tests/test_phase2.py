@@ -8,12 +8,21 @@ default; opt in with `LOOKBOOK_TEST_MODELS=1`.
 
 from __future__ import annotations
 
+import importlib.util
 import io
 import os
 
 import numpy as np
 import pytest
 from PIL import Image
+
+# `cluster_coverage` is a Phase 2 deliverable that depends on sklearn.
+# When sklearn isn't installed (CI's bare-extras environment), we skip
+# the diagnosis tests instead of failing them.
+_HAS_SKLEARN = importlib.util.find_spec("sklearn") is not None
+needs_sklearn = pytest.mark.skipif(
+    not _HAS_SKLEARN, reason="sklearn not installed (lookbook[embed])",
+)
 
 from lookbook import (
     BytesImageRef,
@@ -249,6 +258,7 @@ def test_facility_location_raises_on_missing_embedding():
 # ---------------------------------------------------------------------------
 
 
+@needs_sklearn
 def test_cluster_coverage_basic():
     rng = np.random.default_rng(0)
     centers = rng.standard_normal((4, 8)).astype(np.float32)
@@ -300,6 +310,7 @@ def test_curate_with_facility_location_via_mock(refs10, memory_stores):
     assert "mock" in result.report.get("notes", {}).get("embedder_ids", [])
 
 
+@needs_sklearn
 def test_curate_with_diagnosis(refs10, memory_stores):
     result = curate(
         refs10,
