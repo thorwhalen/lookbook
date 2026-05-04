@@ -69,9 +69,7 @@ def load(name: str) -> dict:
     """
     path = _profile_path(name)
     if path is None:
-        raise KeyError(
-            f"Unknown profile: {name!r}. Known: {list_profiles()}"
-        )
+        raise KeyError(f"Unknown profile: {name!r}. Known: {list_profiles()}")
     try:
         import yaml  # type: ignore
     except ImportError as e:

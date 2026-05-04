@@ -208,13 +208,12 @@ class Blur:
         gray = _to_grayscale_array(ref, max_side=self.max_side)
         try:
             import cv2  # type: ignore
+
             lap = cv2.Laplacian(gray, cv2.CV_32F)
             return float(lap.var())
         except ImportError:
             # 3x3 Laplacian convolution via numpy (slow but dependency-free).
-            kernel = np.array(
-                [[0, 1, 0], [1, -4, 1], [0, 1, 0]], dtype=np.float32
-            )
+            kernel = np.array([[0, 1, 0], [1, -4, 1], [0, 1, 0]], dtype=np.float32)
             from numpy.lib.stride_tricks import sliding_window_view
 
             windows = sliding_window_view(gray, (3, 3))

@@ -33,6 +33,7 @@ from lookbook.manifest import has_annotation, put_annotation
 from lookbook.report import Report, attribute_drops
 from lookbook.store import Stores, get_stores
 
+
 # Stable manifest metric_id used to mark "this image has been embedded in
 # space `space_id` with this config_hash." The vector itself lives in
 # `stores.embeddings[space_id][image_id]`; the manifest only tracks
@@ -92,9 +93,7 @@ def _topo_sort(scorers: Sequence[Scorer]) -> list[Scorer]:
         if s.metric_id in visited:
             return
         if s.metric_id in visiting:
-            raise ValueError(
-                f"cyclic dependency among scorers near {s.metric_id!r}"
-            )
+            raise ValueError(f"cyclic dependency among scorers near {s.metric_id!r}")
         visiting.add(s.metric_id)
         for dep in getattr(s, "requires", ()):
             if dep in by_id:
@@ -145,8 +144,15 @@ class Pipeline:
             raise ValueError("Pipeline.selector must be set before run()")
 
         candidates = list(candidates)
-        stores = stores if stores is not None else get_stores(
-            images_store={}, manifest_store={}, runs_store={}, embeddings={},
+        stores = (
+            stores
+            if stores is not None
+            else get_stores(
+                images_store={},
+                manifest_store={},
+                runs_store={},
+                embeddings={},
+            )
         )
         manifest: Manifest = stores.manifest
 

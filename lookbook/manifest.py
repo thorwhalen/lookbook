@@ -20,9 +20,7 @@ def get_annotation(
     return manifest.get((image_id, metric_id))
 
 
-def has_annotation(
-    manifest: Manifest, image_id: ImageId, metric_id: MetricId
-) -> bool:
+def has_annotation(manifest: Manifest, image_id: ImageId, metric_id: MetricId) -> bool:
     return (image_id, metric_id) in manifest
 
 
@@ -31,9 +29,7 @@ def put_annotation(manifest: Manifest, annotation: Annotation) -> None:
     manifest[annotation.key] = annotation
 
 
-def iter_annotations_for(
-    manifest: Manifest, image_id: ImageId
-) -> Iterator[Annotation]:
+def iter_annotations_for(manifest: Manifest, image_id: ImageId) -> Iterator[Annotation]:
     """Yield every annotation for a given image."""
     for key in list(manifest):
         if key[0] == image_id:

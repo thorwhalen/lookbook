@@ -106,7 +106,9 @@ class InsightFaceDetect:
 
     @property
     def config_hash(self) -> str:
-        return _hash_config(backend="insightface", model=self.model_name, det=self.det_size)
+        return _hash_config(
+            backend="insightface", model=self.model_name, det=self.det_size
+        )
 
     def score(self, ref: ImageRef, manifest: Manifest):
         try:
@@ -143,7 +145,10 @@ class InsightFaceDetect:
         if getattr(biggest, "kps", None) is not None:
             landmarks = [[float(p[0]), float(p[1])] for p in biggest.kps]
         return {
-            "x1": x1, "y1": y1, "x2": x2, "y2": y2,
+            "x1": x1,
+            "y1": y1,
+            "x2": x2,
+            "y2": y2,
             "confidence": float(biggest.det_score),
             "n_faces": len(faces),
             "landmarks": landmarks,
@@ -163,12 +168,12 @@ def _bin_face_size(area_fraction: float) -> str:
     if area_fraction <= 0:
         return "no_face"
     if area_fraction < 0.05:
-        return "wide"        # full-body / wide shot
+        return "wide"  # full-body / wide shot
     if area_fraction < 0.15:
-        return "medium"      # half-body
+        return "medium"  # half-body
     if area_fraction < 0.35:
-        return "close"       # head-and-shoulders
-    return "extreme_close"   # face fills frame
+        return "close"  # head-and-shoulders
+    return "extreme_close"  # face fills frame
 
 
 @dataclass

@@ -17,6 +17,7 @@ from typing import Any, Protocol, Tuple, runtime_checkable
 def _utcnow() -> datetime:
     return datetime.now(timezone.utc)
 
+
 ImageId = str
 MetricId = str
 ManifestKey = Tuple[ImageId, MetricId]

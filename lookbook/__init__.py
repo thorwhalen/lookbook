@@ -135,7 +135,10 @@ def score(
         ref = PathImageRef(path=ref)
     if stores is None:
         stores = get_stores(
-            images_store={}, manifest_store={}, runs_store={}, embeddings={},
+            images_store={},
+            manifest_store={},
+            runs_store={},
+            embeddings={},
         )
     s = registry.scorers.get(metric_id)
     pipeline = Pipeline(scorers=[s], selector=registry.selectors.get("top_k"))

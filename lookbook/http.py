@@ -128,8 +128,7 @@ def curate_source(
     return result.to_record()
 
 
-def score_image(*, source_path: str = "", image_id: str = "",
-                metric_id: str) -> dict:
+def score_image(*, source_path: str = "", image_id: str = "", metric_id: str) -> dict:
     """Score a single image by metric id.
 
     Pass either `source_path` (file path on the server) or `image_id`
@@ -149,14 +148,16 @@ def get_annotations(image_id: str) -> dict:
     stores = _get_stores()
     out = []
     for ann in iter_annotations_for(stores.manifest, image_id):
-        out.append({
-            "metric_id": ann.metric_id,
-            "value": ann.value,
-            "config_hash": ann.config_hash,
-            "cost_tier": ann.cost_tier,
-            "backend": ann.backend,
-            "timestamp": ann.timestamp.isoformat() if ann.timestamp else None,
-        })
+        out.append(
+            {
+                "metric_id": ann.metric_id,
+                "value": ann.value,
+                "config_hash": ann.config_hash,
+                "cost_tier": ann.cost_tier,
+                "backend": ann.backend,
+                "timestamp": ann.timestamp.isoformat() if ann.timestamp else None,
+            }
+        )
     return {"image_id": image_id, "annotations": out}
 
 

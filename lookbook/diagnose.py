@@ -51,9 +51,9 @@ def cluster_coverage(
             "underrepresented_clusters": [],
         }
 
-    X = np.stack([
-        np.asarray(embeddings[r.image_id], dtype=np.float32) for r in candidates
-    ])
+    X = np.stack(
+        [np.asarray(embeddings[r.image_id], dtype=np.float32) for r in candidates]
+    )
     n = X.shape[0]
     n_clusters_eff = max(1, min(n_clusters, n))
 
@@ -74,17 +74,13 @@ def cluster_coverage(
 
     cand_counts = Counter(int(l) for l in labels)
     kept_counts = Counter(
-        cand_id_to_label[r.image_id]
-        for r in kept
-        if r.image_id in cand_id_to_label
+        cand_id_to_label[r.image_id] for r in kept if r.image_id in cand_id_to_label
     )
 
     cluster_sizes_candidates = [cand_counts.get(c, 0) for c in range(n_clusters_eff)]
     cluster_sizes_kept = [kept_counts.get(c, 0) for c in range(n_clusters_eff)]
     empty = [c for c in range(n_clusters_eff) if cluster_sizes_kept[c] == 0]
-    underrep = [
-        c for c in empty if cluster_sizes_candidates[c] >= 2
-    ]
+    underrep = [c for c in empty if cluster_sizes_candidates[c] >= 2]
 
     return {
         "n_clusters": n_clusters_eff,

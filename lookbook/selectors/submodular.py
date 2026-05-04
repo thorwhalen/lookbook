@@ -72,8 +72,12 @@ class FacilityLocation:
                 f"First missing id: {missing[0]!r}"
             )
 
-        X = np.stack([np.asarray(embeddings_map[r.image_id], dtype=np.float32)
-                      for r in candidates])
+        X = np.stack(
+            [
+                np.asarray(embeddings_map[r.image_id], dtype=np.float32)
+                for r in candidates
+            ]
+        )
         # Normalize defensively so dot product is cosine.
         norms = np.linalg.norm(X, axis=1, keepdims=True)
         norms[norms == 0] = 1.0

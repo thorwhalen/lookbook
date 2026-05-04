@@ -103,8 +103,9 @@ class InsightFaceArcFace:
 
         biggest = max(
             faces,
-            key=lambda f: max(0.0, f.bbox[2] - f.bbox[0])
-            * max(0.0, f.bbox[3] - f.bbox[1]),
+            key=lambda f: (
+                max(0.0, f.bbox[2] - f.bbox[0]) * max(0.0, f.bbox[3] - f.bbox[1])
+            ),
         )
         v = np.asarray(biggest.embedding, dtype=np.float32)
         n = float(np.linalg.norm(v))

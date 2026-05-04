@@ -36,6 +36,7 @@ class PathImageRef:
 
     def open(self):
         from PIL import Image  # lazy
+
         return Image.open(self.path)
 
     def bytes(self) -> bytes:
@@ -58,6 +59,7 @@ class BytesImageRef:
     def open(self):
         import io
         from PIL import Image  # lazy
+
         return Image.open(io.BytesIO(self.payload))
 
     def bytes(self) -> bytes:
@@ -83,6 +85,7 @@ class UrlImageRef:
     def bytes(self) -> bytes:
         if self._cached is None:
             from urllib.request import urlopen  # lazy
+
             with urlopen(self.url) as r:
                 self._cached = r.read()
         return self._cached
@@ -90,4 +93,5 @@ class UrlImageRef:
     def open(self):
         import io
         from PIL import Image  # lazy
+
         return Image.open(io.BytesIO(self.bytes()))

@@ -25,9 +25,7 @@ def app_folder(kind: FolderKind = "data", *, ensure_exists: bool = True) -> str:
     """
     if kind == "config":
         return get_app_config_folder(APP_NAME, ensure_exists=ensure_exists)
-    return get_app_data_folder(
-        APP_NAME, folder_kind=kind, ensure_exists=ensure_exists
-    )
+    return get_app_data_folder(APP_NAME, folder_kind=kind, ensure_exists=ensure_exists)
 
 
 def default_data_root() -> str:

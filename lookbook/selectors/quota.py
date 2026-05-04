@@ -90,7 +90,9 @@ class QuotaSelector:
         # Resolve the inner selector fresh so any internal state is clean.
         inner_inst = selectors.get(self.inner_selector_id)
         inner_cls = type(inner_inst)
-        inner = inner_cls(**self.inner_overrides) if self.inner_overrides else inner_cls()
+        inner = (
+            inner_cls(**self.inner_overrides) if self.inner_overrides else inner_cls()
+        )
 
         kept: list[ImageRef] = []
         kept_ids: set = set()

@@ -29,8 +29,8 @@ class TopK:
         cands = list(candidates)
         ranked = sorted(
             cands,
-            key=lambda r: (
-                value_of(manifest, r.image_id, self.metric_id, default=float("-inf"))
+            key=lambda r: value_of(
+                manifest, r.image_id, self.metric_id, default=float("-inf")
             ),
             reverse=self.descending,
         )

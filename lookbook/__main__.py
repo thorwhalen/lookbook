@@ -63,10 +63,12 @@ RECIPES = {
         ],
         "selector": [
             "facility_location",
-            {"embedding_space": "dinov2_base",
-             "quality_metric_id": "blur",
-             "weight_quality": 0.05,
-             "weight_diversity": 1.0},
+            {
+                "embedding_space": "dinov2_base",
+                "quality_metric_id": "blur",
+                "weight_quality": 0.05,
+                "weight_diversity": 1.0,
+            },
         ],
         "diagnose_clusters": 12,
     },
@@ -84,10 +86,12 @@ RECIPES = {
         ],
         "selector": [
             "facility_location",
-            {"embedding_space": "clip_vit_b32",
-             "quality_metric_id": "blur",
-             "weight_quality": 0.05,
-             "weight_diversity": 1.0},
+            {
+                "embedding_space": "clip_vit_b32",
+                "quality_metric_id": "blur",
+                "weight_quality": 0.05,
+                "weight_diversity": 1.0,
+            },
         ],
         "diagnose_clusters": 12,
     },
@@ -98,10 +102,12 @@ RECIPES = {
         "filters": [],
         "selector": [
             "facility_location",
-            {"embedding_space": "mock",
-             "quality_metric_id": "random_score",
-             "weight_quality": 0.1,
-             "weight_diversity": 1.0},
+            {
+                "embedding_space": "mock",
+                "quality_metric_id": "random_score",
+                "weight_quality": 0.1,
+                "weight_diversity": 1.0,
+            },
         ],
         "diagnose_clusters": 4,
     },
@@ -136,9 +142,7 @@ def _resolve_recipe(name: str) -> dict:
         return _profiles.load(name)
     except KeyError:
         known = sorted(set(RECIPES) | set(_profiles.list_profiles()))
-        raise SystemExit(
-            f"Unknown recipe/profile: {name!r}. Known: {known}"
-        )
+        raise SystemExit(f"Unknown recipe/profile: {name!r}. Known: {known}")
 
 
 def curate(
@@ -169,7 +173,8 @@ def curate(
     scorers = list(scorer) if scorer else list(spec["scorers"])
     embedders = list(embedder) if embedder else list(spec.get("embedders", []))
     filters = (
-        _normalize_filter_specs(list(filter)) if filter
+        _normalize_filter_specs(list(filter))
+        if filter
         else _normalize_filter_specs(spec["filters"])
     )
     sel = selector or _normalize_selector_spec(spec["selector"])
@@ -182,7 +187,10 @@ def curate(
 
     if in_memory:
         stores = get_stores(
-            images_store={}, manifest_store={}, runs_store={}, embeddings={},
+            images_store={},
+            manifest_store={},
+            runs_store={},
+            embeddings={},
         )
     else:
         stores = get_stores()
@@ -248,6 +256,7 @@ def serve(*, host: str = "127.0.0.1", port: int = 8000) -> None:
     `LOOKBOOK_DATA_ROOT=...` before starting.
     """
     from lookbook.http import serve as _serve
+
     print(f"lookbook serving on http://{host}:{port} (docs at /docs)")
     _serve(host=host, port=port)
 
@@ -260,6 +269,7 @@ def mcp(*, transport: str = "stdio") -> None:
     `LOOKBOOK_DATA_ROOT=...` before starting.
     """
     from lookbook.mcp import serve as _mcp_serve
+
     _mcp_serve(transport=transport)
 
 
