@@ -48,7 +48,11 @@ carries the authoritative status table), but as a quick orientation:
   based routing). Server-wide stores singleton, lazy-init to the user's
   app data folder; override with `LOOKBOOK_DATA_ROOT`. CLI: `lookbook
   serve --port 8000`. Swagger at `/docs`. New skill: `lookbook-http`.
-- **Phase 5+ (MCP via py2mcp, usage skills)** — not started.
+- **Phase 5 (MCP + usage skills)** — done. `lookbook/mcp.py` exposes
+  every HTTP verb as a FastMCP tool. `lookbook mcp` runs over stdio.
+  Three new usage skills written for agent callers: `lookbook-curate`,
+  `lookbook-diagnose`, `lookbook-recipe`. (The plan named `py2mcp`;
+  `fastmcp` is the community-standard substitute.)
 
 ## The five-layer architecture
 
@@ -226,4 +230,7 @@ swapping app names is a one-place change.
 | Add a selector | `lookbook-add-selector` |
 | Swap storage backend, debug persistence | `lookbook-storage` |
 | Write a subject profile (person, product, …) | `lookbook-profile` |
-| Help an agent USE lookbook to curate | `lookbook-curate` (Phase 5+) |
+| Add an HTTP endpoint or wire a frontend | `lookbook-http` |
+| Help an agent USE lookbook to curate | `lookbook-curate` |
+| Interpret a curation result / explain drops | `lookbook-diagnose` |
+| Customize recipes / quotas / weights | `lookbook-recipe` |

@@ -3,12 +3,13 @@
 Distill raw image pools into optimized, high-diversity reference sets for
 training personalized models (character LoRAs, product LoRAs, style LoRAs).
 
-> **Status:** Phases 0, 1, 2, 3, and 4 are shipped. The package can:
-> clean a photo dump (200→20 in <30s, no GPU); run the full embeddings +
-> facility-location workflow with CLIP or DINOv2; curate a person/character
-> LoRA with face detection, ArcFace identity diversity, and pose-bin
-> quotas; and serve every verb over HTTP (FastAPI via `qh`) for browser
-> or agent clients. Phase 5 (MCP via `py2mcp`) is next. See
+> **Status:** All five v1 phases are shipped. The package can: clean a
+> photo dump (200→20 in <30s, no GPU); run the full embeddings +
+> facility-location workflow with CLIP or DINOv2; curate a person /
+> character LoRA with face detection, ArcFace identity diversity, and
+> pose-bin quotas; serve every verb over HTTP (FastAPI via `qh`); and
+> expose every verb over MCP (via `fastmcp`) so an LLM agent can drive
+> curation directly. See
 > [`misc/docs/lookbook_development_plan.md`](misc/docs/lookbook_development_plan.md)
 > for the full roadmap and [`misc/docs/lookbook_design_report.md`](misc/docs/lookbook_design_report.md)
 > for the design rationale.
@@ -32,6 +33,7 @@ pip install lookbook[funnel]          # + cv2 / imagededup for the cheap funnel
 pip install lookbook[embed]           # + torch, CLIP, DINOv2, pyiqa, apricot
 pip install lookbook[person]          # + InsightFace, head pose, mediapipe
 pip install lookbook[http]            # + FastAPI / qh server
+pip install lookbook[mcp]             # + fastmcp (Anthropic MCP server)
 ```
 
 The base install has no ML dependencies — Phase 1 (cheap funnel) works on a
@@ -66,6 +68,10 @@ lookbook serve --port 8000 --host 127.0.0.1
 #   curl -X POST localhost:8000/list_recipes -H 'Content-Type: application/json' -d '{}'
 #   curl -X POST localhost:8000/curate_source -H 'Content-Type: application/json' \
 #        -d '{"source_path":"/abs/photos","k":20,"recipe":"funnel"}'
+
+# Phase 5: MCP server (stdio transport — for Claude Desktop, Anthropic SDK).
+# Each verb is exposed as an MCP tool an agent can call.
+lookbook mcp
 
 # See available scorers, embedders, filters, selectors, recipes / profiles:
 lookbook list-plugins
@@ -142,9 +148,28 @@ lookbook/
   diagnose.py           cluster_coverage (set-level diagnosis)
   io/                   ingest, ingest_to_store
   http.py               qh-built FastAPI surface; mk_lookbook_app, serve
+  mcp.py                fastmcp-built MCP server; mk_lookbook_mcp, serve
   __main__.py           CLI (argh): curate, list-plugins, list-recipes
 
 .claude/skills/         Claude Code skills for development & agent use
 misc/docs/              Design report + development plan
 tests/                  pytest, hermetic
 ```
+
+## Claude Code skills
+
+The `.claude/skills/` directory ships nine skills covering both ends of
+the workflow:
+
+**Dev skills** (used while building / extending lookbook):
+- `lookbook-dev` — overall architecture, cross-references between modules
+- `lookbook-storage` — repository pattern, swapping storage backends
+- `lookbook-add-scorer` — adding a new per-image metric
+- `lookbook-add-selector` — adding a new set-selection algorithm
+- `lookbook-profile` — adding a subject profile (YAML)
+- `lookbook-http` — HTTP route layout + adding endpoints
+
+**Usage skills** (for agents driving lookbook to curate):
+- `lookbook-curate` — the headline workflow
+- `lookbook-diagnose` — interpreting reports, querying the manifest
+- `lookbook-recipe` — customizing recipes per-call or via user YAML

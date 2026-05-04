@@ -81,6 +81,10 @@ http = [
     "fastapi>=0.110",
     "uvicorn>=0.27",
 ]
+# Phase 5: MCP surface via fastmcp.
+mcp = [
+    "fastmcp>=3.0",
+]
 
 [tool.ruff]
 line-length = 88

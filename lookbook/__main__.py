@@ -252,9 +252,20 @@ def serve(*, host: str = "127.0.0.1", port: int = 8000) -> None:
     _serve(host=host, port=port)
 
 
+def mcp(*, transport: str = "stdio") -> None:
+    """Start the lookbook MCP server.
+
+    Default stdio transport is what Claude Desktop and the Anthropic SDK
+    spawn an MCP server with. Override the data root with
+    `LOOKBOOK_DATA_ROOT=...` before starting.
+    """
+    from lookbook.mcp import serve as _mcp_serve
+    _mcp_serve(transport=transport)
+
+
 def main():
     parser = argh.ArghParser(prog="lookbook")
-    argh.add_commands(parser, [curate, list_plugins, list_recipes, serve])
+    argh.add_commands(parser, [curate, list_plugins, list_recipes, serve, mcp])
     argh.dispatch(parser)
 
 

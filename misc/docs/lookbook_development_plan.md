@@ -1,7 +1,7 @@
 # Lookbook — Development Plan
 
 **Companion to:** `lookbook_design_report.md`
-**Status:** Phases 0, 1, 2, 3, and 4 shipped (2026-05-04). Phase 5 next.
+**Status:** All five phases shipped (2026-05-04). Package is feature-complete for v1.
 **Goal:** A flexible, extensible Python library for image-set curation, with a thin
 HTTP surface (FastAPI via `qh`), and a set of Claude Code skills that (a) accelerate
 development and (b) let AI agents use lookbook well once it ships.
@@ -15,7 +15,7 @@ development and (b) let AI agents use lookbook well once it ships.
 | 2 | Embeddings (CLIP, DINOv2) + facility-location + cluster diagnosis | ✅ Done |
 | 3 | Person profile (InsightFace, ArcFace, head pose, quotas, YAML loader) | ✅ Done |
 | 4 | HTTP surface via `qh` | ✅ Done |
-| 5 | MCP via `py2mcp` + usage skills | ▶ Next |
+| 5 | MCP via `fastmcp` + usage skills | ✅ Done |
 
 ### Phase 0 deliverables (done)
 
@@ -120,6 +120,47 @@ development and (b) let AI agents use lookbook well once it ships.
   Live server smoke-tested with curl: `POST /list_recipes` and
   `POST /list_plugins` returned correct JSON over HTTP/1.1
 - `[http]` extras: `qh`, `fastapi`, `uvicorn` (already declared in Phase 0)
+
+### Phase 5 deliverables (done)
+
+- `lookbook/mcp.py` — MCP surface via `fastmcp`. Each verb wraps the
+  matching `lookbook.http` route function (same JSON-shaped args /
+  returns), exposed as a FastMCP tool with an LLM-tuned description
+- 9 tools: `list_recipes`, `list_plugins`, `ingest_source`,
+  `curate_source`, `score_image`, `get_annotations`, `list_runs`,
+  `get_run`, `get_image`
+- Note on substitution: the original plan named `py2mcp` as the MCP
+  framework. `py2mcp` isn't on this user's machine and `fastmcp` is the
+  community-standard choice; the protocol is identical, so the
+  substitution is invisible to clients.
+- `mk_lookbook_mcp()` builder; `serve(transport="stdio")` is the
+  Claude-Desktop-compatible default
+- CLI: `lookbook mcp` (stdio); the same Stores singleton as `lookbook.http`
+  so HTTP and MCP servers backed by the same data folder share the
+  manifest and runs index
+- 12 tests via `fastmcp.Client(server)` in-memory transport (101 total,
+  all passing). Tool descriptions are sanity-checked for length to
+  catch regressions where the LLM-facing description gets truncated
+- `[mcp]` extras: `fastmcp`
+- Three new usage skills (the agent-facing ones):
+  - `lookbook-curate` — the headline curation tool for agents
+  - `lookbook-diagnose` — interpreting reports, querying the manifest
+  - `lookbook-recipe` — per-call overrides + user YAML profiles
+
+## All shipped skills (8 total)
+
+**Dev skills** (used while building / extending lookbook):
+- `lookbook-dev` — overall architecture, cross-references
+- `lookbook-storage` — repository pattern, dol stores, codecs
+- `lookbook-add-scorer` — adding a new per-image metric
+- `lookbook-add-selector` — adding a new set-selection algorithm
+- `lookbook-profile` — adding a subject profile (YAML)
+- `lookbook-http` — HTTP route layout + adding endpoints
+
+**Usage skills** (used by agents driving lookbook to curate):
+- `lookbook-curate` — the headline workflow
+- `lookbook-diagnose` — making sense of run reports
+- `lookbook-recipe` — customizing recipes per-call or via user YAML
 
 ---
 
