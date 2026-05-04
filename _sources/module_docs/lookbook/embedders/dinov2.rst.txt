@@ -1,0 +1,4 @@
+lookbook.embedders.dinov2
+=========================
+.. automodule:: lookbook.embedders.dinov2
+   :members:

@@ -1,0 +1,264 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.selectors.submodular &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../lookbook.html">lookbook</a></li>
+      <li class="breadcrumb-item active">lookbook.selectors.submodular</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lookbook.selectors.submodular</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Submodular selectors over embedding spaces.</span>
+
+<span class="sd">Phase 2 ships a greedy facility-location selector implemented in pure</span>
+<span class="sd">numpy. It&#39;s the right default for &quot;best K from N&quot; when diversity matters:</span>
+
+<span class="sd">  f(S) = sum over y in V of max over x in S of similarity(x, y)</span>
+<span class="sd">       + alpha * sum over x in S of quality(x)</span>
+
+<span class="sd">The greedy algorithm gives a (1 - 1/e) ≈ 0.63 approximation guarantee.</span>
+<span class="sd">For typical curation sizes (N ≤ 1000, K ≤ 50), pure numpy is fast enough</span>
+<span class="sd">and avoids the `apricot` dependency. For larger pools, swap in `apricot`&#39;s</span>
+<span class="sd">optimized lazy-greedy via the same Selector protocol.</span>
+
+<span class="sd">Embeddings are not read from the manifest directly. The pipeline pre-fetches</span>
+<span class="sd">them from `stores.embeddings[space_id]` and passes them via</span>
+<span class="sd">`constraints[&quot;embeddings&quot;]` as a `dict[image_id, np.ndarray]`.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Mapping</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">Manifest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.manifest</span><span class="w"> </span><span class="kn">import</span> <span class="n">value_of</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">selectors</span>
+
+
+<div class="viewcode-block" id="FacilityLocation">
+<a class="viewcode-back" href="../../../module_docs/lookbook/selectors/submodular.html#lookbook.selectors.submodular.FacilityLocation">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FacilityLocation</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Greedy facility-location subset selection.</span>
+
+<span class="sd">    The objective is:</span>
+<span class="sd">        f(S) = sum_y max_{x in S} sim(x, y)  +  weight_quality * sum_{x in S} q(x)</span>
+
+<span class="sd">    where `sim` is cosine similarity (assumes embeddings are L2-normalized;</span>
+<span class="sd">    if they are not, the selector normalizes them first) and `q(x)` is the</span>
+<span class="sd">    annotation `quality_metric_id` for `x`, defaulting to 0 when absent.</span>
+
+<span class="sd">    `weight_quality=0` gives a pure-diversity selection. `weight_quality`</span>
+<span class="sd">    in 0.1–0.5 typically works well for &quot;diverse but high-quality.&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;facility_location&quot;</span>
+    <span class="n">embedding_space</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dinov2_base&quot;</span>  <span class="c1"># which embeddings to read</span>
+    <span class="n">quality_metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># optional per-image quality score</span>
+    <span class="n">weight_quality</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">weight_diversity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">candidates</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">],</span>
+        <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">,</span>
+        <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">constraints</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># type: ignore[assignment]</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]:</span>
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">candidates</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">k</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">))</span>
+
+        <span class="n">constraints</span> <span class="o">=</span> <span class="n">constraints</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">embeddings_map</span> <span class="o">=</span> <span class="n">constraints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;embeddings&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">candidates</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">embeddings_map</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;FacilityLocation: missing embeddings for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2"> candidates &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;in space </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_space</span><span class="si">!r}</span><span class="s2">. Run the embedder first. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;First missing id: </span><span class="si">{</span><span class="n">missing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">!r}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+
+        <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">embeddings_map</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                      <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">])</span>
+        <span class="c1"># Normalize defensively so dot product is cosine.</span>
+        <span class="n">norms</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">norms</span><span class="p">[</span><span class="n">norms</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.0</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">/</span> <span class="n">norms</span>
+
+        <span class="c1"># NxN similarity matrix, clipped to [0, 1] so anti-correlations</span>
+        <span class="c1"># don&#39;t contribute to the facility-location objective and the empty</span>
+        <span class="c1"># set has f({}) = 0.</span>
+        <span class="n">sim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">X</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+        <span class="c1"># Per-image quality (zero by default).</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_metric_id</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="nb">float</span><span class="p">(</span><span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">quality_metric_id</span><span class="p">)</span> <span class="ow">or</span> <span class="mf">0.0</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">candidates</span>
+                <span class="p">],</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">q</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="c1"># Greedy selection: at each step, pick the candidate maximizing the</span>
+        <span class="c1"># marginal gain in the facility-location + quality objective.</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+        <span class="n">chosen</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># `best_so_far[y]` holds max_{x in S} sim(x, y) for the current S.</span>
+        <span class="c1"># Start at 0 so the first round&#39;s gain is `sum_y sim[i, y]` — i.e.</span>
+        <span class="c1"># the most &quot;central&quot; candidate wins ties from quality.</span>
+        <span class="n">best_so_far</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+            <span class="c1"># Marginal facility-location gain for each candidate i:</span>
+            <span class="c1"># sum_y max(best_so_far[y], sim[i, y]) - sum_y best_so_far[y]</span>
+            <span class="c1"># which equals sum_y max(0, sim[i, y] - best_so_far[y]).</span>
+            <span class="n">gains</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">sim</span> <span class="o">-</span> <span class="n">best_so_far</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="p">:])</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">gains</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_diversity</span> <span class="o">*</span> <span class="n">gains</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_quality</span> <span class="o">*</span> <span class="n">q</span>
+            <span class="c1"># Block already-chosen indices.</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chosen</span><span class="p">:</span>
+                <span class="n">gains</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+            <span class="n">i_star</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">gains</span><span class="p">))</span>
+            <span class="n">chosen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i_star</span><span class="p">)</span>
+            <span class="n">best_so_far</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="n">best_so_far</span><span class="p">,</span> <span class="n">sim</span><span class="p">[</span><span class="n">i_star</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">candidates</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chosen</span><span class="p">]</span></div>
+
+
+
+<span class="n">selectors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;facility_location&quot;</span><span class="p">,</span> <span class="n">FacilityLocation</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

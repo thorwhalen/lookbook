@@ -1,0 +1,326 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lookbook.__main__" href="lookbook/__main__.html" />
+    <link rel="prev" title="Welcome to lookbook’s documentation!" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.Annotation"><code class="docutils literal notranslate"><span class="pre">Annotation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.BytesImageRef"><code class="docutils literal notranslate"><span class="pre">BytesImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.Embedder"><code class="docutils literal notranslate"><span class="pre">Embedder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.ImageRef"><code class="docutils literal notranslate"><span class="pre">ImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.Manifest"><code class="docutils literal notranslate"><span class="pre">Manifest</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.PathImageRef"><code class="docutils literal notranslate"><span class="pre">PathImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.Pipeline.run"><code class="docutils literal notranslate"><span class="pre">Pipeline.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.RunResult"><code class="docutils literal notranslate"><span class="pre">RunResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.Scorer"><code class="docutils literal notranslate"><span class="pre">Scorer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.Selector"><code class="docutils literal notranslate"><span class="pre">Selector</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.Stores"><code class="docutils literal notranslate"><span class="pre">Stores</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.UrlImageRef"><code class="docutils literal notranslate"><span class="pre">UrlImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.get_stores"><code class="docutils literal notranslate"><span class="pre">get_stores()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.ingest"><code class="docutils literal notranslate"><span class="pre">ingest()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.score"><code class="docutils literal notranslate"><span class="pre">score()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.value_of"><code class="docutils literal notranslate"><span class="pre">value_of()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lookbook</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/module_docs/lookbook.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lookbook">
+<span id="lookbook"></span><h1>lookbook<a class="headerlink" href="#module-lookbook" title="Link to this heading"></a></h1>
+<p>lookbook — distill image pools into reference sets for personalized model training.</p>
+<p>Public facade. The package is split across:</p>
+<ul class="simple">
+<li><p><cite>lookbook.base</cite>      — Protocols and core types (Annotation, Manifest)</p></li>
+<li><p><cite>lookbook.store</cite>     — Repository pattern (Stores) over <cite>dol</cite></p></li>
+<li><p><cite>lookbook.refs</cite>      — ImageRef implementations</p></li>
+<li><p><cite>lookbook.manifest</cite>  — Manifest helpers</p></li>
+<li><p><cite>lookbook.registry</cite>  — Plugin registries (scorers, filters, embedders, selectors)</p></li>
+<li><p><cite>lookbook.pipeline</cite>  — Pipeline orchestrator</p></li>
+<li><p><cite>lookbook.scorers</cite>   — Per-image scorer modules (registered on import)</p></li>
+<li><p><cite>lookbook.selectors</cite> — Selector modules (registered on import)</p></li>
+<li><p><cite>lookbook.io</cite>        — Ingest, export</p></li>
+</ul>
+<p>Plugin registries are accessed as <cite>lookbook.registry.scorers</cite> etc. (not
+<cite>lookbook.scorers</cite>, which is the submodule that <em>holds</em> scorers).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.Annotation">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Annotation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_id:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value:</span> <span class="pre">~typing.Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_hash:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timestamp:</span> <span class="pre">~datetime.datetime</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/base.html#Annotation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.Annotation" title="Link to this definition"></a></dt>
+<dd><p>A single annotation produced by a Scorer or Embedder for one image.</p>
+<p>The (image_id, metric_id) pair is the manifest key. <cite>config_hash</cite> is the
+cache key — re-running with the same config yields a cache hit; changing
+a threshold or model invalidates.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.BytesImageRef">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">BytesImageRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload:</span> <span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata:</span> <span class="pre">~collections.abc.Mapping[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/refs.html#BytesImageRef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.BytesImageRef" title="Link to this definition"></a></dt>
+<dd><p>An image stored as raw bytes in memory.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.Embedder">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Embedder</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/base.html#Embedder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.Embedder" title="Link to this definition"></a></dt>
+<dd><p>Computes a vector representation in some named embedding space.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.Filter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/base.html#Filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.Filter" title="Link to this definition"></a></dt>
+<dd><p>Predicate over annotations that decides whether to keep an image.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.ImageRef">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">ImageRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/base.html#ImageRef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.ImageRef" title="Link to this definition"></a></dt>
+<dd><p>Anything that knows its identity and how to be opened lazily.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.Manifest">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Manifest</span></span><a class="headerlink" href="#lookbook.Manifest" title="Link to this definition"></a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">MutableMapping</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>], <a class="reference internal" href="lookbook/base.html#lookbook.base.Annotation" title="lookbook.base.Annotation"><code class="xref py py-class docutils literal notranslate"><span class="pre">Annotation</span></code></a>]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.PathImageRef">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">PathImageRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata:</span> <span class="pre">~collections.abc.Mapping[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/refs.html#PathImageRef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.PathImageRef" title="Link to this definition"></a></dt>
+<dd><p>An image referenced by filesystem path.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.Pipeline">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scorers:</span> <span class="pre">list[~lookbook.base.Scorer]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedders:</span> <span class="pre">list[~lookbook.base.Embedder]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters:</span> <span class="pre">list[~lookbook.base.Filter]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector:</span> <span class="pre">~lookbook.base.Selector</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagnose_clusters:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/pipeline.html#Pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.Pipeline" title="Link to this definition"></a></dt>
+<dd><p>An ordered set of scorers + embedders + filters + a final selector.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lookbook.Pipeline.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">candidates</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="lookbook/base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lookbook/store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lookbook/pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../_modules/lookbook/pipeline.html#Pipeline.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.Pipeline.run" title="Link to this definition"></a></dt>
+<dd><p>Score, embed, filter, and select.</p>
+<p><cite>stores</cite> defaults to in-memory. Pass <cite>get_stores()</cite> for the user’s
+app data folder defaults.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.RunResult">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">RunResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">run_id:</span> <span class="pre">str,</span> <span class="pre">kept:</span> <span class="pre">list[~lookbook.base.ImageRef],</span> <span class="pre">candidates:</span> <span class="pre">list[~lookbook.base.ImageRef],</span> <span class="pre">selector_id:</span> <span class="pre">str,</span> <span class="pre">scorer_ids:</span> <span class="pre">list[str],</span> <span class="pre">started_at:</span> <span class="pre">~datetime.datetime,</span> <span class="pre">finished_at:</span> <span class="pre">~datetime.datetime,</span> <span class="pre">report:</span> <span class="pre">dict</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/pipeline.html#RunResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.RunResult" title="Link to this definition"></a></dt>
+<dd><p>The result of running a pipeline.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.Scorer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Scorer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/base.html#Scorer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.Scorer" title="Link to this definition"></a></dt>
+<dd><p>Computes one annotation per image. Idempotent w.r.t. config_hash.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.Selector">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Selector</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/base.html#Selector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.Selector" title="Link to this definition"></a></dt>
+<dd><p>Chooses a subset of size up-to-K from candidates given the manifest.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.Stores">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Stores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manifest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/store.html#Stores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.Stores" title="Link to this definition"></a></dt>
+<dd><p>Bundle of all stores lookbook uses for persistence.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.UrlImageRef">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">UrlImageRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata:</span> <span class="pre">~collections.abc.Mapping[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_cached:</span> <span class="pre">bytes</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/refs.html#UrlImageRef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.UrlImageRef" title="Link to this definition"></a></dt>
+<dd><p>An image referenced by URL.</p>
+<p>The bytes are fetched on first access and cached on the instance.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.curate">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">curate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scorer_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('random_score',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'top_k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagnose_clusters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lookbook/store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lookbook/pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../_modules/lookbook.html#curate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.curate" title="Link to this definition"></a></dt>
+<dd><p>High-level facade: ingest a source, run a pipeline, return the result.</p>
+<p>Each plugin id may be either a string (“blur”) or a (name, kwargs)
+tuple ((“blur”, {“max_side”: 256})) to override the default config.</p>
+<p><cite>diagnose_clusters &gt; 0</cite> runs cluster-coverage diagnosis after selection
+and writes the result into the report’s <cite>notes</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.get_stores">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">get_stores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">images_store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">manifest_store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">runs_store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embeddings</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lookbook/store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a></span></span><a class="reference internal" href="../_modules/lookbook/store.html#get_stores"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.get_stores" title="Link to this definition"></a></dt>
+<dd><p>Build the lookbook Stores bundle.</p>
+<p>All arguments are optional. When <cite>root</cite> is None and no stores are
+supplied, the user’s app data folder is used. Pass <cite>dict()</cite> for any
+slot to keep that store in memory (useful for tests).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">stores</span> <span class="o">=</span> <span class="n">get_stores</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">images_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">manifest_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">runs_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">embeddings</span><span class="o">=</span><span class="p">{}</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">stores</span><span class="o">.</span><span class="n">manifest</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.ingest">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">ingest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">PathLike</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Iterable</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="lookbook/base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="lookbook/base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lookbook/io/ingest.html#ingest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.ingest" title="Link to this definition"></a></dt>
+<dd><p>Materialize a source into a list of ImageRefs.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">d</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;a.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;b.png&#39;</span><span class="p">,</span> <span class="s1">&#39;note.txt&#39;</span><span class="p">]:</span>
+<span class="gp">... </span>        <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">refs</span> <span class="o">=</span> <span class="n">ingest</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">)</span>
+<span class="go">[&#39;a.jpg&#39;, &#39;b.png&#39;]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.score">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lookbook/base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lookbook/store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/lookbook.html#score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.score" title="Link to this definition"></a></dt>
+<dd><p>Score one image against one metric. Returns the bare value.</p>
+<p>Caches into the manifest so repeated calls are free.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.value_of">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">value_of</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">manifest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="lookbook/base.html#lookbook.base.Annotation" title="lookbook.base.Annotation"><span class="pre">Annotation</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">default</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../_modules/lookbook/manifest.html#value_of"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.value_of" title="Link to this definition"></a></dt>
+<dd><p>Return the bare value of an annotation (not the wrapper), or default.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="Welcome to lookbook’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lookbook/__main__.html" class="btn btn-neutral float-right" title="lookbook.__main__" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

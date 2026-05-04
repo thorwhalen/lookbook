@@ -1,0 +1,425 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.__main__ &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../lookbook.html">lookbook</a></li>
+      <li class="breadcrumb-item active">lookbook.__main__</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lookbook.__main__</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;CLI entry point. `python -m lookbook curate ./photos --k 5`.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">sys</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Sequence</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">argh</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook</span><span class="w"> </span><span class="kn">import</span> <span class="n">curate</span> <span class="k">as</span> <span class="n">_curate</span><span class="p">,</span> <span class="n">get_stores</span><span class="p">,</span> <span class="n">registry</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook</span><span class="w"> </span><span class="kn">import</span> <span class="n">profiles</span> <span class="k">as</span> <span class="n">_profiles</span>
+
+
+<span class="c1"># A handful of named recipes — sensible bundles of scorers + filters that</span>
+<span class="c1"># users (and agents) can invoke without having to know the metric ids.</span>
+<span class="n">RECIPES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;random&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;scorers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;random_score&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;embedders&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;top_k&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;funnel&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;scorers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;resolution&quot;</span><span class="p">,</span> <span class="s2">&quot;file_hash&quot;</span><span class="p">,</span> <span class="s2">&quot;phash&quot;</span><span class="p">,</span> <span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="s2">&quot;exposure&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;embedders&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;min_resolution&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;exposure_range&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;min_blur&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;no_exact_duplicate&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;no_near_duplicate&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;top_k&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;funnel_relaxed&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># Same as funnel but with looser thresholds for typical phone photos.</span>
+        <span class="s2">&quot;scorers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;resolution&quot;</span><span class="p">,</span> <span class="s2">&quot;file_hash&quot;</span><span class="p">,</span> <span class="s2">&quot;phash&quot;</span><span class="p">,</span> <span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="s2">&quot;exposure&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;embedders&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">[</span><span class="s2">&quot;min_resolution&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;min_long_side&quot;</span><span class="p">:</span> <span class="mi">512</span><span class="p">}],</span>
+            <span class="s2">&quot;exposure_range&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;min_blur&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="mf">30.0</span><span class="p">}],</span>
+            <span class="s2">&quot;no_exact_duplicate&quot;</span><span class="p">,</span>
+            <span class="p">[</span><span class="s2">&quot;no_near_duplicate&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;max_distance&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">}],</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="s2">&quot;top_k&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;diverse&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># Phase 2: cheap funnel + DINOv2 embeddings + facility-location.</span>
+        <span class="c1"># Pulls torch + transformers; downloads ~350MB on first use.</span>
+        <span class="s2">&quot;scorers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;resolution&quot;</span><span class="p">,</span> <span class="s2">&quot;file_hash&quot;</span><span class="p">,</span> <span class="s2">&quot;phash&quot;</span><span class="p">,</span> <span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="s2">&quot;exposure&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;embedders&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;dinov2&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;min_resolution&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;exposure_range&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;min_blur&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;no_exact_duplicate&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;no_near_duplicate&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;facility_location&quot;</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;embedding_space&quot;</span><span class="p">:</span> <span class="s2">&quot;dinov2_base&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;quality_metric_id&quot;</span><span class="p">:</span> <span class="s2">&quot;blur&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;weight_quality&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+             <span class="s2">&quot;weight_diversity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;diverse_clip&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># Same as `diverse` but uses CLIP (semantic similarity) instead of</span>
+        <span class="c1"># DINOv2 (visual similarity). ~150MB download on first use.</span>
+        <span class="s2">&quot;scorers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;resolution&quot;</span><span class="p">,</span> <span class="s2">&quot;file_hash&quot;</span><span class="p">,</span> <span class="s2">&quot;phash&quot;</span><span class="p">,</span> <span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="s2">&quot;exposure&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;embedders&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;clip&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;min_resolution&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;exposure_range&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;min_blur&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;no_exact_duplicate&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;no_near_duplicate&quot;</span><span class="p">,</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;facility_location&quot;</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;embedding_space&quot;</span><span class="p">:</span> <span class="s2">&quot;clip_vit_b32&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;quality_metric_id&quot;</span><span class="p">:</span> <span class="s2">&quot;blur&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;weight_quality&quot;</span><span class="p">:</span> <span class="mf">0.05</span><span class="p">,</span>
+             <span class="s2">&quot;weight_diversity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;diverse_mock&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="c1"># No-download recipe used by tests / CI sanity checks.</span>
+        <span class="s2">&quot;scorers&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;random_score&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;embedders&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;mock&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="p">[</span>
+            <span class="s2">&quot;facility_location&quot;</span><span class="p">,</span>
+            <span class="p">{</span><span class="s2">&quot;embedding_space&quot;</span><span class="p">:</span> <span class="s2">&quot;mock&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;quality_metric_id&quot;</span><span class="p">:</span> <span class="s2">&quot;random_score&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;weight_quality&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+             <span class="s2">&quot;weight_diversity&quot;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+    <span class="p">},</span>
+<span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_filter_specs</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert mixed list of strings / [name, kwargs] entries into specs.&quot;&quot;&quot;</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">it</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">it</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">it</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">it</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">it</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_normalize_selector_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Selector: either a name (str) or a [name, kwargs] list.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">spec</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">spec</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+    <span class="k">return</span> <span class="n">spec</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_recipe</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Look up a recipe by name. In-code RECIPES win; YAML profiles fall in</span>
+<span class="sd">    after that.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">RECIPES</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">RECIPES</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_profiles</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">known</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">RECIPES</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">_profiles</span><span class="o">.</span><span class="n">list_profiles</span><span class="p">()))</span>
+        <span class="k">raise</span> <span class="ne">SystemExit</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unknown recipe/profile: </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">. Known: </span><span class="si">{</span><span class="n">known</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+
+
+<div class="viewcode-block" id="curate">
+<a class="viewcode-back" href="../../module_docs/lookbook/__main__.html#lookbook.__main__.curate">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">curate</span><span class="p">(</span>
+    <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="n">recipe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span>
+    <span class="n">scorer</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">embedder</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="nb">filter</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>  <span class="c1"># noqa: A002 (CLI flag wins over builtin)</span>
+    <span class="n">selector</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">diagnose_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">in_memory</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Curate `source` into K reference images.</span>
+
+<span class="sd">    Recipes (see `lookbook list-recipes`):</span>
+<span class="sd">      - `random`: placeholder (Phase 0).</span>
+<span class="sd">      - `funnel`, `funnel_relaxed`: Phase 1 cheap funnel, no GPU.</span>
+<span class="sd">      - `diverse`, `diverse_clip`: Phase 2 — funnel + embeddings + facility-</span>
+<span class="sd">        location selection. Downloads model weights on first use.</span>
+<span class="sd">      - `diverse_mock`: same shape as `diverse`, no-download (tests / sanity).</span>
+
+<span class="sd">    Prints a JSON record of the run to stdout. The manifest persists to</span>
+<span class="sd">    the user&#39;s app data folder unless `--in-memory` is passed.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">spec</span> <span class="o">=</span> <span class="n">_resolve_recipe</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span>
+    <span class="n">scorers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">scorer</span><span class="p">)</span> <span class="k">if</span> <span class="n">scorer</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;scorers&quot;</span><span class="p">])</span>
+    <span class="n">embedders</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">embedder</span><span class="p">)</span> <span class="k">if</span> <span class="n">embedder</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;embedders&quot;</span><span class="p">,</span> <span class="p">[]))</span>
+    <span class="n">filters</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">_normalize_filter_specs</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">))</span> <span class="k">if</span> <span class="nb">filter</span>
+        <span class="k">else</span> <span class="n">_normalize_filter_specs</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">])</span>
+    <span class="p">)</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">selector</span> <span class="ow">or</span> <span class="n">_normalize_selector_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;selector&quot;</span><span class="p">])</span>
+    <span class="n">diag</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">diagnose_clusters</span>
+        <span class="k">if</span> <span class="n">diagnose_clusters</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+        <span class="k">else</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">constraints</span> <span class="o">=</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constraints&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+
+    <span class="k">if</span> <span class="n">in_memory</span><span class="p">:</span>
+        <span class="n">stores</span> <span class="o">=</span> <span class="n">get_stores</span><span class="p">(</span>
+            <span class="n">images_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">manifest_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">runs_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">embeddings</span><span class="o">=</span><span class="p">{},</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">stores</span> <span class="o">=</span> <span class="n">get_stores</span><span class="p">()</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">_curate</span><span class="p">(</span>
+        <span class="n">source</span><span class="p">,</span>
+        <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+        <span class="n">scorer_ids</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">scorers</span><span class="p">),</span>
+        <span class="n">embedder_ids</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">embedders</span><span class="p">),</span>
+        <span class="n">filter_ids</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">filters</span><span class="p">),</span>
+        <span class="n">selector_id</span><span class="o">=</span><span class="n">sel</span><span class="p">,</span>
+        <span class="n">diagnose_clusters</span><span class="o">=</span><span class="n">diag</span><span class="p">,</span>
+        <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
+        <span class="n">stores</span><span class="o">=</span><span class="n">stores</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">to_record</span><span class="p">(),</span> <span class="n">indent</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="list_plugins">
+<a class="viewcode-back" href="../../module_docs/lookbook/__main__.html#lookbook.__main__.list_plugins">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_plugins</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List all registered scorers / selectors / filters / embedders.&quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;scorers:   &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">scorers</span><span class="o">.</span><span class="n">names</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;selectors: &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="o">.</span><span class="n">names</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;filters:   &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">names</span><span class="p">()))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;embedders: &quot;</span> <span class="o">+</span> <span class="s2">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">embedders</span><span class="o">.</span><span class="n">names</span><span class="p">()))</span></div>
+
+
+
+<div class="viewcode-block" id="list_recipes">
+<a class="viewcode-back" href="../../module_docs/lookbook/__main__.html#lookbook.__main__.list_recipes">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">list_recipes</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;List built-in curation recipes and YAML profiles.&quot;&quot;&quot;</span>
+    <span class="n">seen</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_show</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">  [</span><span class="si">{</span><span class="n">source</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;description&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">line</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  scorers:   </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s1">&#39;scorers&#39;</span><span class="p">])</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  embedders: </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;embedders&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">[]))</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;—&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">fnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">]]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  filters:   </span><span class="si">{</span><span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fnames</span><span class="p">)</span><span class="w"> </span><span class="ow">or</span><span class="w"> </span><span class="s1">&#39;—&#39;</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">sel</span> <span class="o">=</span> <span class="n">spec</span><span class="p">[</span><span class="s2">&quot;selector&quot;</span><span class="p">]</span>
+        <span class="n">sel_name</span> <span class="o">=</span> <span class="n">sel</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sel</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">sel</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  selector:  </span><span class="si">{</span><span class="n">sel_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  diagnose:  cluster_coverage(n=</span><span class="si">{</span><span class="n">spec</span><span class="p">[</span><span class="s1">&#39;diagnose_clusters&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">RECIPES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">_show</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">spec</span><span class="p">,</span> <span class="s2">&quot;in-code&quot;</span><span class="p">)</span>
+        <span class="n">seen</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_profiles</span><span class="o">.</span><span class="n">list_profiles</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">seen</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">_show</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">_profiles</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="s2">&quot;profile&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">  [profile]  (failed to load: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="serve">
+<a class="viewcode-back" href="../../module_docs/lookbook/__main__.html#lookbook.__main__.serve">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">serve</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start the lookbook HTTP server.</span>
+
+<span class="sd">    Routes are uniform `POST /&lt;verb&gt;` with JSON bodies. See `/docs` for</span>
+<span class="sd">    the auto-generated Swagger UI. Override the data root with</span>
+<span class="sd">    `LOOKBOOK_DATA_ROOT=...` before starting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.http</span><span class="w"> </span><span class="kn">import</span> <span class="n">serve</span> <span class="k">as</span> <span class="n">_serve</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;lookbook serving on http://</span><span class="si">{</span><span class="n">host</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">port</span><span class="si">}</span><span class="s2"> (docs at /docs)&quot;</span><span class="p">)</span>
+    <span class="n">_serve</span><span class="p">(</span><span class="n">host</span><span class="o">=</span><span class="n">host</span><span class="p">,</span> <span class="n">port</span><span class="o">=</span><span class="n">port</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="mcp">
+<a class="viewcode-back" href="../../module_docs/lookbook/__main__.html#lookbook.__main__.mcp">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mcp</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;stdio&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Start the lookbook MCP server.</span>
+
+<span class="sd">    Default stdio transport is what Claude Desktop and the Anthropic SDK</span>
+<span class="sd">    spawn an MCP server with. Override the data root with</span>
+<span class="sd">    `LOOKBOOK_DATA_ROOT=...` before starting.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.mcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">serve</span> <span class="k">as</span> <span class="n">_mcp_serve</span>
+    <span class="n">_mcp_serve</span><span class="p">(</span><span class="n">transport</span><span class="o">=</span><span class="n">transport</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argh</span><span class="o">.</span><span class="n">ArghParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s2">&quot;lookbook&quot;</span><span class="p">)</span>
+    <span class="n">argh</span><span class="o">.</span><span class="n">add_commands</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="p">[</span><span class="n">curate</span><span class="p">,</span> <span class="n">list_plugins</span><span class="p">,</span> <span class="n">list_recipes</span><span class="p">,</span> <span class="n">serve</span><span class="p">,</span> <span class="n">mcp</span><span class="p">])</span>
+    <span class="n">argh</span><span class="o">.</span><span class="n">dispatch</span><span class="p">(</span><span class="n">parser</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

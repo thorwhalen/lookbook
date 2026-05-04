@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.__main__ &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="lookbook._paths" href="_paths.html" />
+    <link rel="prev" title="lookbook" href="../lookbook.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../lookbook.html">lookbook</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.__main__</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.list_plugins"><code class="docutils literal notranslate"><span class="pre">list_plugins()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.list_recipes"><code class="docutils literal notranslate"><span class="pre">list_recipes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.mcp"><code class="docutils literal notranslate"><span class="pre">mcp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.serve"><code class="docutils literal notranslate"><span class="pre">serve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lookbook.__main__</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/lookbook/__main__.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lookbook.__main__">
+<span id="lookbook-main"></span><h1>lookbook.__main__<a class="headerlink" href="#module-lookbook.__main__" title="Link to this heading"></a></h1>
+<p>CLI entry point. <cite>python -m lookbook curate ./photos –k 5</cite>.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.__main__.curate">
+<span class="sig-prename descclassname"><span class="pre">lookbook.__main__.</span></span><span class="sig-name descname"><span class="pre">curate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'random'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scorer</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagnose_clusters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">in_memory</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/lookbook/__main__.html#curate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.__main__.curate" title="Link to this definition"></a></dt>
+<dd><p>Curate <cite>source</cite> into K reference images.</p>
+<dl class="simple">
+<dt>Recipes (see <cite>lookbook list-recipes</cite>):</dt><dd><ul class="simple">
+<li><p><cite>random</cite>: placeholder (Phase 0).</p></li>
+<li><p><cite>funnel</cite>, <cite>funnel_relaxed</cite>: Phase 1 cheap funnel, no GPU.</p></li>
+<li><p><cite>diverse</cite>, <cite>diverse_clip</cite>: Phase 2 — funnel + embeddings + facility-
+location selection. Downloads model weights on first use.</p></li>
+<li><p><cite>diverse_mock</cite>: same shape as <cite>diverse</cite>, no-download (tests / sanity).</p></li>
+</ul>
+</dd>
+</dl>
+<p>Prints a JSON record of the run to stdout. The manifest persists to
+the user’s app data folder unless <cite>–in-memory</cite> is passed.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.__main__.list_plugins">
+<span class="sig-prename descclassname"><span class="pre">lookbook.__main__.</span></span><span class="sig-name descname"><span class="pre">list_plugins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/lookbook/__main__.html#list_plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.__main__.list_plugins" title="Link to this definition"></a></dt>
+<dd><p>List all registered scorers / selectors / filters / embedders.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.__main__.list_recipes">
+<span class="sig-prename descclassname"><span class="pre">lookbook.__main__.</span></span><span class="sig-name descname"><span class="pre">list_recipes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/lookbook/__main__.html#list_recipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.__main__.list_recipes" title="Link to this definition"></a></dt>
+<dd><p>List built-in curation recipes and YAML profiles.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.__main__.mcp">
+<span class="sig-prename descclassname"><span class="pre">lookbook.__main__.</span></span><span class="sig-name descname"><span class="pre">mcp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transport</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'stdio'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/lookbook/__main__.html#mcp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.__main__.mcp" title="Link to this definition"></a></dt>
+<dd><p>Start the lookbook MCP server.</p>
+<p>Default stdio transport is what Claude Desktop and the Anthropic SDK
+spawn an MCP server with. Override the data root with
+<cite>LOOKBOOK_DATA_ROOT=…</cite> before starting.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.__main__.serve">
+<span class="sig-prename descclassname"><span class="pre">lookbook.__main__.</span></span><span class="sig-name descname"><span class="pre">serve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'127.0.0.1'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8000</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/lookbook/__main__.html#serve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.__main__.serve" title="Link to this definition"></a></dt>
+<dd><p>Start the lookbook HTTP server.</p>
+<p>Routes are uniform <cite>POST /&lt;verb&gt;</cite> with JSON bodies. See <cite>/docs</cite> for
+the auto-generated Swagger UI. Override the data root with
+<cite>LOOKBOOK_DATA_ROOT=…</cite> before starting.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../lookbook.html" class="btn btn-neutral float-left" title="lookbook" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="_paths.html" class="btn btn-neutral float-right" title="lookbook._paths" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

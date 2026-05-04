@@ -1,0 +1,4 @@
+lookbook.embedders.clip
+=======================
+.. automodule:: lookbook.embedders.clip
+   :members:

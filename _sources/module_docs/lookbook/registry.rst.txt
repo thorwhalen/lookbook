@@ -1,0 +1,4 @@
+lookbook.registry
+=================
+.. automodule:: lookbook.registry
+   :members:

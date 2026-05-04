@@ -1,0 +1,433 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.pipeline &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../lookbook.html">lookbook</a></li>
+      <li class="breadcrumb-item active">lookbook.pipeline</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lookbook.pipeline</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Pipeline orchestrator.</span>
+
+<span class="sd">A `Pipeline` is a list of scorers (and, later, filters/embedders) plus a</span>
+<span class="sd">final selector. Running it:</span>
+
+<span class="sd">1. Topologically orders the scorers by their `requires` declarations.</span>
+<span class="sd">2. Walks them in cost-tier order, writing results to the manifest.</span>
+<span class="sd">3. Hands the surviving candidates plus the read-only manifest to the</span>
+<span class="sd">   selector.</span>
+
+<span class="sd">For Phase 0 the orchestration is deliberately simple — a hand-rolled topo</span>
+<span class="sd">walk. Phase 1+ will swap in `meshed.DAG` for richer dependency graphs and</span>
+<span class="sd">caching.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timezone</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.base</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">Annotation</span><span class="p">,</span>
+    <span class="n">Embedder</span><span class="p">,</span>
+    <span class="n">Filter</span><span class="p">,</span>
+    <span class="n">ImageRef</span><span class="p">,</span>
+    <span class="n">Manifest</span><span class="p">,</span>
+    <span class="n">Scorer</span><span class="p">,</span>
+    <span class="n">Selector</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.manifest</span><span class="w"> </span><span class="kn">import</span> <span class="n">has_annotation</span><span class="p">,</span> <span class="n">put_annotation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">Report</span><span class="p">,</span> <span class="n">attribute_drops</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.store</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stores</span><span class="p">,</span> <span class="n">get_stores</span>
+
+<span class="c1"># Stable manifest metric_id used to mark &quot;this image has been embedded in</span>
+<span class="c1"># space `space_id` with this config_hash.&quot; The vector itself lives in</span>
+<span class="c1"># `stores.embeddings[space_id][image_id]`; the manifest only tracks</span>
+<span class="c1"># presence so cache lookups don&#39;t have to read the vector.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_embedder_metric_id</span><span class="p">(</span><span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;emb:</span><span class="si">{</span><span class="n">space_id</span><span class="si">}</span><span class="s2">&quot;</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Run record</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="RunResult">
+<a class="viewcode-back" href="../../module_docs/lookbook/pipeline.html#lookbook.RunResult">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">RunResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The result of running a pipeline.&quot;&quot;&quot;</span>
+
+    <span class="n">run_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">kept</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]</span>
+    <span class="n">candidates</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]</span>
+    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">scorer_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">started_at</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">finished_at</span><span class="p">:</span> <span class="n">datetime</span>
+    <span class="n">report</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_record</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;run_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">run_id</span><span class="p">,</span>
+            <span class="s2">&quot;kept&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">kept</span><span class="p">],</span>
+            <span class="s2">&quot;candidates&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">candidates</span><span class="p">],</span>
+            <span class="s2">&quot;selector_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">selector_id</span><span class="p">,</span>
+            <span class="s2">&quot;scorer_ids&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">scorer_ids</span><span class="p">,</span>
+            <span class="s2">&quot;started_at&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">started_at</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="s2">&quot;finished_at&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">finished_at</span><span class="o">.</span><span class="n">isoformat</span><span class="p">(),</span>
+            <span class="s2">&quot;report&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">report</span><span class="p">,</span>
+        <span class="p">}</span></div>
+
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Topological ordering</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_topo_sort</span><span class="p">(</span><span class="n">scorers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Scorer</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Scorer</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Order scorers so that each runs after its `requires` predecessors.</span>
+
+<span class="sd">    Within a tier, ties are broken by `cost_tier` (cheaper first) and then</span>
+<span class="sd">    by registration order.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">by_id</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Scorer</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span><span class="p">:</span> <span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scorers</span><span class="p">}</span>
+    <span class="n">visited</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+    <span class="n">ordered</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Scorer</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">visiting</span><span class="p">:</span> <span class="nb">set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">visit</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="n">Scorer</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">metric_id</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">metric_id</span> <span class="ow">in</span> <span class="n">visiting</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;cyclic dependency among scorers near </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span><span class="si">!r}</span><span class="s2">&quot;</span>
+            <span class="p">)</span>
+        <span class="n">visiting</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;requires&quot;</span><span class="p">,</span> <span class="p">()):</span>
+            <span class="k">if</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">by_id</span><span class="p">:</span>
+                <span class="n">visit</span><span class="p">(</span><span class="n">by_id</span><span class="p">[</span><span class="n">dep</span><span class="p">])</span>
+            <span class="c1"># Missing deps are not an error here — they may have been pre-</span>
+            <span class="c1"># populated in the manifest by an earlier run.</span>
+        <span class="n">visiting</span><span class="o">.</span><span class="n">discard</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span><span class="p">)</span>
+        <span class="n">visited</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span><span class="p">)</span>
+        <span class="n">ordered</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="c1"># Visit cheaper tiers first so a cheap dep of an expensive scorer runs</span>
+    <span class="c1"># earlier when the topological order is otherwise free.</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">scorers</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;cost_tier&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)):</span>
+        <span class="n">visit</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ordered</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Pipeline</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="Pipeline">
+<a class="viewcode-back" href="../../module_docs/lookbook/pipeline.html#lookbook.Pipeline">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Pipeline</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An ordered set of scorers + embedders + filters + a final selector.&quot;&quot;&quot;</span>
+
+    <span class="n">scorers</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Scorer</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">embedders</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Embedder</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">Filter</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">selector</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Selector</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">diagnose_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># 0 = skip diagnosis, &gt;0 = run cluster_coverage</span>
+
+<div class="viewcode-block" id="Pipeline.run">
+<a class="viewcode-back" href="../../module_docs/lookbook/pipeline.html#lookbook.Pipeline.run">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">run</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">candidates</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">],</span>
+        <span class="o">*</span><span class="p">,</span>
+        <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">stores</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Stores</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">constraints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">run_id</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Score, embed, filter, and select.</span>
+
+<span class="sd">        `stores` defaults to in-memory. Pass `get_stores()` for the user&#39;s</span>
+<span class="sd">        app data folder defaults.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selector</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Pipeline.selector must be set before run()&quot;</span><span class="p">)</span>
+
+        <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+        <span class="n">stores</span> <span class="o">=</span> <span class="n">stores</span> <span class="k">if</span> <span class="n">stores</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_stores</span><span class="p">(</span>
+            <span class="n">images_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">manifest_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">runs_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">embeddings</span><span class="o">=</span><span class="p">{},</span>
+        <span class="p">)</span>
+        <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span> <span class="o">=</span> <span class="n">stores</span><span class="o">.</span><span class="n">manifest</span>
+
+        <span class="n">started</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+
+        <span class="n">ordered</span> <span class="o">=</span> <span class="n">_topo_sort</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scorers</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">scorer</span> <span class="ow">in</span> <span class="n">ordered</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+                <span class="c1"># Cache hit: same (image_id, metric_id) already present.</span>
+                <span class="c1"># config_hash mismatches are treated as misses.</span>
+                <span class="n">existing</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="n">scorer</span><span class="o">.</span><span class="n">metric_id</span><span class="p">))</span>
+                <span class="k">if</span> <span class="n">existing</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">existing</span><span class="o">.</span><span class="n">config_hash</span> <span class="o">==</span> <span class="nb">getattr</span><span class="p">(</span>
+                    <span class="n">scorer</span><span class="p">,</span> <span class="s2">&quot;config_hash&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span>
+                <span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">value</span> <span class="o">=</span> <span class="n">scorer</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">manifest</span><span class="p">)</span>
+                <span class="n">put_annotation</span><span class="p">(</span>
+                    <span class="n">manifest</span><span class="p">,</span>
+                    <span class="n">Annotation</span><span class="p">(</span>
+                        <span class="n">image_id</span><span class="o">=</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span>
+                        <span class="n">metric_id</span><span class="o">=</span><span class="n">scorer</span><span class="o">.</span><span class="n">metric_id</span><span class="p">,</span>
+                        <span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">,</span>
+                        <span class="n">config_hash</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">scorer</span><span class="p">,</span> <span class="s2">&quot;config_hash&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                        <span class="n">cost_tier</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">scorer</span><span class="p">,</span> <span class="s2">&quot;cost_tier&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                        <span class="n">backend</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">scorer</span><span class="p">,</span> <span class="s2">&quot;backend&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="c1"># Run embedders. Vectors go to stores.embeddings[space_id][image_id];</span>
+        <span class="c1"># the manifest gets a presence flag so cache hits don&#39;t reload the</span>
+        <span class="c1"># vector from disk.</span>
+        <span class="k">for</span> <span class="n">emb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedders</span><span class="p">:</span>
+            <span class="n">space_id</span> <span class="o">=</span> <span class="n">emb</span><span class="o">.</span><span class="n">space_id</span>
+            <span class="n">metric_id</span> <span class="o">=</span> <span class="n">_embedder_metric_id</span><span class="p">(</span><span class="n">space_id</span><span class="p">)</span>
+            <span class="n">cfg</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">emb</span><span class="p">,</span> <span class="s2">&quot;config_hash&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="c1"># Auto-create the per-space store on first use so callers don&#39;t</span>
+            <span class="c1"># have to pre-populate `stores.embeddings`.</span>
+            <span class="k">if</span> <span class="n">space_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">stores</span><span class="o">.</span><span class="n">embeddings</span><span class="p">:</span>
+                <span class="n">stores</span><span class="o">.</span><span class="n">embeddings</span><span class="p">[</span><span class="n">space_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="n">space_store</span> <span class="o">=</span> <span class="n">stores</span><span class="o">.</span><span class="n">embeddings</span><span class="p">[</span><span class="n">space_id</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+                <span class="n">existing</span> <span class="o">=</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="n">metric_id</span><span class="p">))</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">existing</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+                    <span class="ow">and</span> <span class="n">existing</span><span class="o">.</span><span class="n">config_hash</span> <span class="o">==</span> <span class="n">cfg</span>
+                    <span class="ow">and</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span> <span class="ow">in</span> <span class="n">space_store</span>
+                <span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">vec</span> <span class="o">=</span> <span class="n">emb</span><span class="o">.</span><span class="n">embed</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+                <span class="c1"># Store as plain list so the default JSON codec works.</span>
+                <span class="n">space_store</span><span class="p">[</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                    <span class="n">vec</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">vec</span><span class="p">,</span> <span class="s2">&quot;tolist&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">list</span><span class="p">(</span><span class="n">vec</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">put_annotation</span><span class="p">(</span>
+                    <span class="n">manifest</span><span class="p">,</span>
+                    <span class="n">Annotation</span><span class="p">(</span>
+                        <span class="n">image_id</span><span class="o">=</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span>
+                        <span class="n">metric_id</span><span class="o">=</span><span class="n">metric_id</span><span class="p">,</span>
+                        <span class="n">value</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                        <span class="n">config_hash</span><span class="o">=</span><span class="n">cfg</span><span class="p">,</span>
+                        <span class="n">cost_tier</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">emb</span><span class="p">,</span> <span class="s2">&quot;cost_tier&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                        <span class="n">backend</span><span class="o">=</span><span class="nb">getattr</span><span class="p">(</span><span class="n">emb</span><span class="p">,</span> <span class="s2">&quot;backend&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+
+        <span class="n">survivors</span><span class="p">,</span> <span class="n">drops</span> <span class="o">=</span> <span class="n">attribute_drops</span><span class="p">(</span><span class="n">candidates</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">filters</span><span class="p">,</span> <span class="n">manifest</span><span class="p">)</span>
+
+        <span class="c1"># Pre-fetch embeddings for the selector when it asks for a space.</span>
+        <span class="n">sel_constraints</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">constraints</span> <span class="ow">or</span> <span class="p">{})</span>
+        <span class="n">sel_space</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="s2">&quot;embedding_space&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">sel_space</span> <span class="ow">and</span> <span class="n">sel_space</span> <span class="ow">in</span> <span class="n">stores</span><span class="o">.</span><span class="n">embeddings</span><span class="p">:</span>
+            <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># local: numpy is a core dep but optional here</span>
+
+            <span class="n">space_store</span> <span class="o">=</span> <span class="n">stores</span><span class="o">.</span><span class="n">embeddings</span><span class="p">[</span><span class="n">sel_space</span><span class="p">]</span>
+            <span class="n">sel_constraints</span><span class="p">[</span><span class="s2">&quot;embeddings&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">space_store</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+                <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">survivors</span>
+                <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="ow">in</span> <span class="n">space_store</span>
+            <span class="p">}</span>
+
+        <span class="n">kept</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="o">.</span><span class="n">select</span><span class="p">(</span>
+            <span class="n">survivors</span><span class="p">,</span> <span class="n">manifest</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">constraints</span><span class="o">=</span><span class="n">sel_constraints</span>
+        <span class="p">)</span>
+
+        <span class="n">selector_id</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="p">,</span> <span class="s2">&quot;selector_id&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">selector</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="p">)</span>
+        <span class="n">report</span> <span class="o">=</span> <span class="n">Report</span><span class="p">(</span>
+            <span class="n">n_candidates</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">),</span>
+            <span class="n">n_survivors</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">survivors</span><span class="p">),</span>
+            <span class="n">n_kept</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">kept</span><span class="p">),</span>
+            <span class="n">dropped_by_filter</span><span class="o">=</span><span class="n">drops</span><span class="p">,</span>
+            <span class="n">scorer_ids</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ordered</span><span class="p">],</span>
+            <span class="n">selector_id</span><span class="o">=</span><span class="n">selector_id</span><span class="p">,</span>
+            <span class="n">notes</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;embedder_ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">e</span><span class="o">.</span><span class="n">space_id</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedders</span><span class="p">]}</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedders</span>
+            <span class="k">else</span> <span class="p">{},</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Cluster-coverage diagnosis. Skipped when `diagnose_clusters == 0`</span>
+        <span class="c1"># or when there&#39;s no embedding space to cluster over.</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">diagnose_clusters</span> <span class="o">&gt;</span> <span class="mi">0</span>
+            <span class="ow">and</span> <span class="n">sel_space</span>
+            <span class="ow">and</span> <span class="n">sel_constraints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;embeddings&quot;</span><span class="p">)</span>
+        <span class="p">):</span>
+            <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.diagnose</span><span class="w"> </span><span class="kn">import</span> <span class="n">cluster_coverage</span>
+
+            <span class="n">coverage</span> <span class="o">=</span> <span class="n">cluster_coverage</span><span class="p">(</span>
+                <span class="n">survivors</span><span class="p">,</span>
+                <span class="n">kept</span><span class="p">,</span>
+                <span class="n">sel_constraints</span><span class="p">[</span><span class="s2">&quot;embeddings&quot;</span><span class="p">],</span>
+                <span class="n">n_clusters</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">diagnose_clusters</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">report</span><span class="o">.</span><span class="n">notes</span><span class="p">[</span><span class="s2">&quot;cluster_coverage&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coverage</span>
+
+        <span class="n">finished</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">)</span>
+        <span class="n">rid</span> <span class="o">=</span> <span class="n">run_id</span> <span class="ow">or</span> <span class="sa">f</span><span class="s2">&quot;run-</span><span class="si">{</span><span class="n">started</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">T%H%M%S&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">RunResult</span><span class="p">(</span>
+            <span class="n">run_id</span><span class="o">=</span><span class="n">rid</span><span class="p">,</span>
+            <span class="n">kept</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">kept</span><span class="p">),</span>
+            <span class="n">candidates</span><span class="o">=</span><span class="n">candidates</span><span class="p">,</span>
+            <span class="n">selector_id</span><span class="o">=</span><span class="n">selector_id</span><span class="p">,</span>
+            <span class="n">scorer_ids</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ordered</span><span class="p">],</span>
+            <span class="n">started_at</span><span class="o">=</span><span class="n">started</span><span class="p">,</span>
+            <span class="n">finished_at</span><span class="o">=</span><span class="n">finished</span><span class="p">,</span>
+            <span class="n">report</span><span class="o">=</span><span class="p">{</span>
+                <span class="o">**</span><span class="n">report</span><span class="o">.</span><span class="n">to_dict</span><span class="p">(),</span>
+            <span class="p">},</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Persist the run record. JSON-able dict by construction.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">stores</span><span class="o">.</span><span class="n">runs</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rid</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">to_record</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">stores</span><span class="o">.</span><span class="n">runs</span><span class="p">[</span><span class="n">rid</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">to_record</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">result</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

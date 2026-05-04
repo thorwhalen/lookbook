@@ -1,0 +1,231 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.report &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../lookbook.html">lookbook</a></li>
+      <li class="breadcrumb-item active">lookbook.report</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lookbook.report</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Run report — what happened during a curation pass.</span>
+
+<span class="sd">The report is the user-facing artifact alongside the kept set. It explains</span>
+<span class="sd">*why* images were dropped and what the kept set looks like, in terms a</span>
+<span class="sd">human (or an LLM agent) can act on.</span>
+
+<span class="sd">Phase 1 ships the drop-attribution part. Coverage / set-level diagnosis</span>
+<span class="sd">lands in Phase 2 alongside embeddings.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Counter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections.abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">Iterable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Mapping</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">Manifest</span>
+
+
+<div class="viewcode-block" id="Report">
+<a class="viewcode-back" href="../../module_docs/lookbook/report.html#lookbook.report.Report">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Report</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Summary of a pipeline run.&quot;&quot;&quot;</span>
+
+    <span class="n">n_candidates</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">n_survivors</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">n_kept</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">dropped_by_filter</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">scorer_ids</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">notes</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;n_candidates&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_candidates</span><span class="p">,</span>
+            <span class="s2">&quot;n_survivors&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_survivors</span><span class="p">,</span>
+            <span class="s2">&quot;n_kept&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_kept</span><span class="p">,</span>
+            <span class="s2">&quot;dropped_by_filter&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropped_by_filter</span><span class="p">),</span>
+            <span class="s2">&quot;scorer_ids&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scorer_ids</span><span class="p">),</span>
+            <span class="s2">&quot;selector_id&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">selector_id</span><span class="p">,</span>
+            <span class="s2">&quot;notes&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">),</span>
+        <span class="p">}</span>
+
+<div class="viewcode-block" id="Report.human">
+<a class="viewcode-back" href="../../module_docs/lookbook/report.html#lookbook.report.Report.human">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">human</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Render a short human-readable summary.&quot;&quot;&quot;</span>
+        <span class="n">lines</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="sa">f</span><span class="s2">&quot;candidates: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_candidates</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;survivors:  </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_survivors</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;kept:       </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">n_kept</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dropped_by_filter</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;dropped by filter:&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">fname</span><span class="p">,</span> <span class="n">count</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dropped_by_filter</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">kv</span><span class="p">:</span> <span class="o">-</span><span class="n">kv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="p">):</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">fname</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">count</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="p">:</span>
+            <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;notes:&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">notes</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">lines</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="attribute_drops">
+<a class="viewcode-back" href="../../module_docs/lookbook/report.html#lookbook.report.attribute_drops">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">attribute_drops</span><span class="p">(</span>
+    <span class="n">candidates</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">],</span>
+    <span class="n">filters</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
+    <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply filters in order, attributing each drop to the first filter</span>
+<span class="sd">    that rejected it.</span>
+
+<span class="sd">    Returns (survivors, drop_counts_by_filter_name).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">survivors</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">drops</span><span class="p">:</span> <span class="n">Counter</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">ref</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">:</span>
+        <span class="n">kept</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filters</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">keep</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="n">manifest</span><span class="p">):</span>
+                <span class="n">drops</span><span class="p">[</span><span class="nb">getattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">kept</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">break</span>
+        <span class="k">if</span> <span class="n">kept</span><span class="p">:</span>
+            <span class="n">survivors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">survivors</span><span class="p">,</span> <span class="nb">dict</span><span class="p">(</span><span class="n">drops</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

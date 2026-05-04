@@ -1,0 +1,4 @@
+lookbook.manifest
+=================
+.. automodule:: lookbook.manifest
+   :members:

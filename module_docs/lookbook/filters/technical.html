@@ -1,0 +1,204 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.filters.technical &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="lookbook.http" href="../http.html" />
+    <link rel="prev" title="lookbook.filters.person" href="person.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.filters.technical</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.filters.technical.ExposureRange"><code class="docutils literal notranslate"><span class="pre">ExposureRange</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.filters.technical.MinBlur"><code class="docutils literal notranslate"><span class="pre">MinBlur</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.filters.technical.MinResolution"><code class="docutils literal notranslate"><span class="pre">MinResolution</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.filters.technical.NoExactDuplicate"><code class="docutils literal notranslate"><span class="pre">NoExactDuplicate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.filters.technical.NoNearDuplicate"><code class="docutils literal notranslate"><span class="pre">NoNearDuplicate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.filters.technical.fresh_filter"><code class="docutils literal notranslate"><span class="pre">fresh_filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lookbook.filters.technical</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/lookbook/filters/technical.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lookbook.filters.technical">
+<span id="lookbook-filters-technical"></span><h1>lookbook.filters.technical<a class="headerlink" href="#module-lookbook.filters.technical" title="Link to this heading"></a></h1>
+<p>Phase 1 filters — cheap funnel.</p>
+<p>Filters consume the manifest and return True/False per image. Two of them
+(<cite>NoExactDuplicate</cite>, <cite>NoNearDuplicate</cite>) carry per-pipeline state and must
+be re-instantiated for each new run; the rest are stateless.</p>
+<p>Each filter exposes a <cite>name</cite> attribute (the filter id) so the run report
+can attribute drops back to the rule that fired.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.filters.technical.ExposureRange">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.filters.technical.</span></span><span class="sig-name descname"><span class="pre">ExposureRange</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_underexposed_frac</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_overexposed_frac</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'exposure_range'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/filters/technical.html#ExposureRange"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.filters.technical.ExposureRange" title="Link to this definition"></a></dt>
+<dd><p>Drop images that are mostly black or mostly white.</p>
+<p>Defaults: drop if more than 50% of pixels are below 16 or above 240.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.filters.technical.MinBlur">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.filters.technical.</span></span><span class="sig-name descname"><span class="pre">MinBlur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">100.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'min_blur'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/filters/technical.html#MinBlur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.filters.technical.MinBlur" title="Link to this definition"></a></dt>
+<dd><p>Drop images whose Laplacian variance is below <cite>threshold</cite> (blurry).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.filters.technical.MinResolution">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.filters.technical.</span></span><span class="sig-name descname"><span class="pre">MinResolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">min_long_side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'min_resolution'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/filters/technical.html#MinResolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.filters.technical.MinResolution" title="Link to this definition"></a></dt>
+<dd><p>Drop images whose long side is below <cite>min_long_side</cite> pixels.</p>
+<p>Reads the <cite>resolution</cite> annotation. If absent, the filter keeps the image
+(under the principle that filters never drop on missing evidence).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.filters.technical.NoExactDuplicate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.filters.technical.</span></span><span class="sig-name descname"><span class="pre">NoExactDuplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'no_exact_duplicate'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_seen:</span> <span class="pre">set</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/filters/technical.html#NoExactDuplicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.filters.technical.NoExactDuplicate" title="Link to this definition"></a></dt>
+<dd><p>Keep at most one image per <cite>file_hash</cite>.</p>
+<p>The first image in iteration order to claim a hash wins; later images
+with the same hash are dropped.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.filters.technical.NoNearDuplicate">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.filters.technical.</span></span><span class="sig-name descname"><span class="pre">NoNearDuplicate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_distance:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">5</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">'no_near_duplicate'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_seen_hashes:</span> <span class="pre">list</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/filters/technical.html#NoNearDuplicate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.filters.technical.NoNearDuplicate" title="Link to this definition"></a></dt>
+<dd><p>Keep at most one image per near-duplicate cluster.</p>
+<p>Clusters are formed greedily: the first image to be visited is the
+cluster representative, and any later image whose <cite>phash</cite> is within
+<cite>max_distance</cite> Hamming bits is dropped.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.filters.technical.fresh_filter">
+<span class="sig-prename descclassname"><span class="pre">lookbook.filters.technical.</span></span><span class="sig-name descname"><span class="pre">fresh_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filter_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">overrides</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/filters/technical.html#fresh_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.filters.technical.fresh_filter" title="Link to this definition"></a></dt>
+<dd><p>Return a fresh instance of a registered filter.</p>
+<p>Stateful filters (dedup) must be re-instantiated per pipeline; the
+registry holds a singleton, so call this when building a fresh pipeline.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="person.html" class="btn btn-neutral float-left" title="lookbook.filters.person" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../http.html" class="btn btn-neutral float-right" title="lookbook.http" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

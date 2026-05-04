@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>&lt;no title&gt; &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">&lt;no title&gt;</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/table_of_contents.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook.html">lookbook</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Annotation"><code class="docutils literal notranslate"><span class="pre">Annotation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.BytesImageRef"><code class="docutils literal notranslate"><span class="pre">BytesImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Embedder"><code class="docutils literal notranslate"><span class="pre">Embedder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.ImageRef"><code class="docutils literal notranslate"><span class="pre">ImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Manifest"><code class="docutils literal notranslate"><span class="pre">Manifest</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.PathImageRef"><code class="docutils literal notranslate"><span class="pre">PathImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.RunResult"><code class="docutils literal notranslate"><span class="pre">RunResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Scorer"><code class="docutils literal notranslate"><span class="pre">Scorer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Selector"><code class="docutils literal notranslate"><span class="pre">Selector</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Stores"><code class="docutils literal notranslate"><span class="pre">Stores</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.UrlImageRef"><code class="docutils literal notranslate"><span class="pre">UrlImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.get_stores"><code class="docutils literal notranslate"><span class="pre">get_stores()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.ingest"><code class="docutils literal notranslate"><span class="pre">ingest()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.score"><code class="docutils literal notranslate"><span class="pre">score()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.value_of"><code class="docutils literal notranslate"><span class="pre">value_of()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/__main__.html">lookbook.__main__</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/__main__.html#lookbook.__main__.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/__main__.html#lookbook.__main__.list_plugins"><code class="docutils literal notranslate"><span class="pre">list_plugins()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/__main__.html#lookbook.__main__.list_recipes"><code class="docutils literal notranslate"><span class="pre">list_recipes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/__main__.html#lookbook.__main__.mcp"><code class="docutils literal notranslate"><span class="pre">mcp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/__main__.html#lookbook.__main__.serve"><code class="docutils literal notranslate"><span class="pre">serve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/_paths.html">lookbook._paths</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/_paths.html#lookbook._paths.app_folder"><code class="docutils literal notranslate"><span class="pre">app_folder()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/_paths.html#lookbook._paths.default_cache_root"><code class="docutils literal notranslate"><span class="pre">default_cache_root()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/_paths.html#lookbook._paths.default_config_root"><code class="docutils literal notranslate"><span class="pre">default_config_root()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/_paths.html#lookbook._paths.default_data_root"><code class="docutils literal notranslate"><span class="pre">default_data_root()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/_paths.html#lookbook._paths.subdir"><code class="docutils literal notranslate"><span class="pre">subdir()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/base.html">lookbook.base</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/base.html#lookbook.base.Annotation"><code class="docutils literal notranslate"><span class="pre">Annotation</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/base.html#lookbook.base.Embedder"><code class="docutils literal notranslate"><span class="pre">Embedder</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/base.html#lookbook.base.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/base.html#lookbook.base.ImageRef"><code class="docutils literal notranslate"><span class="pre">ImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/base.html#lookbook.base.Scorer"><code class="docutils literal notranslate"><span class="pre">Scorer</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/base.html#lookbook.base.Selector"><code class="docutils literal notranslate"><span class="pre">Selector</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/diagnose.html">lookbook.diagnose</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/diagnose.html#lookbook.diagnose.cluster_coverage"><code class="docutils literal notranslate"><span class="pre">cluster_coverage()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/arcface.html">lookbook.embedders.arcface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/embedders/arcface.html#lookbook.embedders.arcface.InsightFaceArcFace"><code class="docutils literal notranslate"><span class="pre">InsightFaceArcFace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/embedders/arcface.html#lookbook.embedders.arcface.MockArcFaceEmbedder"><code class="docutils literal notranslate"><span class="pre">MockArcFaceEmbedder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/embedders/clip.html#lookbook.embedders.clip.CLIPEmbedder"><code class="docutils literal notranslate"><span class="pre">CLIPEmbedder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/embedders/dinov2.html#lookbook.embedders.dinov2.DINOv2Embedder"><code class="docutils literal notranslate"><span class="pre">DINOv2Embedder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/embedders/mock.html#lookbook.embedders.mock.MockEmbedder"><code class="docutils literal notranslate"><span class="pre">MockEmbedder</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters/person.html">lookbook.filters.person</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/person.html#lookbook.filters.person.HasFace"><code class="docutils literal notranslate"><span class="pre">HasFace</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/person.html#lookbook.filters.person.MinFaceArea"><code class="docutils literal notranslate"><span class="pre">MinFaceArea</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/person.html#lookbook.filters.person.MinFaceConfidence"><code class="docutils literal notranslate"><span class="pre">MinFaceConfidence</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/person.html#lookbook.filters.person.SingleFaceOnly"><code class="docutils literal notranslate"><span class="pre">SingleFaceOnly</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/technical.html#lookbook.filters.technical.ExposureRange"><code class="docutils literal notranslate"><span class="pre">ExposureRange</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/technical.html#lookbook.filters.technical.MinBlur"><code class="docutils literal notranslate"><span class="pre">MinBlur</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/technical.html#lookbook.filters.technical.MinResolution"><code class="docutils literal notranslate"><span class="pre">MinResolution</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/technical.html#lookbook.filters.technical.NoExactDuplicate"><code class="docutils literal notranslate"><span class="pre">NoExactDuplicate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/technical.html#lookbook.filters.technical.NoNearDuplicate"><code class="docutils literal notranslate"><span class="pre">NoNearDuplicate</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/filters/technical.html#lookbook.filters.technical.fresh_filter"><code class="docutils literal notranslate"><span class="pre">fresh_filter()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/http.html">lookbook.http</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.curate_source"><code class="docutils literal notranslate"><span class="pre">curate_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.get_annotations"><code class="docutils literal notranslate"><span class="pre">get_annotations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.get_image"><code class="docutils literal notranslate"><span class="pre">get_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.get_run"><code class="docutils literal notranslate"><span class="pre">get_run()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.ingest_source"><code class="docutils literal notranslate"><span class="pre">ingest_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.list_plugins"><code class="docutils literal notranslate"><span class="pre">list_plugins()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.list_recipes"><code class="docutils literal notranslate"><span class="pre">list_recipes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.list_runs"><code class="docutils literal notranslate"><span class="pre">list_runs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.mk_lookbook_app"><code class="docutils literal notranslate"><span class="pre">mk_lookbook_app()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.reset_stores"><code class="docutils literal notranslate"><span class="pre">reset_stores()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.score_image"><code class="docutils literal notranslate"><span class="pre">score_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.serve"><code class="docutils literal notranslate"><span class="pre">serve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/io/ingest.html">lookbook.io.ingest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/io/ingest.html#lookbook.io.ingest.ingest"><code class="docutils literal notranslate"><span class="pre">ingest()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/io/ingest.html#lookbook.io.ingest.ingest_to_store"><code class="docutils literal notranslate"><span class="pre">ingest_to_store()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/manifest.html">lookbook.manifest</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/manifest.html#lookbook.manifest.get_annotation"><code class="docutils literal notranslate"><span class="pre">get_annotation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/manifest.html#lookbook.manifest.image_ids"><code class="docutils literal notranslate"><span class="pre">image_ids()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/manifest.html#lookbook.manifest.iter_annotations_for"><code class="docutils literal notranslate"><span class="pre">iter_annotations_for()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/manifest.html#lookbook.manifest.put_annotation"><code class="docutils literal notranslate"><span class="pre">put_annotation()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/manifest.html#lookbook.manifest.value_of"><code class="docutils literal notranslate"><span class="pre">value_of()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/mcp.html">lookbook.mcp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_curate_source"><code class="docutils literal notranslate"><span class="pre">mcp_curate_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_get_annotations"><code class="docutils literal notranslate"><span class="pre">mcp_get_annotations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_get_image"><code class="docutils literal notranslate"><span class="pre">mcp_get_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_get_run"><code class="docutils literal notranslate"><span class="pre">mcp_get_run()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_ingest_source"><code class="docutils literal notranslate"><span class="pre">mcp_ingest_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_list_plugins"><code class="docutils literal notranslate"><span class="pre">mcp_list_plugins()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_list_recipes"><code class="docutils literal notranslate"><span class="pre">mcp_list_recipes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_list_runs"><code class="docutils literal notranslate"><span class="pre">mcp_list_runs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_score_image"><code class="docutils literal notranslate"><span class="pre">mcp_score_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mk_lookbook_mcp"><code class="docutils literal notranslate"><span class="pre">mk_lookbook_mcp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.serve"><code class="docutils literal notranslate"><span class="pre">serve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/pipeline.html">lookbook.pipeline</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/pipeline.html#lookbook.pipeline.Pipeline"><code class="docutils literal notranslate"><span class="pre">Pipeline</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/pipeline.html#lookbook.pipeline.RunResult"><code class="docutils literal notranslate"><span class="pre">RunResult</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/profiles.html">lookbook.profiles</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/profiles.html#lookbook.profiles.list_profiles"><code class="docutils literal notranslate"><span class="pre">list_profiles()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/profiles.html#lookbook.profiles.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/refs.html">lookbook.refs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/refs.html#lookbook.refs.BytesImageRef"><code class="docutils literal notranslate"><span class="pre">BytesImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/refs.html#lookbook.refs.PathImageRef"><code class="docutils literal notranslate"><span class="pre">PathImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/refs.html#lookbook.refs.UrlImageRef"><code class="docutils literal notranslate"><span class="pre">UrlImageRef</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/registry.html">lookbook.registry</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/registry.html#lookbook.registry.register_scorer"><code class="docutils literal notranslate"><span class="pre">register_scorer()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/report.html">lookbook.report</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/report.html#lookbook.report.Report"><code class="docutils literal notranslate"><span class="pre">Report</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/report.html#lookbook.report.attribute_drops"><code class="docutils literal notranslate"><span class="pre">attribute_drops()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/person.html#lookbook.scorers.person.FaceArea"><code class="docutils literal notranslate"><span class="pre">FaceArea</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/person.html#lookbook.scorers.person.FaceQualityProxy"><code class="docutils literal notranslate"><span class="pre">FaceQualityProxy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/person.html#lookbook.scorers.person.InsightFaceDetect"><code class="docutils literal notranslate"><span class="pre">InsightFaceDetect</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/person.html#lookbook.scorers.person.MockFaceDetect"><code class="docutils literal notranslate"><span class="pre">MockFaceDetect</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/person.html#lookbook.scorers.person.MockHeadPose"><code class="docutils literal notranslate"><span class="pre">MockHeadPose</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/person.html#lookbook.scorers.person.SixDRepNetHeadPose"><code class="docutils literal notranslate"><span class="pre">SixDRepNetHeadPose</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.Blur"><code class="docutils literal notranslate"><span class="pre">Blur</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.Exposure"><code class="docutils literal notranslate"><span class="pre">Exposure</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.FileHash"><code class="docutils literal notranslate"><span class="pre">FileHash</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.PerceptualHash"><code class="docutils literal notranslate"><span class="pre">PerceptualHash</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.RandomScore"><code class="docutils literal notranslate"><span class="pre">RandomScore</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.Resolution"><code class="docutils literal notranslate"><span class="pre">Resolution</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.phash_distance"><code class="docutils literal notranslate"><span class="pre">phash_distance()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors/quota.html">lookbook.selectors.quota</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/selectors/quota.html#lookbook.selectors.quota.QuotaSelector"><code class="docutils literal notranslate"><span class="pre">QuotaSelector</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors/submodular.html">lookbook.selectors.submodular</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/selectors/submodular.html#lookbook.selectors.submodular.FacilityLocation"><code class="docutils literal notranslate"><span class="pre">FacilityLocation</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors/topk.html">lookbook.selectors.topk</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/selectors/topk.html#lookbook.selectors.topk.TopK"><code class="docutils literal notranslate"><span class="pre">TopK</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/store.html">lookbook.store</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/store.html#lookbook.store.Stores"><code class="docutils literal notranslate"><span class="pre">Stores</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/store.html#lookbook.store.get_stores"><code class="docutils literal notranslate"><span class="pre">get_stores()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/store.html#lookbook.store.manifest_codec"><code class="docutils literal notranslate"><span class="pre">manifest_codec()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

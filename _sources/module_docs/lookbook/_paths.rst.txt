@@ -1,0 +1,4 @@
+lookbook._paths
+===============
+.. automodule:: lookbook._paths
+   :members:

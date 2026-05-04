@@ -1,0 +1,4 @@
+lookbook.embedders.mock
+=======================
+.. automodule:: lookbook.embedders.mock
+   :members:

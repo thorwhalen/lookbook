@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.scorers.person &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="lookbook.scorers.technical" href="technical.html" />
+    <link rel="prev" title="lookbook.scorers" href="../scorers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.scorers.person</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.person.FaceArea"><code class="docutils literal notranslate"><span class="pre">FaceArea</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.person.FaceQualityProxy"><code class="docutils literal notranslate"><span class="pre">FaceQualityProxy</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.person.InsightFaceDetect"><code class="docutils literal notranslate"><span class="pre">InsightFaceDetect</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.person.MockFaceDetect"><code class="docutils literal notranslate"><span class="pre">MockFaceDetect</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.person.MockHeadPose"><code class="docutils literal notranslate"><span class="pre">MockHeadPose</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.person.SixDRepNetHeadPose"><code class="docutils literal notranslate"><span class="pre">SixDRepNetHeadPose</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lookbook.scorers.person</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/lookbook/scorers/person.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lookbook.scorers.person">
+<span id="lookbook-scorers-person"></span><h1>lookbook.scorers.person<a class="headerlink" href="#module-lookbook.scorers.person" title="Link to this heading"></a></h1>
+<p>Person-LoRA scorers — Phase 3.</p>
+<p>Two backends ship for face detection:</p>
+<ul class="simple">
+<li><p><cite>MockFaceDetect</cite>: synthesizes a centered face box, deterministic, no deps.
+Used by tests and by users who already have face boxes from another tool.</p></li>
+<li><p><cite>InsightFaceDetect</cite>: real RetinaFace + landmarks + (optionally) gender/age,
+lazy-imported. Use for production.</p></li>
+</ul>
+<p>Both write to the same <cite>face_box</cite> metric_id. They are distinguished by
+<cite>config_hash</cite> so the cache invalidates if the user swaps backends.</p>
+<p>Downstream scorers (<cite>FaceArea</cite>, <cite>HeadPose</cite>, <cite>FaceQualityProxy</cite>) read
+<cite>face_box</cite> from the manifest via the <cite>requires</cite> mechanism. They never touch
+the detector directly — the orchestrator runs the detector first.</p>
+<p>The value shape of <cite>face_box</cite> (when a face is detected):</p>
+<blockquote>
+<div><dl class="simple">
+<dt>{</dt><dd><p>“x1”: int, “y1”: int, “x2”: int, “y2”: int,
+“confidence”: float,         # detector score
+“n_faces”: int,              # total faces detected before keeping the largest
+“landmarks”: list | None,    # 5 (x, y) pairs if available, else None</p>
+</dd>
+</dl>
+<p>}</p>
+</div></blockquote>
+<p>When no face is detected, the value is <cite>None</cite>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.person.FaceArea">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.person.</span></span><span class="sig-name descname"><span class="pre">FaceArea</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'face_area'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('face_box',</span> <span class="pre">'resolution')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'derived'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/person.html#FaceArea"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.person.FaceArea" title="Link to this definition"></a></dt>
+<dd><p>Face area as a fraction of total image area, plus a size bin.</p>
+<p>Reads <cite>face_box</cite> and <cite>resolution</cite>. Both must be present upstream — the
+orchestrator’s topo-sort handles this via the <cite>requires</cite> field.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.person.FaceQualityProxy">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.person.</span></span><span class="sig-name descname"><span class="pre">FaceQualityProxy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'face_quality'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('face_box',</span> <span class="pre">'face_area')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'derived'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blur_normalization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/person.html#FaceQualityProxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.person.FaceQualityProxy" title="Link to this definition"></a></dt>
+<dd><p>Combine detector confidence, face area, and (optionally) blur into a
+single 0..1 score.</p>
+<p>This is a stand-in for true face image quality assessment (FIQA — see
+SDD-FIQA, CR-FIQA, CLIB-FIQA in the design report). Real FIQA needs a
+purpose-trained model; the proxy here is a reasonable default for
+Phase 3 that uses only signals already in the manifest.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.person.InsightFaceDetect">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.person.</span></span><span class="sig-name descname"><span class="pre">InsightFaceDetect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'face_box'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'insightface:retinaface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'buffalo_l'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">det_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">640</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/person.html#InsightFaceDetect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.person.InsightFaceDetect" title="Link to this definition"></a></dt>
+<dd><p>RetinaFace face detection via insightface.</p>
+<p>Returns the largest face if multiple are present. <cite>n_faces</cite> records the
+pre-filter count so a downstream filter can drop multi-face images.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.person.MockFaceDetect">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.person.</span></span><span class="sig-name descname"><span class="pre">MockFaceDetect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'face_box'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lookbook:mock_face'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulate_no_face</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/person.html#MockFaceDetect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.person.MockFaceDetect" title="Link to this definition"></a></dt>
+<dd><p>Deterministic face detector — synthesizes one centered box per image.</p>
+<p>Useful for tests and for end-to-end demos without a real detector. The
+box covers the central 60% of the image (or 0% if <cite>simulate_no_face</cite>
+is set, in which case the face_box value is None).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.person.MockHeadPose">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.person.</span></span><span class="sig-name descname"><span class="pre">MockHeadPose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'head_pose'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('face_box',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lookbook:mock_pose'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/person.html#MockHeadPose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.person.MockHeadPose" title="Link to this definition"></a></dt>
+<dd><p>Synthetic head pose — deterministic from image_id.</p>
+<p>Yaw distributed roughly uniformly in [-90, 90]; pitch/roll narrower.
+Useful for testing the QuotaSelector without a real head-pose model.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.person.SixDRepNetHeadPose">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.person.</span></span><span class="sig-name descname"><span class="pre">SixDRepNetHeadPose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'head_pose'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('face_box',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'sixdrepnet'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_version</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'v1'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/person.html#SixDRepNetHeadPose"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.person.SixDRepNetHeadPose" title="Link to this definition"></a></dt>
+<dd><p>Head-pose estimation via 6DRepNet (lazy-imported).</p>
+<p>See <a class="reference external" href="https://github.com/thohemp/6DRepNet">https://github.com/thohemp/6DRepNet</a> for the reference implementation.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../scorers.html" class="btn btn-neutral float-left" title="lookbook.scorers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="technical.html" class="btn btn-neutral float-right" title="lookbook.scorers.technical" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

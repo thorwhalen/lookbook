@@ -1,0 +1,35 @@
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   module_docs/lookbook
+   module_docs/lookbook/__main__
+   module_docs/lookbook/_paths
+   module_docs/lookbook/base
+   module_docs/lookbook/diagnose
+   module_docs/lookbook/embedders
+   module_docs/lookbook/embedders/arcface
+   module_docs/lookbook/embedders/clip
+   module_docs/lookbook/embedders/dinov2
+   module_docs/lookbook/embedders/mock
+   module_docs/lookbook/filters
+   module_docs/lookbook/filters/person
+   module_docs/lookbook/filters/technical
+   module_docs/lookbook/http
+   module_docs/lookbook/io
+   module_docs/lookbook/io/ingest
+   module_docs/lookbook/manifest
+   module_docs/lookbook/mcp
+   module_docs/lookbook/pipeline
+   module_docs/lookbook/profiles
+   module_docs/lookbook/refs
+   module_docs/lookbook/registry
+   module_docs/lookbook/report
+   module_docs/lookbook/scorers
+   module_docs/lookbook/scorers/person
+   module_docs/lookbook/scorers/technical
+   module_docs/lookbook/selectors
+   module_docs/lookbook/selectors/quota
+   module_docs/lookbook/selectors/submodular
+   module_docs/lookbook/selectors/topk
+   module_docs/lookbook/store

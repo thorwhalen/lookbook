@@ -1,0 +1,315 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.mcp &mdash; lookbook 0.0.2 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="lookbook.pipeline" href="pipeline.html" />
+    <link rel="prev" title="lookbook.manifest" href="manifest.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.mcp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_curate_source"><code class="docutils literal notranslate"><span class="pre">mcp_curate_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_get_annotations"><code class="docutils literal notranslate"><span class="pre">mcp_get_annotations()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_get_image"><code class="docutils literal notranslate"><span class="pre">mcp_get_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_get_run"><code class="docutils literal notranslate"><span class="pre">mcp_get_run()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_ingest_source"><code class="docutils literal notranslate"><span class="pre">mcp_ingest_source()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_list_plugins"><code class="docutils literal notranslate"><span class="pre">mcp_list_plugins()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_list_recipes"><code class="docutils literal notranslate"><span class="pre">mcp_list_recipes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_list_runs"><code class="docutils literal notranslate"><span class="pre">mcp_list_runs()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_score_image"><code class="docutils literal notranslate"><span class="pre">mcp_score_image()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mk_lookbook_mcp"><code class="docutils literal notranslate"><span class="pre">mk_lookbook_mcp()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.serve"><code class="docutils literal notranslate"><span class="pre">serve()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lookbook.mcp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/lookbook/mcp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lookbook.mcp">
+<span id="lookbook-mcp"></span><h1>lookbook.mcp<a class="headerlink" href="#module-lookbook.mcp" title="Link to this heading"></a></h1>
+<p>MCP surface for lookbook, built with <cite>fastmcp</cite>.</p>
+<p>Each verb from <cite>lookbook.http</cite> is exposed as an MCP tool that an LLM
+agent can call. The tool functions are intentionally the same callables
+used by the HTTP layer — JSON-able args, JSON-able returns. This means
+swapping between an HTTP frontend and an MCP frontend is “wire it once,
+expose it twice.”</p>
+<p>Run the server over stdio with <cite>lookbook mcp</cite> (the default transport
+that Claude Desktop and the Anthropic SDK expect).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_curate_source">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_curate_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'funnel'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_curate_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_curate_source" title="Link to this definition"></a></dt>
+<dd><p>Run a full curation pipeline on a directory and return the K best.</p>
+<p>The high-level entry point. Picks K reference images from the
+directory using the named recipe (cheap funnel, embeddings + facility
+location, person profile, etc.). Returns a run record containing the
+chosen image_ids, drop attributions per filter, optional cluster
+coverage, scorer ids that ran, and run timing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>source_path</strong> – absolute path to the directory of candidate images.</p></li>
+<li><p><strong>k</strong> – target subset size (the number of images to keep).</p></li>
+<li><p><strong>recipe</strong> – a recipe / profile name. Use <cite>list_recipes</cite> to see options.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Common recipes:</dt><dd><ul class="simple">
+<li><p><cite>random</cite>        : placeholder, deterministic, no real scoring.</p></li>
+<li><p><cite>funnel</cite>        : Phase 1 cheap filter — fast, no GPU.</p></li>
+<li><p><cite>funnel_relaxed</cite>: same but lower thresholds for typical phone shots.</p></li>
+<li><p><cite>diverse</cite>       : DINOv2 embeddings + facility-location.</p></li>
+<li><p><cite>diverse_clip</cite>  : same with CLIP semantic embeddings.</p></li>
+<li><dl class="simple">
+<dt><cite>person</cite><span class="classifier">full character LoRA recipe (face detection +</span></dt><dd><p>ArcFace identity + pose-bin quotas).</p>
+</dd>
+</dl>
+</li>
+<li><p><cite>person_mock</cite>   : person without model downloads (testing).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_get_annotations">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_get_annotations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_get_annotations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_get_annotations" title="Link to this definition"></a></dt>
+<dd><p>All annotations stored for one image.</p>
+<p>Includes the metric_id, value, config_hash, cost_tier, backend, and
+timestamp for each annotation. Use this to understand <em>why</em> an image
+was kept or rejected — the manifest holds the full provenance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image_id</strong> – as returned from <cite>ingest_source</cite> or <cite>curate_source</cite>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_get_image">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_get_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_get_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_get_image" title="Link to this definition"></a></dt>
+<dd><p>Look up an image’s path and metadata by id.</p>
+<p>Returns <cite>{image_id, path, n_bytes}</cite> when found. Phase 5 returns
+metadata only — agents that want the raw bytes should read the file
+directly when running on the same host as the server.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_get_run">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_get_run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_get_run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_get_run" title="Link to this definition"></a></dt>
+<dd><p>Fetch a stored run record by id.</p>
+<p>The run record contains: kept and candidate image_ids, scorer_ids,
+selector_id, started_at / finished_at timestamps, and a <cite>report</cite>
+block with drop attributions and (when applicable) cluster coverage.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_ingest_source">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_ingest_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_ingest_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_ingest_source" title="Link to this definition"></a></dt>
+<dd><p>Scan a directory or file for images and register them on the server.</p>
+<p>Records <cite>image_id -&gt; path</cite> in the server’s image store so later calls
+(<cite>score_image</cite>, <cite>get_image</cite>, <cite>curate_source</cite>) can refer to images by
+id. Returns the list of image_ids and the count.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_path</strong> – absolute path on the server’s filesystem.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_list_plugins">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_list_plugins</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_list_plugins"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_list_plugins" title="Link to this definition"></a></dt>
+<dd><p>List every registered scorer / embedder / filter / selector.</p>
+<p>Use this to discover available metric_ids for <cite>score_image</cite> and to
+understand what capabilities each recipe is wiring together.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_list_recipes">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_list_recipes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_list_recipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_list_recipes" title="Link to this definition"></a></dt>
+<dd><p>List every available curation recipe / profile.</p>
+<p>Returns a dict where each value is a recipe spec describing the
+scorers, embedders, filters, selector, and default constraints. Use
+this first to see what <cite>curate_source</cite> will accept for the <cite>recipe</cite>
+argument.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_list_runs">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_list_runs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_list_runs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_list_runs" title="Link to this definition"></a></dt>
+<dd><p>All curation runs stored on this server.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_score_image">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_score_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_score_image"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_score_image" title="Link to this definition"></a></dt>
+<dd><p>Score one image against one metric and cache the result.</p>
+<p>Pass either <cite>source_path</cite> (a path on the server) or <cite>image_id</cite> (must
+already be registered via <cite>ingest_source</cite>). Returns the metric value;
+re-running with the same metric_id and config is free.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>metric_id</strong> – a registered scorer name (see <cite>list_plugins</cite>).</p></li>
+<li><p><strong>source_path</strong> – optional, the path to the image.</p></li>
+<li><p><strong>image_id</strong> – optional, an id from a previous <cite>ingest_source</cite>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mk_lookbook_mcp">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mk_lookbook_mcp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lookbook'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mk_lookbook_mcp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mk_lookbook_mcp" title="Link to this definition"></a></dt>
+<dd><p>Build a FastMCP server exposing the lookbook curation verbs.</p>
+<p>Each verb becomes an MCP tool. The agent’s typical sequence is:</p>
+<blockquote>
+<div><p>list_recipes() -&gt; pick a recipe
+curate_source(path, k, recipe) -&gt; get back a run record
+get_annotations(image_id) -&gt; understand why each kept image won
+get_run(run_id) -&gt; review the full report</p>
+</div></blockquote>
+<p>The server uses the same Stores singleton as <cite>lookbook.http</cite>, so an
+HTTP server and an MCP server backed by the same data folder share
+the manifest and the runs index.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.serve">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">serve</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transport</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'stdio'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#serve"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.serve" title="Link to this definition"></a></dt>
+<dd><p>Run the lookbook MCP server.</p>
+<p>The default transport is stdio — the protocol Claude Desktop and the
+Anthropic SDK expect when launching an MCP server as a subprocess.
+Pass <cite>transport=”http”</cite> (and a port via kwargs) for HTTP-streamable
+transport.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="manifest.html" class="btn btn-neutral float-left" title="lookbook.manifest" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pipeline.html" class="btn btn-neutral float-right" title="lookbook.pipeline" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

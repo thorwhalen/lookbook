@@ -1,0 +1,4 @@
+lookbook.mcp
+============
+.. automodule:: lookbook.mcp
+   :members:

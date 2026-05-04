@@ -1,0 +1,4 @@
+lookbook.diagnose
+=================
+.. automodule:: lookbook.diagnose
+   :members:
