@@ -1,7 +1,7 @@
 # Lookbook — Development Plan
 
 **Companion to:** `lookbook_design_report.md`
-**Status:** Phases 0, 1, and 2 shipped (2026-05-04). Phase 3 next.
+**Status:** Phases 0, 1, 2, and 3 shipped (2026-05-04). Phase 4 next.
 **Goal:** A flexible, extensible Python library for image-set curation, with a thin
 HTTP surface (FastAPI via `qh`), and a set of Claude Code skills that (a) accelerate
 development and (b) let AI agents use lookbook well once it ships.
@@ -13,8 +13,8 @@ development and (b) let AI agents use lookbook well once it ships.
 | 0 | Skeleton + stores | ✅ Done |
 | 1 | Cheap funnel (resolution / dedup / blur / exposure / phash) | ✅ Done |
 | 2 | Embeddings (CLIP, DINOv2) + facility-location + cluster diagnosis | ✅ Done |
-| 3 | Person profile (InsightFace, FIQA, head pose, quotas) | ▶ Next |
-| 4 | HTTP surface via `qh` | ☐ Pending |
+| 3 | Person profile (InsightFace, ArcFace, head pose, quotas, YAML loader) | ✅ Done |
+| 4 | HTTP surface via `qh` | ▶ Next |
 | 5 | MCP via `py2mcp` + usage skills | ☐ Pending |
 
 ### Phase 0 deliverables (done)
@@ -68,6 +68,36 @@ development and (b) let AI agents use lookbook well once it ships.
 - Skill update: `lookbook-dev` now lists the embedders module and Phase 2
   status; the existing `lookbook-add-selector` already covers the
   Selector Protocol contract (embedding access via `constraints`)
+
+### Phase 3 deliverables (done)
+
+- Person scorers (`lookbook/scorers/person.py`):
+  - `MockFaceDetect`, `InsightFaceDetect` — both write the same
+    `face_box` annotation, distinguished by `config_hash`
+  - `FaceArea` — derived from `face_box` + `resolution`, with size bins
+  - `MockHeadPose`, `SixDRepNetHeadPose` — yaw/pitch/roll + bin labels
+  - `FaceQualityProxy` — confidence + area + sharpness; stand-in for FIQA
+- Person filters (`lookbook/filters/person.py`):
+  - `HasFace`, `SingleFaceOnly`, `MinFaceArea`, `MinFaceConfidence`
+- ArcFace embedder (`lookbook/embedders/arcface.py`):
+  - `MockArcFaceEmbedder` (deterministic, no deps)
+  - `InsightFaceArcFace` (lazy-imported)
+- `QuotaSelector` (`lookbook/selectors/quota.py`):
+  - Bins candidates by a manifest annotation (supports dotted paths
+    like `head_pose.yaw_bin`)
+  - Wraps any registered selector as the inner; respects per-bin quotas
+    from `constraints["quotas"]`
+  - Backfills from the global pool when bins under-fill (or strict mode)
+- YAML profiles (`lookbook/profiles/`):
+  - `lookbook.profiles.load(name)` — loads `lookbook/profiles/*.yaml`
+    or `<user_config>/profiles/*.yaml`; user wins
+  - Shipped: `person.yaml` (real backends), `person_mock.yaml` (mocks)
+  - `pyyaml` added to runtime deps; YAMLs force-included in the wheel
+- CLI: `lookbook curate --recipe person`/`person_mock` (recipes resolve
+  through in-code RECIPES first, then YAML profiles)
+- 26 new tests (75 total, all passing); 2 opt-in real-model smokes
+- New skill: `lookbook-profile` — the recipe for adding subject profiles
+  (product, scene, style, brand, font, …)
 
 ---
 

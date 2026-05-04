@@ -9,6 +9,7 @@ from typing import Sequence
 import argh
 
 from lookbook import curate as _curate, get_stores, registry
+from lookbook import profiles as _profiles
 
 
 # A handful of named recipes — sensible bundles of scorers + filters that
@@ -125,6 +126,21 @@ def _normalize_selector_spec(spec):
     return spec
 
 
+def _resolve_recipe(name: str) -> dict:
+    """Look up a recipe by name. In-code RECIPES win; YAML profiles fall in
+    after that.
+    """
+    if name in RECIPES:
+        return RECIPES[name]
+    try:
+        return _profiles.load(name)
+    except KeyError:
+        known = sorted(set(RECIPES) | set(_profiles.list_profiles()))
+        raise SystemExit(
+            f"Unknown recipe/profile: {name!r}. Known: {known}"
+        )
+
+
 def curate(
     source: str,
     *,
@@ -149,11 +165,7 @@ def curate(
     Prints a JSON record of the run to stdout. The manifest persists to
     the user's app data folder unless `--in-memory` is passed.
     """
-    if recipe not in RECIPES:
-        raise SystemExit(
-            f"Unknown recipe: {recipe!r}. Known: {sorted(RECIPES)}"
-        )
-    spec = RECIPES[recipe]
+    spec = _resolve_recipe(recipe)
     scorers = list(scorer) if scorer else list(spec["scorers"])
     embedders = list(embedder) if embedder else list(spec.get("embedders", []))
     filters = (
@@ -166,6 +178,7 @@ def curate(
         if diagnose_clusters >= 0
         else spec.get("diagnose_clusters", 0)
     )
+    constraints = spec.get("constraints") or None
 
     if in_memory:
         stores = get_stores(
@@ -182,6 +195,7 @@ def curate(
         filter_ids=tuple(filters),
         selector_id=sel,
         diagnose_clusters=diag,
+        constraints=constraints,
         stores=stores,
     )
     print(json.dumps(result.to_record(), indent=2))
@@ -196,9 +210,14 @@ def list_plugins() -> None:
 
 
 def list_recipes() -> None:
-    """List built-in curation recipes."""
-    for name, spec in RECIPES.items():
-        print(f"{name}:")
+    """List built-in curation recipes and YAML profiles."""
+    seen: set = set()
+
+    def _show(name: str, spec: dict, source: str):
+        print(f"{name}  [{source}]")
+        if spec.get("description"):
+            for line in str(spec["description"]).strip().splitlines():
+                print(f"  {line}")
         print(f"  scorers:   {', '.join(spec['scorers'])}")
         print(f"  embedders: {', '.join(spec.get('embedders', [])) or '—'}")
         fnames = [f if isinstance(f, str) else f[0] for f in spec["filters"]]
@@ -208,6 +227,17 @@ def list_recipes() -> None:
         print(f"  selector:  {sel_name}")
         if spec.get("diagnose_clusters", 0):
             print(f"  diagnose:  cluster_coverage(n={spec['diagnose_clusters']})")
+
+    for name, spec in RECIPES.items():
+        _show(name, spec, "in-code")
+        seen.add(name)
+    for name in _profiles.list_profiles():
+        if name in seen:
+            continue
+        try:
+            _show(name, _profiles.load(name), "profile")
+        except Exception as e:
+            print(f"{name}  [profile]  (failed to load: {e})")
 
 
 def main():

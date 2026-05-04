@@ -3,11 +3,12 @@
 Distill raw image pools into optimized, high-diversity reference sets for
 training personalized models (character LoRAs, product LoRAs, style LoRAs).
 
-> **Status:** Early development. Phases 0, 1, and 2 are shipped — the
-> package can clean a photo dump (200→20 in <30s on a laptop, no GPU) and
-> run the full embeddings + facility-location workflow with CLIP or DINOv2
-> for "diverse but high-quality K from N." Phase 3 (person-LoRA-specific
-> profile: InsightFace, FIQA, head-pose-aware quotas) is next. See
+> **Status:** Early development. Phases 0, 1, 2, and 3 are shipped — the
+> package can clean a photo dump (200→20 in <30s on a laptop, no GPU),
+> run the full embeddings + facility-location workflow with CLIP or
+> DINOv2, and curate a person/character LoRA with face detection,
+> ArcFace identity diversity, and pose-bin quotas. Phase 4 (HTTP surface
+> via `qh` for browser/agent calls) is next. See
 > [`misc/docs/lookbook_development_plan.md`](misc/docs/lookbook_development_plan.md)
 > for the full roadmap and [`misc/docs/lookbook_design_report.md`](misc/docs/lookbook_design_report.md)
 > for the design rationale.
@@ -50,7 +51,15 @@ lookbook curate ./photos --k 20 --recipe funnel
 # embeddings instead.
 lookbook curate ./photos --k 20 --recipe diverse
 
-# See available scorers, embedders, filters, selectors, recipes:
+# Phase 3: full character/person LoRA curation. Detects faces, embeds
+# with ArcFace, applies pose-bin quotas, and runs cluster-coverage
+# diagnosis. Pulls insightface + sixdrepnet (lazy on first use).
+lookbook curate ./photos --k 20 --recipe person
+
+# Same shape with no model downloads (mock backends; useful for tests):
+lookbook curate ./photos --k 8 --recipe person_mock
+
+# See available scorers, embedders, filters, selectors, recipes / profiles:
 lookbook list-plugins
 lookbook list-recipes
 ```
@@ -116,9 +125,12 @@ lookbook/
   pipeline.py           Orchestrator (topo-sorted scorers + filters + selector)
   report.py             Drop-attributing Report
   scorers/              random, resolution, file_hash, phash, blur, exposure
-  embedders/            mock, clip, dinov2 (lazy-imported)
+                          + person.py: face detection, area, head pose, quality
+  embedders/            mock, clip, dinov2, arcface (lazy-imported)
   filters/              min_resolution, min_blur, exposure_range, dedup
-  selectors/            top_k, facility_location (pure-numpy greedy)
+                          + person.py: has_face, single_face_only, min_face_*
+  selectors/            top_k, facility_location, quota
+  profiles/             person.yaml, person_mock.yaml (+ user-edited via config2py)
   diagnose.py           cluster_coverage (set-level diagnosis)
   io/                   ingest
   __main__.py           CLI (argh): curate, list-plugins, list-recipes

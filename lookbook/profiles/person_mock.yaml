@@ -1,0 +1,40 @@
+name: person_mock
+description: |
+  No-download variant of the `person` profile. Uses MockFaceDetect,
+  MockHeadPose, and MockArcFaceEmbedder so the full Phase 3 orchestration
+  can run without insightface or 6DRepNet installed. Useful for tests,
+  CI, and demos.
+
+scorers:
+  - resolution
+  - file_hash
+  - blur
+  - mock_face       # synthesizes face_box
+  - face_area
+  - mock_head_pose  # synthesizes head_pose, with yaw_bin
+  - face_quality
+
+embedders:
+  - arcface_mock
+
+filters:
+  - has_face
+
+selector:
+  - quota
+  - bin_metric_id: head_pose.yaw_bin_simple
+    inner_selector_id: facility_location
+    inner_overrides:
+      embedding_space: arcface_mock
+      quality_metric_id: face_quality
+      weight_quality: 0.4
+      weight_diversity: 1.0
+    embedding_space: arcface_mock
+
+diagnose_clusters: 4
+
+constraints:
+  quotas:
+    left: 2
+    center: 4
+    right: 2

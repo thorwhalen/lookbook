@@ -33,10 +33,19 @@ carries the authoritative status table), but as a quick orientation:
   `diverse`, `diverse_clip`, `diverse_mock`. The pipeline now pre-fetches
   embeddings into `constraints["embeddings"]` so the Selector Protocol
   stays unchanged.
-- **Phase 3 (person profile)** — not started. Will pull `insightface`,
-  `sixdrepnet`, `mediapipe` and add face detection / FIQA / head pose +
-  quota-aware selector and a `profiles/person.yaml` recipe.
-- **Phase 4+ (HTTP via qh, MCP, usage skills)** — not started.
+- **Phase 3 (person profile)** — done. Person scorers (`MockFaceDetect`,
+  `InsightFaceDetect`, `FaceArea`, `MockHeadPose`, `SixDRepNetHeadPose`,
+  `FaceQualityProxy`), person filters (`HasFace`, `SingleFaceOnly`,
+  `MinFaceArea`, `MinFaceConfidence`), `MockArcFaceEmbedder` +
+  `InsightFaceArcFace`, `QuotaSelector` (binning supports dotted paths
+  like `head_pose.yaw_bin`), and YAML profile loader at
+  `lookbook/profiles/{__init__.py, *.yaml}`. Shipped profiles: `person`
+  (real backends) and `person_mock` (no-download). The CLI's `--recipe`
+  resolves through in-code RECIPES first, then YAML profiles. New skill:
+  `lookbook-profile`.
+- **Phase 4 (HTTP via qh)** — not started. Will expose the eight verbs
+  as a FastAPI tree built by `qh.mk_app`.
+- **Phase 5+ (MCP, usage skills)** — not started.
 
 ## The five-layer architecture
 
@@ -213,5 +222,5 @@ swapping app names is a one-place change.
 | Add a scorer (any tier) | `lookbook-add-scorer` |
 | Add a selector | `lookbook-add-selector` |
 | Swap storage backend, debug persistence | `lookbook-storage` |
-| Write a subject profile (person, product, …) | `lookbook-profile` (Phase 3+) |
-| Help an agent USE lookbook to curate | `lookbook-curate` (Phase 4+) |
+| Write a subject profile (person, product, …) | `lookbook-profile` |
+| Help an agent USE lookbook to curate | `lookbook-curate` (Phase 5+) |

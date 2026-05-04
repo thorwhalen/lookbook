@@ -1,0 +1,58 @@
+name: person
+description: |
+  Character / person LoRA curation. Detects a single face per image,
+  filters out missing/multi/tiny faces, embeds with ArcFace for identity
+  diversity, and selects with a yaw-bin quota for pose coverage.
+
+scorers:
+  - resolution
+  - file_hash
+  - phash
+  - blur
+  - exposure
+  - insightface     # writes face_box
+  - face_area
+  - head_pose       # 6DRepNet, requires face_box
+  - face_quality    # combines confidence + area + sharpness
+
+embedders:
+  - arcface         # InsightFace ArcFace, identity space
+
+filters:
+  - [min_resolution, {min_long_side: 768}]
+  - exposure_range
+  - min_blur
+  - no_exact_duplicate
+  - no_near_duplicate
+  - has_face
+  - single_face_only
+  - [min_face_area, {min_fraction: 0.05}]
+  - [min_face_confidence, {threshold: 0.6}]
+
+selector:
+  - quota
+  - bin_metric_id: head_pose.yaw_bin
+    inner_selector_id: facility_location
+    inner_overrides:
+      embedding_space: arcface
+      quality_metric_id: face_quality
+      weight_quality: 0.4
+      weight_diversity: 1.0
+    embedding_space: arcface
+
+diagnose_clusters: 8
+
+constraints:
+  quotas:
+    front: 8
+    three_quarter: 4
+    three_quarter_left: 4
+    profile: 2
+    profile_left: 2
+
+# Notes for users tuning this profile:
+# - The yaw_bin scheme is symmetric: 'front' (|yaw| <= 10), 'three_quarter'
+#   (10 < |yaw| <= 30), 'profile' (30 < |yaw| <= 60), 'back' (|yaw| > 60).
+# - For a 20-image LoRA, the default quotas total exactly 20.
+# - Drop `single_face_only` if you want group shots.
+# - Replace `face_quality` with a real FIQA scorer once you wire one in.
