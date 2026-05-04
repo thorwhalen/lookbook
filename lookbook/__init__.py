@@ -40,7 +40,7 @@ from lookbook.base import (
 from lookbook.io import ingest
 from lookbook.manifest import value_of
 from lookbook.pipeline import Pipeline, RunResult
-from lookbook.refs import BytesImageRef, PathImageRef, UrlImageRef
+from lookbook.refs import BytesImageRef, PathImageRef, UrlImageRef, to_local_path
 from lookbook.store import Stores, get_stores
 
 
@@ -62,6 +62,7 @@ __all__ = [
     "get_stores",
     "ingest",
     "registry",
+    "to_local_path",
     "score",
     "value_of",
 ]
