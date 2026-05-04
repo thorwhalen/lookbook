@@ -3,13 +3,16 @@
 Phase 0 supports: a single directory path (recursive), a single file, or an
 already-iterable of refs. URL lists, zip archives, and cloud buckets are
 deferred to Phase 1+.
+
+`ingest_to_store` (Phase 4) additionally records `image_id -> {"path": ...}`
+into `stores.images` so the HTTP layer can serve image bytes by id.
 """
 
 from __future__ import annotations
 
 import os
 from collections.abc import Iterable, Iterator
-from typing import Union
+from typing import Optional, Union
 
 from lookbook.base import ImageRef
 from lookbook.refs import PathImageRef
@@ -43,3 +46,24 @@ def ingest(source: Source) -> list[ImageRef]:
     if isinstance(source, (str, os.PathLike)):
         return [PathImageRef(path=p) for p in _walk_paths(os.fspath(source))]
     return list(source)
+
+
+def ingest_to_store(source: Source, stores) -> list[ImageRef]:
+    """Ingest plus a side-effect: record `image_id -> {"path": ...}` for
+    every `PathImageRef` into `stores.images`.
+
+    The HTTP layer relies on this mapping to serve image bytes by id.
+    Returns the same list of refs `ingest()` would return.
+    """
+    refs = ingest(source)
+    images_store = stores.images
+    for r in refs:
+        if isinstance(r, PathImageRef):
+            try:
+                images_store[r.image_id] = {"path": os.path.abspath(r.path)}
+            except Exception:
+                # Some store backends require JSON values; if the codec
+                # disagrees, just skip. The HTTP layer can still serve
+                # whatever is recorded.
+                pass
+    return refs

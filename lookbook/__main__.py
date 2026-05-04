@@ -240,9 +240,21 @@ def list_recipes() -> None:
             print(f"{name}  [profile]  (failed to load: {e})")
 
 
+def serve(*, host: str = "127.0.0.1", port: int = 8000) -> None:
+    """Start the lookbook HTTP server.
+
+    Routes are uniform `POST /<verb>` with JSON bodies. See `/docs` for
+    the auto-generated Swagger UI. Override the data root with
+    `LOOKBOOK_DATA_ROOT=...` before starting.
+    """
+    from lookbook.http import serve as _serve
+    print(f"lookbook serving on http://{host}:{port} (docs at /docs)")
+    _serve(host=host, port=port)
+
+
 def main():
     parser = argh.ArghParser(prog="lookbook")
-    argh.add_commands(parser, [curate, list_plugins, list_recipes])
+    argh.add_commands(parser, [curate, list_plugins, list_recipes, serve])
     argh.dispatch(parser)
 
 

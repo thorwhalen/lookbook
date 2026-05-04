@@ -3,12 +3,12 @@
 Distill raw image pools into optimized, high-diversity reference sets for
 training personalized models (character LoRAs, product LoRAs, style LoRAs).
 
-> **Status:** Early development. Phases 0, 1, 2, and 3 are shipped — the
-> package can clean a photo dump (200→20 in <30s on a laptop, no GPU),
-> run the full embeddings + facility-location workflow with CLIP or
-> DINOv2, and curate a person/character LoRA with face detection,
-> ArcFace identity diversity, and pose-bin quotas. Phase 4 (HTTP surface
-> via `qh` for browser/agent calls) is next. See
+> **Status:** Phases 0, 1, 2, 3, and 4 are shipped. The package can:
+> clean a photo dump (200→20 in <30s, no GPU); run the full embeddings +
+> facility-location workflow with CLIP or DINOv2; curate a person/character
+> LoRA with face detection, ArcFace identity diversity, and pose-bin
+> quotas; and serve every verb over HTTP (FastAPI via `qh`) for browser
+> or agent clients. Phase 5 (MCP via `py2mcp`) is next. See
 > [`misc/docs/lookbook_development_plan.md`](misc/docs/lookbook_development_plan.md)
 > for the full roadmap and [`misc/docs/lookbook_design_report.md`](misc/docs/lookbook_design_report.md)
 > for the design rationale.
@@ -58,6 +58,14 @@ lookbook curate ./photos --k 20 --recipe person
 
 # Same shape with no model downloads (mock backends; useful for tests):
 lookbook curate ./photos --k 8 --recipe person_mock
+
+# Phase 4: HTTP server. Every verb is POST /<verb> with a JSON body;
+# Swagger UI at /docs.
+lookbook serve --port 8000 --host 127.0.0.1
+# curl examples:
+#   curl -X POST localhost:8000/list_recipes -H 'Content-Type: application/json' -d '{}'
+#   curl -X POST localhost:8000/curate_source -H 'Content-Type: application/json' \
+#        -d '{"source_path":"/abs/photos","k":20,"recipe":"funnel"}'
 
 # See available scorers, embedders, filters, selectors, recipes / profiles:
 lookbook list-plugins
@@ -132,7 +140,8 @@ lookbook/
   selectors/            top_k, facility_location, quota
   profiles/             person.yaml, person_mock.yaml (+ user-edited via config2py)
   diagnose.py           cluster_coverage (set-level diagnosis)
-  io/                   ingest
+  io/                   ingest, ingest_to_store
+  http.py               qh-built FastAPI surface; mk_lookbook_app, serve
   __main__.py           CLI (argh): curate, list-plugins, list-recipes
 
 .claude/skills/         Claude Code skills for development & agent use

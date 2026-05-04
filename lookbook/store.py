@@ -143,10 +143,13 @@ def get_stores(
     ):
         root = default_data_root()
 
+    # `images` holds image-id -> metadata records (e.g. {"path": ...}).
+    # The HTTP layer uses this to serve bytes by id. Users who want to
+    # persist actual image bytes can pass a `Files`-backed store.
     images = (
         images_store
         if images_store is not None
-        else (Files(subdir(root, "images")) if root else {})
+        else (JsonFiles(subdir(root, "images")) if root else {})
     )
 
     if manifest_store is not None:

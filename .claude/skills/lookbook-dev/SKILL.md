@@ -43,9 +43,12 @@ carries the authoritative status table), but as a quick orientation:
   (real backends) and `person_mock` (no-download). The CLI's `--recipe`
   resolves through in-code RECIPES first, then YAML profiles. New skill:
   `lookbook-profile`.
-- **Phase 4 (HTTP via qh)** — not started. Will expose the eight verbs
-  as a FastAPI tree built by `qh.mk_app`.
-- **Phase 5+ (MCP, usage skills)** — not started.
+- **Phase 4 (HTTP via qh)** — done. `lookbook/http.py` exposes 9 verbs
+  as uniform `POST /<verb>` endpoints with JSON bodies (no convention-
+  based routing). Server-wide stores singleton, lazy-init to the user's
+  app data folder; override with `LOOKBOOK_DATA_ROOT`. CLI: `lookbook
+  serve --port 8000`. Swagger at `/docs`. New skill: `lookbook-http`.
+- **Phase 5+ (MCP via py2mcp, usage skills)** — not started.
 
 ## The five-layer architecture
 

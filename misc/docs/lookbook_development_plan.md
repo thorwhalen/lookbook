@@ -1,7 +1,7 @@
 # Lookbook — Development Plan
 
 **Companion to:** `lookbook_design_report.md`
-**Status:** Phases 0, 1, 2, and 3 shipped (2026-05-04). Phase 4 next.
+**Status:** Phases 0, 1, 2, 3, and 4 shipped (2026-05-04). Phase 5 next.
 **Goal:** A flexible, extensible Python library for image-set curation, with a thin
 HTTP surface (FastAPI via `qh`), and a set of Claude Code skills that (a) accelerate
 development and (b) let AI agents use lookbook well once it ships.
@@ -14,8 +14,8 @@ development and (b) let AI agents use lookbook well once it ships.
 | 1 | Cheap funnel (resolution / dedup / blur / exposure / phash) | ✅ Done |
 | 2 | Embeddings (CLIP, DINOv2) + facility-location + cluster diagnosis | ✅ Done |
 | 3 | Person profile (InsightFace, ArcFace, head pose, quotas, YAML loader) | ✅ Done |
-| 4 | HTTP surface via `qh` | ▶ Next |
-| 5 | MCP via `py2mcp` + usage skills | ☐ Pending |
+| 4 | HTTP surface via `qh` | ✅ Done |
+| 5 | MCP via `py2mcp` + usage skills | ▶ Next |
 
 ### Phase 0 deliverables (done)
 
@@ -98,6 +98,28 @@ development and (b) let AI agents use lookbook well once it ships.
 - 26 new tests (75 total, all passing); 2 opt-in real-model smokes
 - New skill: `lookbook-profile` — the recipe for adding subject profiles
   (product, scene, style, brand, font, …)
+
+### Phase 4 deliverables (done)
+
+- `lookbook/http.py` — JSON-friendly HTTP surface built with `qh.mk_app`:
+  - `list_recipes`, `list_plugins`, `ingest_source`, `curate_source`,
+    `score_image`, `get_annotations`, `list_runs`, `get_run`, `get_image`
+  - Uniform `POST /<verb>` routes with JSON bodies (no convention-based
+    routing — keeps the API consistent for agent clients and the future
+    MCP layer)
+  - `mk_lookbook_app()` builder; `serve(host, port)` runs uvicorn
+- Server-wide stores singleton, lazy-initialized to the user's app data
+  folder. Override with `LOOKBOOK_DATA_ROOT=...` env var. `reset_stores()`
+  swaps it out for tests
+- `ingest_to_store()` — writes `image_id -> {"path": ...}` records into
+  `stores.images` so `get_image` can serve bytes by id. The `images` slot
+  default switched from `Files` (bytes-only) to `JsonFiles` (metadata
+  records); zero callers were affected
+- CLI: `lookbook serve --port 8000 --host 127.0.0.1`
+- 14 new tests via `qh.testing.run_app` TestClient (89 total, all passing).
+  Live server smoke-tested with curl: `POST /list_recipes` and
+  `POST /list_plugins` returned correct JSON over HTTP/1.1
+- `[http]` extras: `qh`, `fastapi`, `uvicorn` (already declared in Phase 0)
 
 ---
 
