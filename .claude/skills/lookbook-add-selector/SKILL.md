@@ -25,11 +25,12 @@ Read `lookbook-dev` first if you haven't.
 
 | Want | Use |
 |---|---|
-| "Pick K highest-scoring" | `top_k` (already shipped) |
-| "Pick K diverse, well-represented" | apricot facility-location wrapper |
-| "Pick K under quotas (3 close-up, 5 medium, …)" | a constraint selector |
-| "Pick K with hard must-include / must-exclude" | a constrained wrapper |
+| "Pick K highest-scoring" | `top_k` (shipped) |
+| "Pick K diverse, well-represented" | `facility_location` (shipped, pure-numpy greedy) |
+| "Pick K under quotas (3 close-up, 5 medium, …)" | new constraint selector (Phase 3) |
+| "Pick K with hard must-include / must-exclude" | constrained wrapper |
 | "Pick K probabilistically diverse" | DPPy-based |
+| "Faster than the greedy at N > 10k" | `apricot` wrapper |
 
 If the answer is `top_k` with a different scoring metric, **don't write a
 new selector** — pass `("top_k", {"metric_id": "your_metric"})` from the
@@ -149,6 +150,30 @@ def test_selector_end_to_end_via_curate(image_dir, memory_stores):
 ```
 
 ## Common patterns
+
+### How embeddings reach the selector
+
+The pipeline reads `selector.embedding_space` (a string attribute) and
+pre-fetches all vectors for survivor candidates from
+`stores.embeddings[space_id]`, passing them as `constraints["embeddings"]`
+— a `dict[image_id, np.ndarray]`. Your selector reads from there:
+
+```python
+def select(self, candidates, manifest, k, constraints=None):
+    embs = (constraints or {}).get("embeddings") or {}
+    missing = [r.image_id for r in candidates if r.image_id not in embs]
+    if missing:
+        raise ValueError(
+            f"missing embeddings for {len(missing)} candidates in "
+            f"space {self.embedding_space!r} — run the embedder first"
+        )
+    X = np.stack([np.asarray(embs[r.image_id], dtype=np.float32) for r in candidates])
+    ...
+```
+
+This is what `lookbook.selectors.submodular.FacilityLocation` does. Read
+that module for the canonical pattern — it's pure numpy, no apricot
+dependency, and adequate up to N ≈ a few thousand candidates.
 
 ### Wrapping `apricot`
 

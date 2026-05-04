@@ -3,9 +3,11 @@
 Distill raw image pools into optimized, high-diversity reference sets for
 training personalized models (character LoRAs, product LoRAs, style LoRAs).
 
-> **Status:** Early development. Phases 0 and 1 are shipped — the package
-> can already clean a photo dump (200→20 in <30s on a laptop, no GPU). Phase
-> 2 (CLIP/DINOv2 embeddings + submodular set selection) is in progress. See
+> **Status:** Early development. Phases 0, 1, and 2 are shipped — the
+> package can clean a photo dump (200→20 in <30s on a laptop, no GPU) and
+> run the full embeddings + facility-location workflow with CLIP or DINOv2
+> for "diverse but high-quality K from N." Phase 3 (person-LoRA-specific
+> profile: InsightFace, FIQA, head-pose-aware quotas) is next. See
 > [`misc/docs/lookbook_development_plan.md`](misc/docs/lookbook_development_plan.md)
 > for the full roadmap and [`misc/docs/lookbook_design_report.md`](misc/docs/lookbook_design_report.md)
 > for the design rationale.
@@ -42,7 +44,13 @@ CLI:
 # Phase 1: clean up a photo dump (drops blurry, dark, duplicate, tiny).
 lookbook curate ./photos --k 20 --recipe funnel
 
-# See available scorers, filters, recipes:
+# Phase 2: same funnel + DINOv2 embeddings + facility-location selection
+# for "diverse but sharp" picks. Downloads ~350MB on first run; subsequent
+# runs are fast and cached. Use --recipe diverse_clip for CLIP semantic
+# embeddings instead.
+lookbook curate ./photos --k 20 --recipe diverse
+
+# See available scorers, embedders, filters, selectors, recipes:
 lookbook list-plugins
 lookbook list-recipes
 ```
@@ -108,8 +116,10 @@ lookbook/
   pipeline.py           Orchestrator (topo-sorted scorers + filters + selector)
   report.py             Drop-attributing Report
   scorers/              random, resolution, file_hash, phash, blur, exposure
+  embedders/            mock, clip, dinov2 (lazy-imported)
   filters/              min_resolution, min_blur, exposure_range, dedup
-  selectors/            top_k
+  selectors/            top_k, facility_location (pure-numpy greedy)
+  diagnose.py           cluster_coverage (set-level diagnosis)
   io/                   ingest
   __main__.py           CLI (argh): curate, list-plugins, list-recipes
 

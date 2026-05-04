@@ -1,7 +1,7 @@
 # Lookbook — Development Plan
 
 **Companion to:** `lookbook_design_report.md`
-**Status:** Phase 0 + Phase 1 shipped (2026-05-04). Phase 2 next.
+**Status:** Phases 0, 1, and 2 shipped (2026-05-04). Phase 3 next.
 **Goal:** A flexible, extensible Python library for image-set curation, with a thin
 HTTP surface (FastAPI via `qh`), and a set of Claude Code skills that (a) accelerate
 development and (b) let AI agents use lookbook well once it ships.
@@ -12,8 +12,8 @@ development and (b) let AI agents use lookbook well once it ships.
 |---|---|---|
 | 0 | Skeleton + stores | ✅ Done |
 | 1 | Cheap funnel (resolution / dedup / blur / exposure / phash) | ✅ Done |
-| 2 | Embeddings (CLIP, DINOv2) + apricot facility-location | ▶ Next |
-| 3 | Person profile (InsightFace, FIQA, head pose, quotas) | ☐ Pending |
+| 2 | Embeddings (CLIP, DINOv2) + facility-location + cluster diagnosis | ✅ Done |
+| 3 | Person profile (InsightFace, FIQA, head pose, quotas) | ▶ Next |
 | 4 | HTTP surface via `qh` | ☐ Pending |
 | 5 | MCP via `py2mcp` + usage skills | ☐ Pending |
 
@@ -39,6 +39,35 @@ development and (b) let AI agents use lookbook well once it ships.
 - **Performance check:** 200 random 1100×1100 images → 20 kept in 17.9s on
   laptop CPU (target <30s).
 - Skills: `lookbook-add-scorer`, `lookbook-add-selector`
+
+### Phase 2 deliverables (done)
+
+- Embedders submodule: `MockEmbedder` (deterministic, no deps), `CLIPEmbedder`,
+  `DINOv2Embedder` (both via `transformers`, lazy-imported, MPS-aware)
+- Pipeline orchestration extended:
+  - Embedders run after scorers; vectors stored in `stores.embeddings[space_id]`
+  - Manifest gets a `emb:<space_id>` presence annotation for cache lookups
+  - Selector pre-fetch: pipeline reads `selector.embedding_space` and passes
+    `constraints["embeddings"]` as `dict[image_id, vector]`
+  - Selector Protocol *unchanged* — embedding access is a constraint key,
+    not a signature change
+- `FacilityLocation` selector — pure-numpy greedy implementation (no apricot
+  dep). Objective: `weight_diversity * facility-location + weight_quality *
+  per-image quality`. Cosine similarity clipped to [0, 1] so the empty-set
+  baseline is well-defined.
+- `lookbook.diagnose.cluster_coverage` — sklearn KMeans, written into the
+  Report's `notes` so users see "you filled 9/12 visual clusters."
+- New CLI recipes: `diverse` (DINOv2), `diverse_clip`, `diverse_mock`
+- Defensive `USE_TF=0` / `USE_FLAX=0` env vars in `embedders/__init__.py`
+  to side-step transformers' optional-backend autodetection
+- 16 new tests (49 total) plus 2 opt-in real-model smokes gated by
+  `LOOKBOOK_TEST_MODELS=1`
+- **Real-model smoke check:** CLIP ViT-B/32 + DINOv2 base both load and
+  produce L2-normalized 512-D / 768-D vectors via the full pipeline; 9
+  images → 3 kept with cluster coverage in <10s after weights are cached
+- Skill update: `lookbook-dev` now lists the embedders module and Phase 2
+  status; the existing `lookbook-add-selector` already covers the
+  Selector Protocol contract (embedding access via `constraints`)
 
 ---
 

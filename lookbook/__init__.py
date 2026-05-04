@@ -25,6 +25,7 @@ from typing import Any, Mapping, Optional, Sequence, Union
 from lookbook import scorers as _scorers_pkg  # noqa: F401
 from lookbook import selectors as _selectors_pkg  # noqa: F401
 from lookbook import filters as _filters_pkg  # noqa: F401
+from lookbook import embedders as _embedders_pkg  # noqa: F401
 
 from lookbook import registry
 from lookbook.base import (
@@ -92,8 +93,10 @@ def curate(
     *,
     k: int = 20,
     scorer_ids: Sequence[PluginSpec] = ("random_score",),
+    embedder_ids: Sequence[PluginSpec] = (),
     filter_ids: Sequence[PluginSpec] = (),
     selector_id: PluginSpec = "top_k",
+    diagnose_clusters: int = 0,
     stores: Optional[Stores] = None,
     constraints: Optional[Mapping[str, Any]] = None,
 ) -> RunResult:
@@ -101,14 +104,19 @@ def curate(
 
     Each plugin id may be either a string ("blur") or a (name, kwargs)
     tuple (("blur", {"max_side": 256})) to override the default config.
+
+    `diagnose_clusters > 0` runs cluster-coverage diagnosis after selection
+    and writes the result into the report's `notes`.
     """
     refs = ingest(source) if not isinstance(source, list) else source
     pipeline = Pipeline(
         scorers=[_resolve(registry.scorers, sp) for sp in scorer_ids],
+        embedders=[_resolve(registry.embedders, sp) for sp in embedder_ids],
         # Filters always get fresh instances so stateful ones (dedup) don't
         # leak across runs.
         filters=[_resolve(registry.filters, sp, fresh=True) for sp in filter_ids],
         selector=_resolve(registry.selectors, selector_id),
+        diagnose_clusters=diagnose_clusters,
     )
     return pipeline.run(refs, k=k, stores=stores, constraints=constraints)
 

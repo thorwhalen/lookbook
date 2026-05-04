@@ -25,10 +25,18 @@ carries the authoritative status table), but as a quick orientation:
   `file_hash`, `phash`, `blur`, `exposure`), filters (`min_resolution`,
   `min_blur`, `exposure_range`, `no_exact_duplicate`, `no_near_duplicate`),
   drop-attributing `Report`, named CLI recipes (`funnel`, `funnel_relaxed`).
-- **Phase 2 (embeddings + submodular)** — not started. Will pull `torch`,
-  add CLIP/DINOv2 embedders, LAION-Aesthetic scorer, an `apricot`-based
-  facility-location selector, and cluster-coverage diagnosis.
-- **Phase 3+ (person profile, HTTP via qh, MCP)** — not started.
+- **Phase 2 (embeddings + submodular)** — done. New `embedders/` module
+  with `MockEmbedder` (deterministic, no deps), `CLIPEmbedder` and
+  `DINOv2Embedder` (lazy-imported via `transformers`, MPS-aware).
+  `FacilityLocation` selector — pure-numpy greedy, no apricot dep — plus
+  `lookbook.diagnose.cluster_coverage` (sklearn KMeans). New CLI recipes:
+  `diverse`, `diverse_clip`, `diverse_mock`. The pipeline now pre-fetches
+  embeddings into `constraints["embeddings"]` so the Selector Protocol
+  stays unchanged.
+- **Phase 3 (person profile)** — not started. Will pull `insightface`,
+  `sixdrepnet`, `mediapipe` and add face detection / FIQA / head pose +
+  quota-aware selector and a `profiles/person.yaml` recipe.
+- **Phase 4+ (HTTP via qh, MCP, usage skills)** — not started.
 
 ## The five-layer architecture
 
@@ -59,6 +67,12 @@ Defined in `lookbook/base.py`:
 - `Filter` — `keep(ref, manifest) -> bool`.
 - `Embedder` — `space_id`, `cost_tier`, `embed(ref) -> ndarray`.
 - `Selector` — `select(candidates, manifest, k, constraints) -> list[ImageRef]`.
+
+A Selector that needs embeddings does **not** read the manifest or stores
+directly — it declares an `embedding_space` attribute, and the pipeline
+pre-fetches the corresponding vectors into `constraints["embeddings"]`
+before calling `select()`. This keeps the Selector Protocol stable while
+giving selectors clean access to set-level data.
 
 New plugins are **registered**, never subclassed. Use the registry decorators
 or call `register(...)` directly:

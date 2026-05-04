@@ -22,6 +22,7 @@ from typing import Any, Mapping, Optional, Sequence
 
 from lookbook.base import (
     Annotation,
+    Embedder,
     Filter,
     ImageRef,
     Manifest,
@@ -31,6 +32,13 @@ from lookbook.base import (
 from lookbook.manifest import has_annotation, put_annotation
 from lookbook.report import Report, attribute_drops
 from lookbook.store import Stores, get_stores
+
+# Stable manifest metric_id used to mark "this image has been embedded in
+# space `space_id` with this config_hash." The vector itself lives in
+# `stores.embeddings[space_id][image_id]`; the manifest only tracks
+# presence so cache lookups don't have to read the vector.
+def _embedder_metric_id(space_id: str) -> str:
+    return f"emb:{space_id}"
 
 
 # ---------------------------------------------------------------------------
@@ -111,11 +119,13 @@ def _topo_sort(scorers: Sequence[Scorer]) -> list[Scorer]:
 
 @dataclass
 class Pipeline:
-    """An ordered set of scorers + filters + a final selector."""
+    """An ordered set of scorers + embedders + filters + a final selector."""
 
     scorers: list[Scorer] = field(default_factory=list)
+    embedders: list[Embedder] = field(default_factory=list)
     filters: list[Filter] = field(default_factory=list)
     selector: Optional[Selector] = None
+    diagnose_clusters: int = 0  # 0 = skip diagnosis, >0 = run cluster_coverage
 
     def run(
         self,
@@ -126,7 +136,7 @@ class Pipeline:
         constraints: Optional[Mapping[str, Any]] = None,
         run_id: Optional[str] = None,
     ) -> RunResult:
-        """Score, filter, and select.
+        """Score, embed, filter, and select.
 
         `stores` defaults to in-memory. Pass `get_stores()` for the user's
         app data folder defaults.
@@ -165,10 +175,60 @@ class Pipeline:
                     ),
                 )
 
+        # Run embedders. Vectors go to stores.embeddings[space_id][image_id];
+        # the manifest gets a presence flag so cache hits don't reload the
+        # vector from disk.
+        for emb in self.embedders:
+            space_id = emb.space_id
+            metric_id = _embedder_metric_id(space_id)
+            cfg = getattr(emb, "config_hash", "")
+            # Auto-create the per-space store on first use so callers don't
+            # have to pre-populate `stores.embeddings`.
+            if space_id not in stores.embeddings:
+                stores.embeddings[space_id] = {}
+            space_store = stores.embeddings[space_id]
+            for ref in candidates:
+                existing = manifest.get((ref.image_id, metric_id))
+                if (
+                    existing is not None
+                    and existing.config_hash == cfg
+                    and ref.image_id in space_store
+                ):
+                    continue
+                vec = emb.embed(ref)
+                # Store as plain list so the default JSON codec works.
+                space_store[ref.image_id] = (
+                    vec.tolist() if hasattr(vec, "tolist") else list(vec)
+                )
+                put_annotation(
+                    manifest,
+                    Annotation(
+                        image_id=ref.image_id,
+                        metric_id=metric_id,
+                        value=True,
+                        config_hash=cfg,
+                        cost_tier=getattr(emb, "cost_tier", 0),
+                        backend=getattr(emb, "backend", ""),
+                    ),
+                )
+
         survivors, drops = attribute_drops(candidates, self.filters, manifest)
 
+        # Pre-fetch embeddings for the selector when it asks for a space.
+        sel_constraints = dict(constraints or {})
+        sel_space = getattr(self.selector, "embedding_space", None)
+        if sel_space and sel_space in stores.embeddings:
+            import numpy as np  # local: numpy is a core dep but optional here
+
+            space_store = stores.embeddings[sel_space]
+            sel_constraints["embeddings"] = {
+                r.image_id: np.asarray(space_store[r.image_id], dtype=np.float32)
+                for r in survivors
+                if r.image_id in space_store
+            }
+
         kept = self.selector.select(
-            survivors, manifest, k=k, constraints=constraints or {}
+            survivors, manifest, k=k, constraints=sel_constraints
         )
 
         selector_id = getattr(
@@ -181,7 +241,27 @@ class Pipeline:
             dropped_by_filter=drops,
             scorer_ids=[s.metric_id for s in ordered],
             selector_id=selector_id,
+            notes={"embedder_ids": [e.space_id for e in self.embedders]}
+            if self.embedders
+            else {},
         )
+
+        # Cluster-coverage diagnosis. Skipped when `diagnose_clusters == 0`
+        # or when there's no embedding space to cluster over.
+        if (
+            self.diagnose_clusters > 0
+            and sel_space
+            and sel_constraints.get("embeddings")
+        ):
+            from lookbook.diagnose import cluster_coverage
+
+            coverage = cluster_coverage(
+                survivors,
+                kept,
+                sel_constraints["embeddings"],
+                n_clusters=self.diagnose_clusters,
+            )
+            report.notes["cluster_coverage"] = coverage
 
         finished = datetime.now(timezone.utc)
         rid = run_id or f"run-{started.strftime('%Y%m%dT%H%M%S')}"
