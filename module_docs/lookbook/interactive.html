@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.interactive &mdash; lookbook 0.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=282f96c0"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="lookbook.io" href="io.html" />
+    <link rel="prev" title="lookbook.http" href="http.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">lookbook.http</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.interactive</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.interactive.InteractiveDecision"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.interactive.InteractiveDecision.keep"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision.keep</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.interactive.InteractiveDecision.reject"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision.reject</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.interactive.InteractiveDecision.stop"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision.stop</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.interactive.curate_interactive"><code class="docutils literal notranslate"><span class="pre">curate_interactive()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lookbook.interactive</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/lookbook/interactive.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lookbook.interactive">
+<span id="lookbook-interactive"></span><h1>lookbook.interactive<a class="headerlink" href="#module-lookbook.interactive" title="Link to this heading"></a></h1>
+<p>Interactive curate loop — keep the human in the loop.</p>
+<p>The non-interactive <a class="reference internal" href="../lookbook.html#lookbook.curate" title="lookbook.curate"><code class="xref py py-func docutils literal notranslate"><span class="pre">lookbook.curate()</span></code></a> runs the pipeline once
+and returns its top-k. That works for fully-automated workflows but
+loses the human’s taste signal: a ranking that ranks “boring but
+high-quality” images above “stylistically perfect but slightly
+blurry” ones.</p>
+<p><a class="reference internal" href="#lookbook.interactive.curate_interactive" title="lookbook.interactive.curate_interactive"><code class="xref py py-func docutils literal notranslate"><span class="pre">curate_interactive()</span></code></a> invites the caller into the loop. Each
+round:</p>
+<ol class="arabic simple">
+<li><p>The pipeline picks the top <code class="docutils literal notranslate"><span class="pre">present</span></code> unseen candidates.</p></li>
+<li><p>The caller’s <code class="docutils literal notranslate"><span class="pre">on_decision(refs,</span> <span class="pre">info)</span></code> returns an
+<a class="reference internal" href="#lookbook.interactive.InteractiveDecision" title="lookbook.interactive.InteractiveDecision"><code class="xref py py-class docutils literal notranslate"><span class="pre">InteractiveDecision</span></code></a> saying which to keep, which to
+reject, and whether to stop.</p></li>
+<li><p>Kept refs lock into the final selection. Rejected refs leave the
+candidate pool and won’t be shown again. Everything else is
+eligible to come back next round (handy when the caller wants to
+defer a decision).</p></li>
+<li><p>The loop terminates when the caller says <code class="docutils literal notranslate"><span class="pre">stop</span></code>, when the
+confirmed-kept set reaches <code class="docutils literal notranslate"><span class="pre">k</span></code>, when the candidate pool is
+exhausted, or when <code class="docutils literal notranslate"><span class="pre">max_rounds</span></code> is reached.</p></li>
+</ol>
+<p>Two <code class="docutils literal notranslate"><span class="pre">on_decision</span></code> shapes are supported:</p>
+<ul class="simple">
+<li><p>A function: <code class="docutils literal notranslate"><span class="pre">on_decision(refs,</span> <span class="pre">info)</span> <span class="pre">-&gt;</span> <span class="pre">InteractiveDecision</span></code>.</p></li>
+<li><p>A list of pre-recorded <a class="reference internal" href="#lookbook.interactive.InteractiveDecision" title="lookbook.interactive.InteractiveDecision"><code class="xref py py-class docutils literal notranslate"><span class="pre">InteractiveDecision</span></code></a> items, applied
+one per round. Useful for tests and headless replays.</p></li>
+</ul>
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.interactive.InteractiveDecision">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.interactive.</span></span><span class="sig-name descname"><span class="pre">InteractiveDecision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reject</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/lookbook/interactive.html#InteractiveDecision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.interactive.InteractiveDecision" title="Link to this definition"></a></dt>
+<dd><p>One round’s verdict from the caller.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.interactive.InteractiveDecision.keep">
+<span class="sig-name descname"><span class="pre">keep</span></span><a class="headerlink" href="#lookbook.interactive.InteractiveDecision.keep" title="Link to this definition"></a></dt>
+<dd><p><a href="#id1"><span class="problematic" id="id2">``</span></a>image_id``s the caller wants to lock into the final
+selection. They’re added immediately, removed from the
+candidate pool, and not shown again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str, …]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.interactive.InteractiveDecision.reject">
+<span class="sig-name descname"><span class="pre">reject</span></span><a class="headerlink" href="#lookbook.interactive.InteractiveDecision.reject" title="Link to this definition"></a></dt>
+<dd><p><a href="#id3"><span class="problematic" id="id4">``</span></a>image_id``s the caller never wants to see again in
+this run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str, …]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.interactive.InteractiveDecision.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><a class="headerlink" href="#lookbook.interactive.InteractiveDecision.stop" title="Link to this definition"></a></dt>
+<dd><p>When True, the loop terminates after applying this
+round’s keep/reject and returns whatever is in the
+confirmed-kept set so far (clipped to <code class="docutils literal notranslate"><span class="pre">k</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.interactive.curate_interactive">
+<span class="sig-prename descclassname"><span class="pre">lookbook.interactive.</span></span><span class="sig-name descname"><span class="pre">curate_interactive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_decision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="#lookbook.interactive.InteractiveDecision" title="lookbook.interactive.InteractiveDecision"><span class="pre">InteractiveDecision</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#lookbook.interactive.InteractiveDecision" title="lookbook.interactive.InteractiveDecision"><span class="pre">InteractiveDecision</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">present</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scorer_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('random_score',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'top_k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../../_modules/lookbook/interactive.html#curate_interactive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.interactive.curate_interactive" title="Link to this definition"></a></dt>
+<dd><p>Run the pipeline in rounds, taking keep/reject decisions per round.</p>
+<p>Args mirror <a class="reference internal" href="../lookbook.html#lookbook.curate" title="lookbook.curate"><code class="xref py py-func docutils literal notranslate"><span class="pre">lookbook.curate()</span></code></a> plus:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>on_decision</strong> – A callable or a pre-recorded sequence of
+<a class="reference internal" href="#lookbook.interactive.InteractiveDecision" title="lookbook.interactive.InteractiveDecision"><code class="xref py py-class docutils literal notranslate"><span class="pre">InteractiveDecision</span></code></a>. The callable receives the
+round’s top candidates and an info dict
+<code class="docutils literal notranslate"><span class="pre">{round,</span> <span class="pre">n_kept_so_far,</span> <span class="pre">n_pool_remaining}</span></code>.</p></li>
+<li><p><strong>present</strong> – How many candidates to surface per round.</p></li>
+<li><p><strong>max_rounds</strong> – Hard cap on iterations; a defensive guard against
+broken decision callables that never stop.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <code class="xref py py-class docutils literal notranslate"><span class="pre">RunResult</span></code> whose <code class="docutils literal notranslate"><span class="pre">kept</span></code> list is the confirmed
+set (in the order they were kept). <code class="docutils literal notranslate"><span class="pre">candidates</span></code> carries the
+same as the final round’s pre-selection candidate pool.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="http.html" class="btn btn-neutral float-left" title="lookbook.http" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="io.html" class="btn btn-neutral float-right" title="lookbook.io" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright NO COPYRIGHT.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

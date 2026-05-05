@@ -1,0 +1,4 @@
+lookbook.interactive
+====================
+.. automodule:: lookbook.interactive
+   :members:

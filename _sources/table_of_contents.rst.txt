@@ -16,6 +16,7 @@
    module_docs/lookbook/filters/person
    module_docs/lookbook/filters/technical
    module_docs/lookbook/http
+   module_docs/lookbook/interactive
    module_docs/lookbook/io
    module_docs/lookbook/io/ingest
    module_docs/lookbook/manifest

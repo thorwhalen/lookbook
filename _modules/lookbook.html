@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook &mdash; lookbook 0.0.4 documentation</title>
+  <title>lookbook &mdash; lookbook 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -60,6 +60,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/interactive.html">lookbook.interactive</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/io.html">lookbook.io</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/io/ingest.html">lookbook.io.ingest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/manifest.html">lookbook.manifest</a></li>
@@ -147,6 +148,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.manifest</span><span class="w"> </span><span class="kn">import</span> <span class="n">value_of</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span><span class="p">,</span> <span class="n">RunResult</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.refs</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesImageRef</span><span class="p">,</span> <span class="n">PathImageRef</span><span class="p">,</span> <span class="n">UrlImageRef</span><span class="p">,</span> <span class="n">to_local_path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.interactive</span><span class="w"> </span><span class="kn">import</span> <span class="n">InteractiveDecision</span><span class="p">,</span> <span class="n">curate_interactive</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.store</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stores</span><span class="p">,</span> <span class="n">get_stores</span>
 
 
@@ -164,7 +166,9 @@
     <span class="s2">&quot;Selector&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Stores&quot;</span><span class="p">,</span>
     <span class="s2">&quot;UrlImageRef&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;InteractiveDecision&quot;</span><span class="p">,</span>
     <span class="s2">&quot;curate&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;curate_interactive&quot;</span><span class="p">,</span>
     <span class="s2">&quot;get_stores&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ingest&quot;</span><span class="p">,</span>
     <span class="s2">&quot;registry&quot;</span><span class="p">,</span>

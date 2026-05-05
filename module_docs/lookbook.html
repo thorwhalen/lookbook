@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook &mdash; lookbook 0.0.4 documentation</title>
+  <title>lookbook &mdash; lookbook 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=8c5712d9"></script>
+      <script src="../_static/documentation_options.js?v=282f96c0"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -58,6 +58,12 @@
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.Embedder"><code class="docutils literal notranslate"><span class="pre">Embedder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.ImageRef"><code class="docutils literal notranslate"><span class="pre">ImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.InteractiveDecision"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.InteractiveDecision.keep"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision.keep</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.InteractiveDecision.reject"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision.reject</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.InteractiveDecision.stop"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision.stop</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.Manifest"><code class="docutils literal notranslate"><span class="pre">Manifest</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.PathImageRef"><code class="docutils literal notranslate"><span class="pre">PathImageRef</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#lookbook.PathImageRef.local_path"><code class="docutils literal notranslate"><span class="pre">PathImageRef.local_path()</span></code></a></li>
@@ -76,6 +82,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.curate_interactive"><code class="docutils literal notranslate"><span class="pre">curate_interactive()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.get_stores"><code class="docutils literal notranslate"><span class="pre">get_stores()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.ingest"><code class="docutils literal notranslate"><span class="pre">ingest()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.score"><code class="docutils literal notranslate"><span class="pre">score()</span></code></a></li>
@@ -96,6 +103,7 @@
 <li class="toctree-l1"><a class="reference internal" href="lookbook/filters/person.html">lookbook.filters.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lookbook/filters/technical.html">lookbook.filters.technical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lookbook/interactive.html">lookbook.interactive</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lookbook/io.html">lookbook.io</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lookbook/io/ingest.html">lookbook.io.ingest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lookbook/manifest.html">lookbook.manifest</a></li>
@@ -195,6 +203,50 @@ a threshold or model invalidates.</p>
 <dd><p>Anything that knows its identity and how to be opened lazily.</p>
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.InteractiveDecision">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">InteractiveDecision</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reject</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lookbook/interactive.html#InteractiveDecision"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.InteractiveDecision" title="Link to this definition"></a></dt>
+<dd><p>One round’s verdict from the caller.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.InteractiveDecision.keep">
+<span class="sig-name descname"><span class="pre">keep</span></span><a class="headerlink" href="#lookbook.InteractiveDecision.keep" title="Link to this definition"></a></dt>
+<dd><p><a href="#id1"><span class="problematic" id="id2">``</span></a>image_id``s the caller wants to lock into the final
+selection. They’re added immediately, removed from the
+candidate pool, and not shown again.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str, …]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.InteractiveDecision.reject">
+<span class="sig-name descname"><span class="pre">reject</span></span><a class="headerlink" href="#lookbook.InteractiveDecision.reject" title="Link to this definition"></a></dt>
+<dd><p><a href="#id3"><span class="problematic" id="id4">``</span></a>image_id``s the caller never wants to see again in
+this run.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[str, …]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.InteractiveDecision.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><a class="headerlink" href="#lookbook.InteractiveDecision.stop" title="Link to this definition"></a></dt>
+<dd><p>When True, the loop terminates after applying this
+round’s keep/reject and returns whatever is in the
+confirmed-kept set so far (clipped to <code class="docutils literal notranslate"><span class="pre">k</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lookbook.Manifest">
 <span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">Manifest</span></span><a class="headerlink" href="#lookbook.Manifest" title="Link to this definition"></a></dt>
@@ -272,6 +324,31 @@ app data folder defaults.</p>
 tuple ((“blur”, {“max_side”: 256})) to override the default config.</p>
 <p><cite>diagnose_clusters &gt; 0</cite> runs cluster-coverage diagnosis after selection
 and writes the result into the report’s <cite>notes</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.curate_interactive">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">curate_interactive</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">on_decision</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="lookbook/base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="lookbook/interactive.html#lookbook.interactive.InteractiveDecision" title="lookbook.interactive.InteractiveDecision"><span class="pre">InteractiveDecision</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="lookbook/interactive.html#lookbook.interactive.InteractiveDecision" title="lookbook.interactive.InteractiveDecision"><span class="pre">InteractiveDecision</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">present</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">8</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_rounds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scorer_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('random_score',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'top_k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lookbook/store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lookbook/pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../_modules/lookbook/interactive.html#curate_interactive"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.curate_interactive" title="Link to this definition"></a></dt>
+<dd><p>Run the pipeline in rounds, taking keep/reject decisions per round.</p>
+<p>Args mirror <a class="reference internal" href="#lookbook.curate" title="lookbook.curate"><code class="xref py py-func docutils literal notranslate"><span class="pre">lookbook.curate()</span></code></a> plus:</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>on_decision</strong> – A callable or a pre-recorded sequence of
+<a class="reference internal" href="#lookbook.InteractiveDecision" title="lookbook.InteractiveDecision"><code class="xref py py-class docutils literal notranslate"><span class="pre">InteractiveDecision</span></code></a>. The callable receives the
+round’s top candidates and an info dict
+<code class="docutils literal notranslate"><span class="pre">{round,</span> <span class="pre">n_kept_so_far,</span> <span class="pre">n_pool_remaining}</span></code>.</p></li>
+<li><p><strong>present</strong> – How many candidates to surface per round.</p></li>
+<li><p><strong>max_rounds</strong> – Hard cap on iterations; a defensive guard against
+broken decision callables that never stop.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A <a class="reference internal" href="#lookbook.RunResult" title="lookbook.RunResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">RunResult</span></code></a> whose <code class="docutils literal notranslate"><span class="pre">kept</span></code> list is the confirmed
+set (in the order they were kept). <code class="docutils literal notranslate"><span class="pre">candidates</span></code> carries the
+same as the final round’s pre-selection candidate pool.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
