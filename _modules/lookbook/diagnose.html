@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.diagnose &mdash; lookbook 0.0.2 documentation</title>
+  <title>lookbook.diagnose &mdash; lookbook 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -160,9 +160,9 @@
             <span class="s2">&quot;underrepresented_clusters&quot;</span><span class="p">:</span> <span class="p">[],</span>
         <span class="p">}</span>
 
-    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">([</span>
-        <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">embeddings</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">candidates</span>
-    <span class="p">])</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">embeddings</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">candidates</span><span class="p">]</span>
+    <span class="p">)</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">n_clusters_eff</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">min</span><span class="p">(</span><span class="n">n_clusters</span><span class="p">,</span> <span class="n">n</span><span class="p">))</span>
 
@@ -183,17 +183,13 @@
 
     <span class="n">cand_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">labels</span><span class="p">)</span>
     <span class="n">kept_counts</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span>
-        <span class="n">cand_id_to_label</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">kept</span>
-        <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="ow">in</span> <span class="n">cand_id_to_label</span>
+        <span class="n">cand_id_to_label</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">]</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">kept</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="ow">in</span> <span class="n">cand_id_to_label</span>
     <span class="p">)</span>
 
     <span class="n">cluster_sizes_candidates</span> <span class="o">=</span> <span class="p">[</span><span class="n">cand_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters_eff</span><span class="p">)]</span>
     <span class="n">cluster_sizes_kept</span> <span class="o">=</span> <span class="p">[</span><span class="n">kept_counts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters_eff</span><span class="p">)]</span>
     <span class="n">empty</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_clusters_eff</span><span class="p">)</span> <span class="k">if</span> <span class="n">cluster_sizes_kept</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
-    <span class="n">underrep</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">empty</span> <span class="k">if</span> <span class="n">cluster_sizes_candidates</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span>
-    <span class="p">]</span>
+    <span class="n">underrep</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">empty</span> <span class="k">if</span> <span class="n">cluster_sizes_candidates</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="p">{</span>
         <span class="s2">&quot;n_clusters&quot;</span><span class="p">:</span> <span class="n">n_clusters_eff</span><span class="p">,</span>

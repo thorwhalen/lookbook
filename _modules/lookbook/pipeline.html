@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.pipeline &mdash; lookbook 0.0.2 documentation</title>
+  <title>lookbook.pipeline &mdash; lookbook 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -140,6 +140,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">Report</span><span class="p">,</span> <span class="n">attribute_drops</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.store</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stores</span><span class="p">,</span> <span class="n">get_stores</span>
 
+
 <span class="c1"># Stable manifest metric_id used to mark &quot;this image has been embedded in</span>
 <span class="c1"># space `space_id` with this config_hash.&quot; The vector itself lives in</span>
 <span class="c1"># `stores.embeddings[space_id][image_id]`; the manifest only tracks</span>
@@ -202,9 +203,7 @@
         <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">metric_id</span> <span class="ow">in</span> <span class="n">visited</span><span class="p">:</span>
             <span class="k">return</span>
         <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">metric_id</span> <span class="ow">in</span> <span class="n">visiting</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;cyclic dependency among scorers near </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span><span class="si">!r}</span><span class="s2">&quot;</span>
-            <span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;cyclic dependency among scorers near </span><span class="si">{</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span>
         <span class="n">visiting</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">metric_id</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">dep</span> <span class="ow">in</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;requires&quot;</span><span class="p">,</span> <span class="p">()):</span>
             <span class="k">if</span> <span class="n">dep</span> <span class="ow">in</span> <span class="n">by_id</span><span class="p">:</span>
@@ -259,8 +258,15 @@
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Pipeline.selector must be set before run()&quot;</span><span class="p">)</span>
 
         <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
-        <span class="n">stores</span> <span class="o">=</span> <span class="n">stores</span> <span class="k">if</span> <span class="n">stores</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_stores</span><span class="p">(</span>
-            <span class="n">images_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">manifest_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">runs_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">embeddings</span><span class="o">=</span><span class="p">{},</span>
+        <span class="n">stores</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">stores</span>
+            <span class="k">if</span> <span class="n">stores</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">get_stores</span><span class="p">(</span>
+                <span class="n">images_store</span><span class="o">=</span><span class="p">{},</span>
+                <span class="n">manifest_store</span><span class="o">=</span><span class="p">{},</span>
+                <span class="n">runs_store</span><span class="o">=</span><span class="p">{},</span>
+                <span class="n">embeddings</span><span class="o">=</span><span class="p">{},</span>
+            <span class="p">)</span>
         <span class="p">)</span>
         <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span> <span class="o">=</span> <span class="n">stores</span><span class="o">.</span><span class="n">manifest</span>
 

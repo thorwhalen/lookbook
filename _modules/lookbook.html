@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook &mdash; lookbook 0.0.2 documentation</title>
+  <title>lookbook &mdash; lookbook 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../_static/documentation_options.js?v=8c5712d9"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -146,7 +146,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.io</span><span class="w"> </span><span class="kn">import</span> <span class="n">ingest</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.manifest</span><span class="w"> </span><span class="kn">import</span> <span class="n">value_of</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span><span class="p">,</span> <span class="n">RunResult</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.refs</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesImageRef</span><span class="p">,</span> <span class="n">PathImageRef</span><span class="p">,</span> <span class="n">UrlImageRef</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.refs</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesImageRef</span><span class="p">,</span> <span class="n">PathImageRef</span><span class="p">,</span> <span class="n">UrlImageRef</span><span class="p">,</span> <span class="n">to_local_path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.store</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stores</span><span class="p">,</span> <span class="n">get_stores</span>
 
 
@@ -168,6 +168,7 @@
     <span class="s2">&quot;get_stores&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ingest&quot;</span><span class="p">,</span>
     <span class="s2">&quot;registry&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;to_local_path&quot;</span><span class="p">,</span>
     <span class="s2">&quot;score&quot;</span><span class="p">,</span>
     <span class="s2">&quot;value_of&quot;</span><span class="p">,</span>
 <span class="p">]</span>
@@ -246,7 +247,10 @@
         <span class="n">ref</span> <span class="o">=</span> <span class="n">PathImageRef</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">stores</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">stores</span> <span class="o">=</span> <span class="n">get_stores</span><span class="p">(</span>
-            <span class="n">images_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">manifest_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">runs_store</span><span class="o">=</span><span class="p">{},</span> <span class="n">embeddings</span><span class="o">=</span><span class="p">{},</span>
+            <span class="n">images_store</span><span class="o">=</span><span class="p">{},</span>
+            <span class="n">manifest_store</span><span class="o">=</span><span class="p">{},</span>
+            <span class="n">runs_store</span><span class="o">=</span><span class="p">{},</span>
+            <span class="n">embeddings</span><span class="o">=</span><span class="p">{},</span>
         <span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">scorers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">metric_id</span><span class="p">)</span>
     <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">scorers</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">selector</span><span class="o">=</span><span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;top_k&quot;</span><span class="p">))</span>

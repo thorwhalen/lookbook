@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.refs &mdash; lookbook 0.0.2 documentation</title>
+  <title>lookbook.refs &mdash; lookbook 0.0.4 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=e3a6060d"></script>
+      <script src="../../_static/documentation_options.js?v=8c5712d9"></script>
       <script src="../../_static/doctools.js?v=9bcbadda"></script>
       <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -70,9 +70,19 @@
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">lookbook.pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="profiles.html">lookbook.profiles</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.refs</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#lookbook.refs.BytesImageRef"><code class="docutils literal notranslate"><span class="pre">BytesImageRef</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lookbook.refs.PathImageRef"><code class="docutils literal notranslate"><span class="pre">PathImageRef</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#lookbook.refs.UrlImageRef"><code class="docutils literal notranslate"><span class="pre">UrlImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.refs.BytesImageRef"><code class="docutils literal notranslate"><span class="pre">BytesImageRef</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.refs.BytesImageRef.local_path"><code class="docutils literal notranslate"><span class="pre">BytesImageRef.local_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.refs.PathImageRef"><code class="docutils literal notranslate"><span class="pre">PathImageRef</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.refs.PathImageRef.local_path"><code class="docutils literal notranslate"><span class="pre">PathImageRef.local_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.refs.UrlImageRef"><code class="docutils literal notranslate"><span class="pre">UrlImageRef</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.refs.UrlImageRef.local_path"><code class="docutils literal notranslate"><span class="pre">UrlImageRef.local_path()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.refs.to_local_path"><code class="docutils literal notranslate"><span class="pre">to_local_path()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="registry.html">lookbook.registry</a></li>
@@ -118,16 +128,33 @@
 around; scorers open them lazily; the manifest is keyed by <cite>image_id</cite>.</p>
 <p>Three impls are provided here. None of them require Pillow at import time;
 <cite>open()</cite> defers the import.</p>
+<p>All three expose <code class="docutils literal notranslate"><span class="pre">local_path(cache_dir=None)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> — a path on the
+local filesystem that the bytes are reachable through. Path refs return
+their existing path; bytes/url refs materialize once into a content-
+addressed cache and reuse the result. This is the ergonomic surface for
+downstream tools that want a file (e.g. ffmpeg, lookbook → fal upload).</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="lookbook.refs.BytesImageRef">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.refs.</span></span><span class="sig-name descname"><span class="pre">BytesImageRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload:</span> <span class="pre">bytes</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata:</span> <span class="pre">~collections.abc.Mapping[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/lookbook/refs.html#BytesImageRef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.refs.BytesImageRef" title="Link to this definition"></a></dt>
 <dd><p>An image stored as raw bytes in memory.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lookbook.refs.BytesImageRef.local_path">
+<span class="sig-name descname"><span class="pre">local_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/lookbook/refs.html#BytesImageRef.local_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.refs.BytesImageRef.local_path" title="Link to this definition"></a></dt>
+<dd><p>Materialize the bytes into a file (cached by image_id).</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
 <dt class="sig sig-object py" id="lookbook.refs.PathImageRef">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.refs.</span></span><span class="sig-name descname"><span class="pre">PathImageRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata:</span> <span class="pre">~collections.abc.Mapping[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/lookbook/refs.html#PathImageRef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.refs.PathImageRef" title="Link to this definition"></a></dt>
 <dd><p>An image referenced by filesystem path.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lookbook.refs.PathImageRef.local_path">
+<span class="sig-name descname"><span class="pre">local_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/lookbook/refs.html#PathImageRef.local_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.refs.PathImageRef.local_path" title="Link to this definition"></a></dt>
+<dd><p>Return the existing on-disk path. <code class="docutils literal notranslate"><span class="pre">cache_dir</span></code> is ignored.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -135,6 +162,22 @@ around; scorers open them lazily; the manifest is keyed by <cite>image_id</cite>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lookbook.refs.</span></span><span class="sig-name descname"><span class="pre">UrlImageRef</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">url:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">image_id:</span> <span class="pre">str</span> <span class="pre">=</span> <span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata:</span> <span class="pre">~collections.abc.Mapping[str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">~typing.Any]</span> <span class="pre">=</span> <span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_cached:</span> <span class="pre">bytes</span> <span class="pre">|</span> <span class="pre">None</span> <span class="pre">=</span> <span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/lookbook/refs.html#UrlImageRef"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.refs.UrlImageRef" title="Link to this definition"></a></dt>
 <dd><p>An image referenced by URL.</p>
 <p>The bytes are fetched on first access and cached on the instance.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lookbook.refs.UrlImageRef.local_path">
+<span class="sig-name descname"><span class="pre">local_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/lookbook/refs.html#UrlImageRef.local_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.refs.UrlImageRef.local_path" title="Link to this definition"></a></dt>
+<dd><p>Download (once) and return the local path.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.refs.to_local_path">
+<span class="sig-prename descclassname"><span class="pre">lookbook.refs.</span></span><span class="sig-name descname"><span class="pre">to_local_path</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cache_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../../_modules/lookbook/refs.html#to_local_path"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.refs.to_local_path" title="Link to this definition"></a></dt>
+<dd><p>Return a filesystem path where the bytes of <code class="docutils literal notranslate"><span class="pre">ref</span></code> can be read.</p>
+<p>Works on any object that exposes <code class="docutils literal notranslate"><span class="pre">.local_path(cache_dir)</span></code> — i.e.
+every concrete <code class="docutils literal notranslate"><span class="pre">ImageRef</span></code> shipped with lookbook. Provided as a
+free function so downstream code doesn’t need to know which subtype
+it has.</p>
 </dd></dl>
 
 </section>
