@@ -100,6 +100,38 @@ print(result.report)        # drop counts attributed to each filter
 print([r.image_id for r in result.kept])
 ```
 
+### Interactive curate (keep the human in the loop)
+
+Pipeline-only top-k can rank "boring but sharp" above "stylistically
+perfect but slightly blurry". `curate_interactive` invites the caller
+into the loop, one round at a time:
+
+```python
+from lookbook import curate_interactive, InteractiveDecision
+
+def decide(presented, info):
+    # show `presented` to the user; collect their picks
+    return InteractiveDecision(keep=("img-abc",), reject=("img-xyz",))
+
+result = curate_interactive(
+    "./photos", on_decision=decide, k=20, present=8,
+    scorer_ids=("blur", "exposure"),
+)
+```
+
+Pre-recorded decisions (a list of `InteractiveDecision`) are accepted in
+place of the callable — handy for tests, headless replays, and
+agent-scripted flows.
+
+### `local_path()` on every ImageRef
+
+`PathImageRef`, `BytesImageRef`, and `UrlImageRef` all expose
+`local_path(cache_dir=None) -> str`. Path refs return their existing
+path; bytes/url refs materialize once into a content-addressed cache
+(honors `$LOOKBOOK_REFS_CACHE_DIR`). The free function
+`lookbook.to_local_path(ref)` dispatches across all subtypes — useful
+when downstream tools (ffmpeg, fal upload) need a real file.
+
 ## Architecture
 
 Five layers; the heavy ML libs live only at the bottom so the upper layers
