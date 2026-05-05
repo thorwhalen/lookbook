@@ -152,7 +152,8 @@ def curate_interactive(
         if len(confirmed) >= k:
             break
         eligible = [
-            r for r in pool
+            r
+            for r in pool
             if r.image_id not in confirmed_ids and r.image_id not in rejected_ids
         ]
         if not eligible:
