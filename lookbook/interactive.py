@@ -121,11 +121,7 @@ def curate_interactive(
     """
     decision_fn = _as_decision_fn(on_decision)
 
-    refs = (
-        list(_ingest(source))
-        if not isinstance(source, list)
-        else list(source)
-    )
+    refs = _coerce_to_refs(source)
     if k <= 0:
         raise ValueError(f"k must be positive (got {k})")
     if present <= 0:
@@ -209,6 +205,26 @@ def curate_interactive(
             "n_rejected": len(rejected_ids),
         },
     )
+
+
+def _coerce_to_refs(source) -> list[ImageRef]:
+    """Accept the same range of source types as :func:`lookbook.curate`,
+    and additionally accept a list of ``str``/``Path`` values by wrapping
+    each as a :class:`PathImageRef`.
+    """
+    import os as _os
+
+    from lookbook.refs import PathImageRef
+
+    if isinstance(source, list):
+        out: list[ImageRef] = []
+        for item in source:
+            if isinstance(item, (str, _os.PathLike)) and not isinstance(item, ImageRef):
+                out.append(PathImageRef(path=str(item)))
+            else:
+                out.append(item)
+        return out
+    return list(_ingest(source))
 
 
 __all__ = [
