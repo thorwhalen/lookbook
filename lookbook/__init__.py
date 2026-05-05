@@ -41,6 +41,7 @@ from lookbook.io import ingest
 from lookbook.manifest import value_of
 from lookbook.pipeline import Pipeline, RunResult
 from lookbook.refs import BytesImageRef, PathImageRef, UrlImageRef, to_local_path
+from lookbook.interactive import InteractiveDecision, curate_interactive
 from lookbook.store import Stores, get_stores
 
 
@@ -58,7 +59,9 @@ __all__ = [
     "Selector",
     "Stores",
     "UrlImageRef",
+    "InteractiveDecision",
     "curate",
+    "curate_interactive",
     "get_stores",
     "ingest",
     "registry",
