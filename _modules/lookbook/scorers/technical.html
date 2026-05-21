@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.scorers.technical &mdash; lookbook 0.0.6 documentation</title>
+  <title>lookbook.scorers.technical &mdash; lookbook 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="../../../_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -131,6 +131,7 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">Manifest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.manifest</span><span class="w"> </span><span class="kn">import</span> <span class="n">value_of</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">scorers</span>
 
 
@@ -388,6 +389,73 @@
 
 
 <span class="n">scorers</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;exposure&quot;</span><span class="p">,</span> <span class="n">Exposure</span><span class="p">())</span>
+
+
+<span class="c1"># ---------------------------------------------------------------------------</span>
+<span class="c1"># Composite: technical_quality</span>
+<span class="c1"># ---------------------------------------------------------------------------</span>
+
+
+<div class="viewcode-block" id="TechnicalQuality">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.TechnicalQuality">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">TechnicalQuality</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Composite 0..1 technical-quality score. T1, derived.</span>
+
+<span class="sd">    Reads `blur`, `exposure`, and `resolution` from the manifest (the</span>
+<span class="sd">    orchestrator&#39;s topo-sort runs them first via `requires`) and folds</span>
+<span class="sd">    them into one rankable number. This is the non-face counterpart of</span>
+<span class="sd">    `face_quality`: it gives `top_k` a single metric for curating image</span>
+<span class="sd">    pools where no face is involved — environment plates, prop refs,</span>
+<span class="sd">    style boards.</span>
+
+<span class="sd">    The blend is sharpness-dominant (a soft or blown reference is the</span>
+<span class="sd">    worst failure mode), with exposure clipping and resolution as</span>
+<span class="sd">    secondary terms. `blur` missing yields a neutral 0.5 sharpness so a</span>
+<span class="sd">    pool scored without the blur scorer still ranks by exposure + size.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;technical_quality&quot;</span>
+    <span class="n">cost_tier</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">requires</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="s2">&quot;exposure&quot;</span><span class="p">,</span> <span class="s2">&quot;resolution&quot;</span><span class="p">)</span>
+    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;derived&quot;</span>
+    <span class="n">blur_normalization</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">500.0</span>  <span class="c1"># blur value that maps to full sharpness</span>
+    <span class="n">target_long_side</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1024</span>  <span class="c1"># long side that maps to full resolution score</span>
+    <span class="n">clipping_penalty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span>  <span class="c1"># how hard under/over-exposed pixels hurt</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_hash_config</span><span class="p">(</span>
+            <span class="n">blur_norm</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">blur_normalization</span><span class="p">,</span>
+            <span class="n">target</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">target_long_side</span><span class="p">,</span>
+            <span class="n">clip_pen</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clipping_penalty</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">blur</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;blur&quot;</span><span class="p">)</span>
+        <span class="n">exposure</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;exposure&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;resolution&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+
+        <span class="k">if</span> <span class="n">blur</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sharpness</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># neutral when the blur scorer wasn&#39;t run</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">sharpness</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">blur</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">blur_normalization</span><span class="p">))</span>
+
+        <span class="n">clipped</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">exposure</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;frac_underexposed&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span>
+            <span class="n">exposure</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;frac_overexposed&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">exposure_score</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">clipped</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">clipping_penalty</span><span class="p">)</span>
+
+        <span class="n">long_side</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;long_side&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">resolution_score</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">long_side</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_long_side</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span>
+            <span class="mf">0.5</span> <span class="o">*</span> <span class="n">sharpness</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="n">exposure_score</span> <span class="o">+</span> <span class="mf">0.2</span> <span class="o">*</span> <span class="n">resolution_score</span>
+        <span class="p">)</span></div>
+
+
+
+<span class="n">scorers</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;technical_quality&quot;</span><span class="p">,</span> <span class="n">TechnicalQuality</span><span class="p">())</span>
 </pre></div>
 
            </div>

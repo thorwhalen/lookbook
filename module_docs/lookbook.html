@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook &mdash; lookbook 0.0.6 documentation</title>
+  <title>lookbook &mdash; lookbook 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="../_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -81,6 +81,8 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.curate_for_character"><code class="docutils literal notranslate"><span class="pre">curate_for_character()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.curate_for_environment"><code class="docutils literal notranslate"><span class="pre">curate_for_environment()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.curate_interactive"><code class="docutils literal notranslate"><span class="pre">curate_interactive()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.get_stores"><code class="docutils literal notranslate"><span class="pre">get_stores()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.ingest"><code class="docutils literal notranslate"><span class="pre">ingest()</span></code></a></li>
@@ -317,6 +319,44 @@ app data folder defaults.</p>
 tuple ((“blur”, {“max_side”: 256})) to override the default config.</p>
 <p><cite>diagnose_clusters &gt; 0</cite> runs cluster-coverage diagnosis after selection
 and writes the result into the report’s <cite>notes</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.curate_for_character">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">curate_for_character</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_detector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'insightface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lookbook/store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lookbook/pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../_modules/lookbook.html#curate_for_character"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.curate_for_character" title="Link to this definition"></a></dt>
+<dd><p>Curate the best reference image(s) of a <em>known</em> character from a pool.</p>
+<p>Opinionated facade over <a class="reference internal" href="#lookbook.curate" title="lookbook.curate"><code class="xref py py-func docutils literal notranslate"><span class="pre">curate()</span></code></a>, tuned for the “pick the
+reference image of this one character” job (IP-adapter conditioning,
+model-sheet seeding): every image is scored for resolution, sharpness,
+exposure and face quality, then the top <code class="docutils literal notranslate"><span class="pre">k</span></code> are taken by the
+composite <code class="docutils literal notranslate"><span class="pre">face_quality</span></code> metric.</p>
+<p>Identity is <em>not</em> scored — the pool is assumed to already be one
+character, so what matters is which frame shows them most usably: in
+focus, well exposed, face clearly visible and well sized.</p>
+<p><cite>face_detector</cite> names the registered face-box scorer:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;insightface&quot;</span></code> — real RetinaFace detection; needs
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">lookbook[person]</span></code>. The default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;mock_face&quot;</span></code> — the deterministic centred-box detector, for tests
+and demos without the ML dependency.</p></li>
+</ul>
+<p>Images with no detected face score <code class="docutils literal notranslate"><span class="pre">0</span></code> and sort last; the pool is
+never filtered down to empty, so a small or awkward pool still yields
+a best-effort pick.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.curate_for_environment">
+<span class="sig-prename descclassname"><span class="pre">lookbook.</span></span><span class="sig-name descname"><span class="pre">curate_for_environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lookbook/store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lookbook/pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../_modules/lookbook.html#curate_for_environment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.curate_for_environment" title="Link to this definition"></a></dt>
+<dd><p>Curate the best reference image(s) for a non-person subject.</p>
+<p>Opinionated facade over <a class="reference internal" href="#lookbook.curate" title="lookbook.curate"><code class="xref py py-func docutils literal notranslate"><span class="pre">curate()</span></code></a> for pools where face detection
+is moot — environment plates, prop references, style boards. Each
+image is scored for resolution, sharpness and exposure, folded into
+the composite <code class="docutils literal notranslate"><span class="pre">technical_quality</span></code> metric, and the top <code class="docutils literal notranslate"><span class="pre">k</span></code> are
+taken.</p>
+<p>Unlike <a class="reference internal" href="#lookbook.curate_for_character" title="lookbook.curate_for_character"><code class="xref py py-func docutils literal notranslate"><span class="pre">curate_for_character()</span></code></a> this needs no ML dependency — the
+scorers run on Pillow + numpy (cv2 is used for sharpness when present,
+with a numpy fallback otherwise).</p>
 </dd></dl>
 
 <dl class="py function">

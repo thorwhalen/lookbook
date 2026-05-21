@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.scorers.technical &mdash; lookbook 0.0.6 documentation</title>
+  <title>lookbook.scorers.technical &mdash; lookbook 0.0.7 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=1fd71caa"></script>
+      <script src="../../../_static/documentation_options.js?v=bbaf98b3"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -82,6 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.technical.PerceptualHash"><code class="docutils literal notranslate"><span class="pre">PerceptualHash</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.technical.RandomScore"><code class="docutils literal notranslate"><span class="pre">RandomScore</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.technical.Resolution"><code class="docutils literal notranslate"><span class="pre">Resolution</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.technical.TechnicalQuality"><code class="docutils literal notranslate"><span class="pre">TechnicalQuality</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.technical.phash_distance"><code class="docutils literal notranslate"><span class="pre">phash_distance()</span></code></a></li>
 </ul>
 </li>
@@ -175,6 +176,22 @@ between hex strings (over hash bits) is the standard near-dup metric;
 <dt class="sig sig-object py" id="lookbook.scorers.technical.Resolution">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.technical.</span></span><span class="sig-name descname"><span class="pre">Resolution</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'resolution'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Pillow'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/technical.html#Resolution"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.technical.Resolution" title="Link to this definition"></a></dt>
 <dd><p>Image dimensions and long-side. T0 — header read, no decode.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.technical.TechnicalQuality">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.technical.</span></span><span class="sig-name descname"><span class="pre">TechnicalQuality</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'technical_quality'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('blur',</span> <span class="pre">'exposure',</span> <span class="pre">'resolution')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'derived'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blur_normalization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">500.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_long_side</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1024</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">clipping_penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/technical.html#TechnicalQuality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.technical.TechnicalQuality" title="Link to this definition"></a></dt>
+<dd><p>Composite 0..1 technical-quality score. T1, derived.</p>
+<p>Reads <cite>blur</cite>, <cite>exposure</cite>, and <cite>resolution</cite> from the manifest (the
+orchestrator’s topo-sort runs them first via <cite>requires</cite>) and folds
+them into one rankable number. This is the non-face counterpart of
+<cite>face_quality</cite>: it gives <cite>top_k</cite> a single metric for curating image
+pools where no face is involved — environment plates, prop refs,
+style boards.</p>
+<p>The blend is sharpness-dominant (a soft or blown reference is the
+worst failure mode), with exposure clipping and resolution as
+secondary terms. <cite>blur</cite> missing yields a neutral 0.5 sharpness so a
+pool scored without the blur scorer still ranks by exposure + size.</p>
 </dd></dl>
 
 <dl class="py function">
