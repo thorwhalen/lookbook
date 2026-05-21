@@ -23,6 +23,7 @@ from dataclasses import dataclass
 import numpy as np
 
 from lookbook.base import ImageRef, Manifest
+from lookbook.manifest import value_of
 from lookbook.registry import scorers
 
 
@@ -259,3 +260,67 @@ class Exposure:
 
 
 scorers.register("exposure", Exposure())
+
+
+# ---------------------------------------------------------------------------
+# Composite: technical_quality
+# ---------------------------------------------------------------------------
+
+
+@dataclass
+class TechnicalQuality:
+    """Composite 0..1 technical-quality score. T1, derived.
+
+    Reads `blur`, `exposure`, and `resolution` from the manifest (the
+    orchestrator's topo-sort runs them first via `requires`) and folds
+    them into one rankable number. This is the non-face counterpart of
+    `face_quality`: it gives `top_k` a single metric for curating image
+    pools where no face is involved — environment plates, prop refs,
+    style boards.
+
+    The blend is sharpness-dominant (a soft or blown reference is the
+    worst failure mode), with exposure clipping and resolution as
+    secondary terms. `blur` missing yields a neutral 0.5 sharpness so a
+    pool scored without the blur scorer still ranks by exposure + size.
+    """
+
+    metric_id: str = "technical_quality"
+    cost_tier: int = 1
+    requires: tuple = ("blur", "exposure", "resolution")
+    backend: str = "derived"
+    blur_normalization: float = 500.0  # blur value that maps to full sharpness
+    target_long_side: int = 1024  # long side that maps to full resolution score
+    clipping_penalty: float = 2.0  # how hard under/over-exposed pixels hurt
+
+    @property
+    def config_hash(self) -> str:
+        return _hash_config(
+            blur_norm=self.blur_normalization,
+            target=self.target_long_side,
+            clip_pen=self.clipping_penalty,
+        )
+
+    def score(self, ref: ImageRef, manifest: Manifest) -> float:
+        blur = value_of(manifest, ref.image_id, "blur")
+        exposure = value_of(manifest, ref.image_id, "exposure") or {}
+        res = value_of(manifest, ref.image_id, "resolution") or {}
+
+        if blur is None:
+            sharpness = 0.5  # neutral when the blur scorer wasn't run
+        else:
+            sharpness = min(1.0, float(blur) / float(self.blur_normalization))
+
+        clipped = float(exposure.get("frac_underexposed", 0.0)) + float(
+            exposure.get("frac_overexposed", 0.0)
+        )
+        exposure_score = max(0.0, 1.0 - clipped * self.clipping_penalty)
+
+        long_side = float(res.get("long_side", 0))
+        resolution_score = min(1.0, long_side / float(self.target_long_side))
+
+        return float(
+            0.5 * sharpness + 0.3 * exposure_score + 0.2 * resolution_score
+        )
+
+
+scorers.register("technical_quality", TechnicalQuality())

@@ -61,6 +61,8 @@ __all__ = [
     "UrlImageRef",
     "InteractiveDecision",
     "curate",
+    "curate_for_character",
+    "curate_for_environment",
     "curate_interactive",
     "get_stores",
     "ingest",
@@ -148,3 +150,80 @@ def score(
     pipeline = Pipeline(scorers=[s], selector=registry.selectors.get("top_k"))
     pipeline.run([ref], k=1, stores=stores)
     return value_of(stores.manifest, ref.image_id, metric_id)
+
+
+def curate_for_character(
+    source,
+    *,
+    k: int = 1,
+    face_detector: PluginSpec = "insightface",
+    stores: Optional[Stores] = None,
+    constraints: Optional[Mapping[str, Any]] = None,
+) -> RunResult:
+    """Curate the best reference image(s) of a *known* character from a pool.
+
+    Opinionated facade over :func:`curate`, tuned for the "pick the
+    reference image of this one character" job (IP-adapter conditioning,
+    model-sheet seeding): every image is scored for resolution, sharpness,
+    exposure and face quality, then the top ``k`` are taken by the
+    composite ``face_quality`` metric.
+
+    Identity is *not* scored — the pool is assumed to already be one
+    character, so what matters is which frame shows them most usably: in
+    focus, well exposed, face clearly visible and well sized.
+
+    `face_detector` names the registered face-box scorer:
+
+    - ``"insightface"`` — real RetinaFace detection; needs
+      ``pip install lookbook[person]``. The default.
+    - ``"mock_face"`` — the deterministic centred-box detector, for tests
+      and demos without the ML dependency.
+
+    Images with no detected face score ``0`` and sort last; the pool is
+    never filtered down to empty, so a small or awkward pool still yields
+    a best-effort pick.
+    """
+    return curate(
+        source,
+        k=k,
+        scorer_ids=(
+            "resolution",
+            "blur",
+            "exposure",
+            face_detector,
+            "face_area",
+            "face_quality",
+        ),
+        selector_id=("top_k", {"metric_id": "face_quality"}),
+        stores=stores,
+        constraints=constraints,
+    )
+
+
+def curate_for_environment(
+    source,
+    *,
+    k: int = 1,
+    stores: Optional[Stores] = None,
+    constraints: Optional[Mapping[str, Any]] = None,
+) -> RunResult:
+    """Curate the best reference image(s) for a non-person subject.
+
+    Opinionated facade over :func:`curate` for pools where face detection
+    is moot — environment plates, prop references, style boards. Each
+    image is scored for resolution, sharpness and exposure, folded into
+    the composite ``technical_quality`` metric, and the top ``k`` are
+    taken.
+
+    Unlike :func:`curate_for_character` this needs no ML dependency — the
+    scorers run on Pillow + numpy (cv2 is used for sharpness when present,
+    with a numpy fallback otherwise).
+    """
+    return curate(
+        source,
+        k=k,
+        scorer_ids=("resolution", "blur", "exposure", "technical_quality"),
+        selector_id=("top_k", {"metric_id": "technical_quality"}),
+        stores=stores,
+        constraints=constraints,
+    )
