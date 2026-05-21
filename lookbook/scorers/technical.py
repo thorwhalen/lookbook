@@ -318,9 +318,7 @@ class TechnicalQuality:
         long_side = float(res.get("long_side", 0))
         resolution_score = min(1.0, long_side / float(self.target_long_side))
 
-        return float(
-            0.5 * sharpness + 0.3 * exposure_score + 0.2 * resolution_score
-        )
+        return float(0.5 * sharpness + 0.3 * exposure_score + 0.2 * resolution_score)
 
 
 scorers.register("technical_quality", TechnicalQuality())
