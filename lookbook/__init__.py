@@ -42,6 +42,11 @@ from lookbook.manifest import value_of
 from lookbook.pipeline import Pipeline, RunResult
 from lookbook.refs import BytesImageRef, PathImageRef, UrlImageRef, to_local_path
 from lookbook.interactive import InteractiveDecision, curate_interactive
+from lookbook.scorers.identity import (
+    IdentitySimilarity,
+    SimilarityResult,
+    compare_to_reference,
+)
 from lookbook.store import Stores, get_stores
 
 
@@ -50,6 +55,7 @@ __all__ = [
     "BytesImageRef",
     "Embedder",
     "Filter",
+    "IdentitySimilarity",
     "ImageRef",
     "Manifest",
     "PathImageRef",
@@ -57,9 +63,11 @@ __all__ = [
     "RunResult",
     "Scorer",
     "Selector",
+    "SimilarityResult",
     "Stores",
     "UrlImageRef",
     "InteractiveDecision",
+    "compare_to_reference",
     "curate",
     "curate_for_character",
     "curate_for_environment",

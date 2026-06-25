@@ -143,6 +143,42 @@ def score_image(*, source_path: str = "", image_id: str = "", metric_id: str) ->
     return {"image_id": ref.image_id, "metric_id": metric_id, "value": v}
 
 
+def compare_to_reference(
+    *,
+    reference_paths: Sequence[str],
+    candidate_path: str,
+    embedder: str = "arcface",
+    threshold: float = 0.85,
+    aggregation: str = "max",
+    normalization: str = "rescale",
+) -> dict:
+    """Identity/likeness of a candidate vs a locked reference (or pool).
+
+    The reference-supervisor verb: returns a normalized similarity in
+    ``[0, 1]`` (1 = same identity) plus an advisory ``passed`` flag. Pass one
+    or more ``reference_paths`` (server-local image paths) and a single
+    ``candidate_path``. ``embedder`` selects the space — ``"arcface"`` for
+    faces (default), ``"clip"`` / ``"dinov2"`` for scenes/architecture.
+
+    The pass/fail is **advisory** — the caller decides whether to act on it.
+    """
+    from lookbook.scorers.identity import (
+        compare_to_reference as _compare_to_reference,
+    )
+
+    refs = [PathImageRef(path=p) for p in reference_paths]
+    reference = refs if len(refs) != 1 else refs[0]
+    result = _compare_to_reference(
+        reference,
+        PathImageRef(path=candidate_path),
+        embedder=embedder,
+        threshold=threshold,
+        aggregation=aggregation,
+        normalization=normalization,
+    )
+    return result.as_dict()
+
+
 def get_annotations(image_id: str) -> dict:
     """All annotations for one image (drawn from the manifest)."""
     stores = _get_stores()
@@ -279,6 +315,7 @@ def mk_lookbook_app(*, app=None, **kwargs):
         ingest_source,
         curate_source,
         score_image,
+        compare_to_reference,
         get_annotations,
         list_runs,
         get_run,
