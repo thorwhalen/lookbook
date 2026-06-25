@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.mcp &mdash; lookbook 0.0.8 documentation</title>
+  <title>lookbook.mcp &mdash; lookbook 0.0.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=53b53b71"></script>
+      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -68,6 +68,7 @@
 <li class="toctree-l1"><a class="reference internal" href="io/ingest.html">lookbook.io.ingest</a></li>
 <li class="toctree-l1"><a class="reference internal" href="manifest.html">lookbook.manifest</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.mcp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_compare_to_reference"><code class="docutils literal notranslate"><span class="pre">mcp_compare_to_reference()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_curate_source"><code class="docutils literal notranslate"><span class="pre">mcp_curate_source()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_get_annotations"><code class="docutils literal notranslate"><span class="pre">mcp_get_annotations()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.mcp.mcp_get_image"><code class="docutils literal notranslate"><span class="pre">mcp_get_image()</span></code></a></li>
@@ -87,6 +88,7 @@
 <li class="toctree-l1"><a class="reference internal" href="registry.html">lookbook.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="report.html">lookbook.report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/identity.html">lookbook.scorers.identity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scorers/person.html">lookbook.scorers.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scorers/technical.html">lookbook.scorers.technical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selectors.html">lookbook.selectors</a></li>
@@ -130,6 +132,38 @@ swapping between an HTTP frontend and an MCP frontend is “wire it once,
 expose it twice.”</p>
 <p>Run the server over stdio with <cite>lookbook mcp</cite> (the default transport
 that Claude Desktop and the Anthropic SDK expect).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.mcp.mcp_compare_to_reference">
+<span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_compare_to_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'arcface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'max'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'rescale'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_compare_to_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_compare_to_reference" title="Link to this definition"></a></dt>
+<dd><p>Check whether a generated image still matches a locked reference.</p>
+<p>The reference-supervisor verb. Embeds the candidate and the reference(s)
+in the chosen space and returns a normalized identity similarity in
+<cite>[0, 1]</cite> (1 = same identity) plus an advisory <cite>passed</cite> flag against the
+threshold. The pass/fail is advisory — you decide whether to act on it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reference_paths</strong> – one or more server-local paths of the locked
+reference image(s). A pool is folded by <cite>aggregation</cite>.</p></li>
+<li><p><strong>candidate_path</strong> – server-local path of the candidate generation.</p></li>
+<li><p><strong>embedder</strong> – <cite>“arcface”</cite> for face identity (default), <cite>“clip”</cite> or
+<cite>“dinov2”</cite> for scenes / architecture / props.</p></li>
+<li><p><strong>threshold</strong> – advisory pass/fail cutoff on the [0, 1] scale.</p></li>
+<li><p><strong>aggregation</strong> – how to fold a reference pool — <cite>“max”</cite> (matches any
+locked view; default), <cite>“mean”</cite>, or <cite>“min”</cite>.</p></li>
+<li><p><strong>normalization</strong> – cosine→[0,1] map — <cite>“rescale”</cite> (default) or <cite>“clamp”</cite>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt><a href="#id1"><span class="problematic" id="id2">`</span></a>{identity_cosine, score, passed, threshold, per_reference,</dt><dd><p>aggregation, n_references}`.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="lookbook.mcp.mcp_curate_source">
 <span class="sig-prename descclassname"><span class="pre">lookbook.mcp.</span></span><span class="sig-name descname"><span class="pre">mcp_curate_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'funnel'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/mcp.html#mcp_curate_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.mcp.mcp_curate_source" title="Link to this definition"></a></dt>
@@ -293,7 +327,7 @@ transport.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright NO COPYRIGHT.</p>
+    <p></p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

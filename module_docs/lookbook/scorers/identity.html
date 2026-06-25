@@ -1,0 +1,458 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.scorers.identity &mdash; lookbook 0.0.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="lookbook.scorers.person" href="person.html" />
+    <link rel="prev" title="lookbook.scorers" href="../scorers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../interactive.html">lookbook.interactive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.scorers.identity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#design-notes">Design notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.DFLT_AGGREGATION"><code class="docutils literal notranslate"><span class="pre">DFLT_AGGREGATION</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.DFLT_EMBEDDER"><code class="docutils literal notranslate"><span class="pre">DFLT_EMBEDDER</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.DFLT_NORMALIZATION"><code class="docutils literal notranslate"><span class="pre">DFLT_NORMALIZATION</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.DFLT_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DFLT_THRESHOLD</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.IdentitySimilarity"><code class="docutils literal notranslate"><span class="pre">IdentitySimilarity</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.IdentitySimilarity.compare"><code class="docutils literal notranslate"><span class="pre">IdentitySimilarity.compare()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.IdentitySimilarity.score"><code class="docutils literal notranslate"><span class="pre">IdentitySimilarity.score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.METRIC_ID"><code class="docutils literal notranslate"><span class="pre">METRIC_ID</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult"><code class="docutils literal notranslate"><span class="pre">SimilarityResult</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.identity_cosine"><code class="docutils literal notranslate"><span class="pre">SimilarityResult.identity_cosine</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.score"><code class="docutils literal notranslate"><span class="pre">SimilarityResult.score</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.passed"><code class="docutils literal notranslate"><span class="pre">SimilarityResult.passed</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.threshold"><code class="docutils literal notranslate"><span class="pre">SimilarityResult.threshold</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.per_reference"><code class="docutils literal notranslate"><span class="pre">SimilarityResult.per_reference</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.aggregation"><code class="docutils literal notranslate"><span class="pre">SimilarityResult.aggregation</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.n_references"><code class="docutils literal notranslate"><span class="pre">SimilarityResult.n_references</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.as_dict"><code class="docutils literal notranslate"><span class="pre">SimilarityResult.as_dict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.compare_to_reference"><code class="docutils literal notranslate"><span class="pre">compare_to_reference()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.cosine_similarity"><code class="docutils literal notranslate"><span class="pre">cosine_similarity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.scorers.identity.normalize_cosine"><code class="docutils literal notranslate"><span class="pre">normalize_cosine()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lookbook.scorers.identity</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/module_docs/lookbook/scorers/identity.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lookbook.scorers.identity">
+<span id="lookbook-scorers-identity"></span><h1>lookbook.scorers.identity<a class="headerlink" href="#module-lookbook.scorers.identity" title="Link to this heading"></a></h1>
+<p>Cross-image identity / likeness scorer — compare a candidate to a reference.</p>
+<p>Every scorer in <a class="reference internal" href="../scorers.html#module-lookbook.scorers" title="lookbook.scorers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lookbook.scorers</span></code></a> rates a <em>single</em> image’s technical or
+face quality. This module adds the missing primitive: a scorer that <strong>compares</strong>
+a candidate image against a locked <strong>reference</strong> (or a pool of references) and
+returns an identity-similarity number in <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> (1 = same identity).</p>
+<p>This is the measurement substrate for a “reference supervisor” — answering
+<em>“does this generation still match the locked reference?”</em> with a number a
+caller can gate on. It reuses lookbook’s existing embedders unchanged:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">arcface</span></code> (InsightFace <code class="docutils literal notranslate"><span class="pre">buffalo_l</span></code>) for <strong>face identity</strong> — the default;
+neither CLIP nor DINOv2 reliably says “same person”.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">clip</span></code> / <code class="docutils literal notranslate"><span class="pre">dinov2</span></code> for <strong>non-face subjects</strong> (locations, architecture,
+props) — injected via the same <code class="docutils literal notranslate"><span class="pre">embedder=</span></code> seam.</p></li>
+</ul>
+<section id="design-notes">
+<h2>Design notes<a class="headerlink" href="#design-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>The embedder is injected, never hard-wired.</strong> <a class="reference internal" href="#lookbook.scorers.identity.IdentitySimilarity" title="lookbook.scorers.identity.IdentitySimilarity"><code class="xref py py-class docutils literal notranslate"><span class="pre">IdentitySimilarity</span></code></a>
+accepts an <a class="reference internal" href="../base.html#lookbook.base.Embedder" title="lookbook.base.Embedder"><code class="xref py py-class docutils literal notranslate"><span class="pre">Embedder</span></code></a>, a registry name (resolved
+lazily), or a bare <code class="docutils literal notranslate"><span class="pre">embed_fn(ref)</span> <span class="pre">-&gt;</span> <span class="pre">vector</span></code> callable. This keeps the heavy
+ML deps (torch / insightface) behind lookbook’s usual lazy boundary —
+importing this module pulls in nothing heavy — and makes the cosine math
+unit-testable with a fake embedder returning known vectors.</p></li>
+<li><p><strong>The reference is embedded once.</strong> Pass a precomputed <code class="docutils literal notranslate"><span class="pre">reference_embedding</span></code>
+(a single vector or a stacked array of vectors for a pool), or a reference
+image / list of images that the scorer embeds <strong>once at construction</strong> and
+caches. Candidates are never made to pay for re-embedding the reference.</p></li>
+<li><p><strong>Set aggregation</strong> is explicit: when the reference is a pool, the per-view
+similarities are aggregated by <code class="docutils literal notranslate"><span class="pre">aggregation</span></code> (default <code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code> — “matches
+<em>any</em> locked view”, the right default for a supervisor; <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code> is the
+stricter “matches the <em>average</em> view”).</p></li>
+<li><p>The result carries a <code class="docutils literal notranslate"><span class="pre">passed</span></code> flag against an injectable <code class="docutils literal notranslate"><span class="pre">threshold</span></code>.
+This is <strong>advisory</strong> — the consumer (e.g. reelee’s reference supervisor)
+decides whether to hard-block. Nothing here raises on a low score.</p></li>
+</ul>
+</section>
+<dl class="py data">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.DFLT_AGGREGATION">
+<span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">DFLT_AGGREGATION</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'max'</span></span><a class="headerlink" href="#lookbook.scorers.identity.DFLT_AGGREGATION" title="Link to this definition"></a></dt>
+<dd><p>How to fold a pool of per-reference similarities into one number.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.DFLT_EMBEDDER">
+<span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">DFLT_EMBEDDER</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'arcface'</span></span><a class="headerlink" href="#lookbook.scorers.identity.DFLT_EMBEDDER" title="Link to this definition"></a></dt>
+<dd><p>Default embedder used when none is injected. <code class="docutils literal notranslate"><span class="pre">&quot;arcface&quot;</span></code> is the identity
+space; swap for <code class="docutils literal notranslate"><span class="pre">&quot;clip&quot;</span></code> / <code class="docutils literal notranslate"><span class="pre">&quot;dinov2&quot;</span></code> for non-face subjects.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.DFLT_NORMALIZATION">
+<span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">DFLT_NORMALIZATION</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'rescale'</span></span><a class="headerlink" href="#lookbook.scorers.identity.DFLT_NORMALIZATION" title="Link to this definition"></a></dt>
+<dd><p>How to map a cosine in <code class="docutils literal notranslate"><span class="pre">[-1,</span> <span class="pre">1]</span></code> onto <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.
+- <code class="docutils literal notranslate"><span class="pre">&quot;rescale&quot;</span></code>: <code class="docutils literal notranslate"><span class="pre">(cos</span> <span class="pre">+</span> <span class="pre">1)</span> <span class="pre">/</span> <span class="pre">2</span></code> — order-preserving over the full range;</p>
+<blockquote>
+<div><p>the safe default for any embedder (CLIP/DINOv2 cosines can go negative).</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;clamp&quot;</span></code>: <code class="docutils literal notranslate"><span class="pre">max(0,</span> <span class="pre">cos)</span></code> — for L2-normalized identity spaces where a
+negative cosine just means “unrelated” and should floor at 0.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.DFLT_THRESHOLD">
+<span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">DFLT_THRESHOLD</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.85</span></span><a class="headerlink" href="#lookbook.scorers.identity.DFLT_THRESHOLD" title="Link to this definition"></a></dt>
+<dd><p>Default normalized-similarity threshold for the advisory pass/fail gate.
+On the <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> scale (1 = same identity). 0.85 mirrors the common
+ArcFace “same person” operating point; owner-tunable per call.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.IdentitySimilarity">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">IdentitySimilarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'identity_similarity'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cost_tier</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">requires</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'lookbook:identity_similarity'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_embedding</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_images</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmbedderSpec</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'arcface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'max'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'rescale'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/identity.html#IdentitySimilarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.identity.IdentitySimilarity" title="Link to this definition"></a></dt>
+<dd><p>Score a candidate image’s identity-likeness to a locked reference.</p>
+<p>Unlike the single-image scorers, this one is <strong>stateful by reference</strong>:
+it holds the reference embedding(s) and compares each candidate against
+them. Construct one per locked subject, then <code class="docutils literal notranslate"><span class="pre">score</span></code> every generation.</p>
+<p>Construction (provide exactly one of the reference inputs):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">reference_embedding</span></code> — a precomputed vector (1-D) or pool (2-D /
+sequence of vectors). Cheapest; the reference is never re-embedded.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reference_image</span></code> — a single <a class="reference internal" href="../base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageRef</span></code></a> (or
+anything the injected embedder accepts), embedded <strong>once</strong> at
+construction and cached.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">reference_images</span></code> — a pool of refs, each embedded once.</p></li>
+</ul>
+<p>Parameters (keyword-only past the embedder seam):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">embedder</span></code> — registry name (<code class="docutils literal notranslate"><span class="pre">&quot;arcface&quot;</span></code> default), an <code class="docutils literal notranslate"><span class="pre">Embedder</span></code>
+object, or a bare <code class="docutils literal notranslate"><span class="pre">embed_fn(ref)</span> <span class="pre">-&gt;</span> <span class="pre">vector</span></code> callable. Injectable so
+tests pass a fake embedder and non-face subjects pass <code class="docutils literal notranslate"><span class="pre">&quot;clip&quot;</span></code> /
+<code class="docutils literal notranslate"><span class="pre">&quot;dinov2&quot;</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">threshold</span></code> — advisory pass/fail cutoff on the <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> scale.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aggregation</span></code> — <code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code> (default) | <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code> | <code class="docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code> over the
+reference pool.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">normalization</span></code> — cosine → <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> map; see <code class="docutils literal notranslate"><span class="pre">DFLT_NORMALIZATION</span></code>.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">score(ref,</span> <span class="pre">manifest)</span></code> method returns a JSON-able dict (see
+<a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult.as_dict" title="lookbook.scorers.identity.SimilarityResult.as_dict"><code class="xref py py-meth docutils literal notranslate"><span class="pre">SimilarityResult.as_dict()</span></code></a>) so it persists through the manifest’s
+default codec. Use <a class="reference internal" href="#lookbook.scorers.identity.compare_to_reference" title="lookbook.scorers.identity.compare_to_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">compare_to_reference()</span></code></a> for a one-call facade that
+returns the typed <a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult" title="lookbook.scorers.identity.SimilarityResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityResult</span></code></a>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.IdentitySimilarity.compare">
+<span class="sig-name descname"><span class="pre">compare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult" title="lookbook.scorers.identity.SimilarityResult"><span class="pre">SimilarityResult</span></a></span></span><a class="reference internal" href="../../../_modules/lookbook/scorers/identity.html#IdentitySimilarity.compare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.identity.IdentitySimilarity.compare" title="Link to this definition"></a></dt>
+<dd><p>Compare one candidate ref against the reference; typed result.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.IdentitySimilarity.score">
+<span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="../base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">manifest</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../base.html#lookbook.base.Annotation" title="lookbook.base.Annotation"><span class="pre">Annotation</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/lookbook/scorers/identity.html#IdentitySimilarity.score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.identity.IdentitySimilarity.score" title="Link to this definition"></a></dt>
+<dd><p>Scorer-protocol entry point — returns the JSON-able result dict.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.METRIC_ID">
+<span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">METRIC_ID</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'identity_similarity'</span></span><a class="headerlink" href="#lookbook.scorers.identity.METRIC_ID" title="Link to this definition"></a></dt>
+<dd><p>The metric_id this scorer writes to the manifest.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">SimilarityResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">identity_cosine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">score</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">passed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">per_reference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple[float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">...]</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'max'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_references</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/lookbook/scorers/identity.html#SimilarityResult"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult" title="Link to this definition"></a></dt>
+<dd><p>Outcome of comparing a candidate against a (possibly pooled) reference.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult.identity_cosine">
+<span class="sig-name descname"><span class="pre">identity_cosine</span></span><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult.identity_cosine" title="Link to this definition"></a></dt>
+<dd><p>The aggregated <strong>raw cosine</strong> in <code class="docutils literal notranslate"><span class="pre">[-1,</span> <span class="pre">1]</span></code> (pre-normalization). The
+<code class="docutils literal notranslate"><span class="pre">identity_cosine</span></code> name is kept for the supervisor’s vocabulary even
+when the embedder is CLIP/DINOv2 — it is the cosine in whatever space
+the embedder defines.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult.score">
+<span class="sig-name descname"><span class="pre">score</span></span><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult.score" title="Link to this definition"></a></dt>
+<dd><p>The aggregated similarity normalized to <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> (1 = same identity).
+This is what the gate compares against <code class="docutils literal notranslate"><span class="pre">threshold</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult.passed">
+<span class="sig-name descname"><span class="pre">passed</span></span><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult.passed" title="Link to this definition"></a></dt>
+<dd><p><code class="docutils literal notranslate"><span class="pre">score</span> <span class="pre">&gt;=</span> <span class="pre">threshold</span></code>. <strong>Advisory only</strong> — the consumer decides
+whether to act on it.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult.threshold">
+<span class="sig-name descname"><span class="pre">threshold</span></span><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult.threshold" title="Link to this definition"></a></dt>
+<dd><p>The threshold used for <code class="docutils literal notranslate"><span class="pre">passed</span></code> (on the <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> scale).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult.per_reference">
+<span class="sig-name descname"><span class="pre">per_reference</span></span><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult.per_reference" title="Link to this definition"></a></dt>
+<dd><p>The per-reference normalized similarities before aggregation. Length
+is the size of the reference pool. Lets callers see <em>which</em> locked view
+matched (e.g. <code class="docutils literal notranslate"><span class="pre">argmax</span></code> for <code class="docutils literal notranslate"><span class="pre">aggregation=&quot;max&quot;</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple[float, …]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult.aggregation">
+<span class="sig-name descname"><span class="pre">aggregation</span></span><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult.aggregation" title="Link to this definition"></a></dt>
+<dd><p>The aggregation applied over <code class="docutils literal notranslate"><span class="pre">per_reference</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult.n_references">
+<span class="sig-name descname"><span class="pre">n_references</span></span><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult.n_references" title="Link to this definition"></a></dt>
+<dd><p>Size of the reference pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.SimilarityResult.as_dict">
+<span class="sig-name descname"><span class="pre">as_dict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../../_modules/lookbook/scorers/identity.html#SimilarityResult.as_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.identity.SimilarityResult.as_dict" title="Link to this definition"></a></dt>
+<dd><p>JSON-able view (what the scorer writes to the manifest).</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.compare_to_reference">
+<span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">compare_to_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_image</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">EmbedderSpec</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'arcface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'max'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'rescale'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult" title="lookbook.scorers.identity.SimilarityResult"><span class="pre">SimilarityResult</span></a></span></span><a class="reference internal" href="../../../_modules/lookbook/scorers/identity.html#compare_to_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.identity.compare_to_reference" title="Link to this definition"></a></dt>
+<dd><p>Compare a candidate to a reference in one call → <a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult" title="lookbook.scorers.identity.SimilarityResult"><code class="xref py py-class docutils literal notranslate"><span class="pre">SimilarityResult</span></code></a>.</p>
+<p>The supervisor’s headline verb. <code class="docutils literal notranslate"><span class="pre">reference_image</span></code> may be a single image
+ref or a <strong>pool</strong> (any sequence of refs) — the pool is embedded once and
+folded by <code class="docutils literal notranslate"><span class="pre">aggregation</span></code>. <code class="docutils literal notranslate"><span class="pre">candidate_image</span></code> is a single ref.</p>
+<p>All inputs are whatever the injected <code class="docutils literal notranslate"><span class="pre">embedder</span></code> accepts — typically an
+<a class="reference internal" href="../base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><code class="xref py py-class docutils literal notranslate"><span class="pre">ImageRef</span></code></a>, but with a fake/callable embedder they
+can be anything (tests pass plain ids).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>embedder</strong> – Registry name (<code class="docutils literal notranslate"><span class="pre">&quot;arcface&quot;</span></code> default for faces; <code class="docutils literal notranslate"><span class="pre">&quot;clip&quot;</span></code> / <code class="docutils literal notranslate"><span class="pre">&quot;dinov2&quot;</span></code>
+for scenes/architecture), an <code class="docutils literal notranslate"><span class="pre">Embedder</span></code> object, or a bare
+<code class="docutils literal notranslate"><span class="pre">embed_fn(x)</span> <span class="pre">-&gt;</span> <span class="pre">vector</span></code> callable.</p></li>
+<li><p><strong>threshold</strong> – Advisory pass/fail cutoff on the <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> scale (1 = same identity).</p></li>
+<li><p><strong>aggregation</strong> – How to fold a reference pool — <code class="docutils literal notranslate"><span class="pre">&quot;max&quot;</span></code> (default), <code class="docutils literal notranslate"><span class="pre">&quot;mean&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;min&quot;</span></code>.</p></li>
+<li><p><strong>normalization</strong> – Cosine → <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> map — <code class="docutils literal notranslate"><span class="pre">&quot;rescale&quot;</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">&quot;clamp&quot;</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">.score</span></code> (∈ <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>), <code class="docutils literal notranslate"><span class="pre">.passed</span></code> (advisory), <code class="docutils literal notranslate"><span class="pre">.identity_cosine</span></code>
+(raw cosine), and the per-reference breakdown.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#lookbook.scorers.identity.SimilarityResult" title="lookbook.scorers.identity.SimilarityResult">SimilarityResult</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.cosine_similarity">
+<span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">cosine_similarity</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">v</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../../_modules/lookbook/scorers/identity.html#cosine_similarity"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.identity.cosine_similarity" title="Link to this definition"></a></dt>
+<dd><p>Cosine similarity in <code class="docutils literal notranslate"><span class="pre">[-1,</span> <span class="pre">1]</span></code> between two vectors.</p>
+<p>Safe against unnormalized inputs and zero vectors (returns 0.0 when either
+has zero magnitude, which is what a no-face ArcFace embedding yields).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]))</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]))</span>
+<span class="go">-1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]))</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">cosine_similarity</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]))</span>
+<span class="go">0.0</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.scorers.identity.normalize_cosine">
+<span class="sig-prename descclassname"><span class="pre">lookbook.scorers.identity.</span></span><span class="sig-name descname"><span class="pre">normalize_cosine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cosine</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'rescale'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="../../../_modules/lookbook/scorers/identity.html#normalize_cosine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.scorers.identity.normalize_cosine" title="Link to this definition"></a></dt>
+<dd><p>Map a cosine in <code class="docutils literal notranslate"><span class="pre">[-1,</span> <span class="pre">1]</span></code> onto <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> (1 = identical direction).</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_cosine</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="go">1.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_cosine</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_cosine</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="go">0.5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_cosine</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="s2">&quot;clamp&quot;</span><span class="p">)</span>
+<span class="go">0.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">normalize_cosine</span><span class="p">(</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="s2">&quot;clamp&quot;</span><span class="p">)</span>
+<span class="go">0.6</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../scorers.html" class="btn btn-neutral float-left" title="lookbook.scorers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="person.html" class="btn btn-neutral float-right" title="lookbook.scorers.person" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

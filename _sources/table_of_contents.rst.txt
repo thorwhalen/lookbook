@@ -27,6 +27,7 @@
    module_docs/lookbook/registry
    module_docs/lookbook/report
    module_docs/lookbook/scorers
+   module_docs/lookbook/scorers/identity
    module_docs/lookbook/scorers/person
    module_docs/lookbook/scorers/technical
    module_docs/lookbook/selectors

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook &mdash; lookbook 0.0.8 documentation</title>
+  <title>lookbook &mdash; lookbook 0.0.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=53b53b71"></script>
+      <script src="../_static/documentation_options.js?v=f7cdbf68"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -71,6 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/registry.html">lookbook.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/report.html">lookbook.report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/scorers/identity.html">lookbook.scorers.identity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
@@ -149,6 +150,11 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span><span class="p">,</span> <span class="n">RunResult</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.refs</span><span class="w"> </span><span class="kn">import</span> <span class="n">BytesImageRef</span><span class="p">,</span> <span class="n">PathImageRef</span><span class="p">,</span> <span class="n">UrlImageRef</span><span class="p">,</span> <span class="n">to_local_path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.interactive</span><span class="w"> </span><span class="kn">import</span> <span class="n">InteractiveDecision</span><span class="p">,</span> <span class="n">curate_interactive</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.scorers.identity</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">IdentitySimilarity</span><span class="p">,</span>
+    <span class="n">SimilarityResult</span><span class="p">,</span>
+    <span class="n">compare_to_reference</span><span class="p">,</span>
+<span class="p">)</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.store</span><span class="w"> </span><span class="kn">import</span> <span class="n">Stores</span><span class="p">,</span> <span class="n">get_stores</span>
 
 
@@ -157,6 +163,7 @@
     <span class="s2">&quot;BytesImageRef&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Embedder&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Filter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;IdentitySimilarity&quot;</span><span class="p">,</span>
     <span class="s2">&quot;ImageRef&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Manifest&quot;</span><span class="p">,</span>
     <span class="s2">&quot;PathImageRef&quot;</span><span class="p">,</span>
@@ -164,9 +171,11 @@
     <span class="s2">&quot;RunResult&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Scorer&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Selector&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;SimilarityResult&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Stores&quot;</span><span class="p">,</span>
     <span class="s2">&quot;UrlImageRef&quot;</span><span class="p">,</span>
     <span class="s2">&quot;InteractiveDecision&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;compare_to_reference&quot;</span><span class="p">,</span>
     <span class="s2">&quot;curate&quot;</span><span class="p">,</span>
     <span class="s2">&quot;curate_for_character&quot;</span><span class="p">,</span>
     <span class="s2">&quot;curate_for_environment&quot;</span><span class="p">,</span>
@@ -355,7 +364,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright NO COPYRIGHT.</p>
+    <p></p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

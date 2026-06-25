@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.http &mdash; lookbook 0.0.8 documentation</title>
+  <title>lookbook.http &mdash; lookbook 0.0.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=53b53b71"></script>
+      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -63,6 +63,7 @@
 <li class="toctree-l1"><a class="reference internal" href="filters/person.html">lookbook.filters.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters/technical.html">lookbook.filters.technical</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.http</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.http.compare_to_reference"><code class="docutils literal notranslate"><span class="pre">compare_to_reference()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.http.curate_source"><code class="docutils literal notranslate"><span class="pre">curate_source()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.http.get_annotations"><code class="docutils literal notranslate"><span class="pre">get_annotations()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.http.get_image"><code class="docutils literal notranslate"><span class="pre">get_image()</span></code></a></li>
@@ -88,6 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="registry.html">lookbook.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="report.html">lookbook.report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/identity.html">lookbook.scorers.identity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scorers/person.html">lookbook.scorers.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="scorers/technical.html">lookbook.scorers.technical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="selectors.html">lookbook.selectors</a></li>
@@ -129,6 +131,18 @@ a JSON-able dict. The route functions are the <em>only</em> thing this module
 adds — all real work is delegated to the existing facade.</p>
 <p>Build the app with <cite>mk_lookbook_app()</cite> and run it with <cite>serve()</cite> (or use
 the <cite>lookbook serve</cite> CLI command).</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.http.compare_to_reference">
+<span class="sig-prename descclassname"><span class="pre">lookbook.http.</span></span><span class="sig-name descname"><span class="pre">compare_to_reference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_paths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">candidate_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'arcface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">threshold</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.85</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">aggregation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'max'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalization</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'rescale'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/http.html#compare_to_reference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.http.compare_to_reference" title="Link to this definition"></a></dt>
+<dd><p>Identity/likeness of a candidate vs a locked reference (or pool).</p>
+<p>The reference-supervisor verb: returns a normalized similarity in
+<code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code> (1 = same identity) plus an advisory <code class="docutils literal notranslate"><span class="pre">passed</span></code> flag. Pass one
+or more <code class="docutils literal notranslate"><span class="pre">reference_paths</span></code> (server-local image paths) and a single
+<code class="docutils literal notranslate"><span class="pre">candidate_path</span></code>. <code class="docutils literal notranslate"><span class="pre">embedder</span></code> selects the space — <code class="docutils literal notranslate"><span class="pre">&quot;arcface&quot;</span></code> for
+faces (default), <code class="docutils literal notranslate"><span class="pre">&quot;clip&quot;</span></code> / <code class="docutils literal notranslate"><span class="pre">&quot;dinov2&quot;</span></code> for scenes/architecture.</p>
+<p>The pass/fail is <strong>advisory</strong> — the caller decides whether to act on it.</p>
+</dd></dl>
+
 <dl class="py function">
 <dt class="sig sig-object py" id="lookbook.http.curate_source">
 <span class="sig-prename descclassname"><span class="pre">lookbook.http.</span></span><span class="sig-name descname"><span class="pre">curate_source</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">recipe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'funnel'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/lookbook/http.html#curate_source"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.http.curate_source" title="Link to this definition"></a></dt>
@@ -227,7 +241,7 @@ and takes a JSON body — which is the pattern most agent clients
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright NO COPYRIGHT.</p>
+    <p></p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

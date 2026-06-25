@@ -1,0 +1,658 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.scorers.identity &mdash; lookbook 0.0.9 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/interactive.html">lookbook.interactive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/scorers/identity.html">lookbook.scorers.identity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+          <li class="breadcrumb-item"><a href="../../lookbook.html">lookbook</a></li>
+      <li class="breadcrumb-item active">lookbook.scorers.identity</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lookbook.scorers.identity</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Cross-image identity / likeness scorer — compare a candidate to a reference.</span>
+
+<span class="sd">Every scorer in :mod:`lookbook.scorers` rates a *single* image&#39;s technical or</span>
+<span class="sd">face quality. This module adds the missing primitive: a scorer that **compares**</span>
+<span class="sd">a candidate image against a locked **reference** (or a pool of references) and</span>
+<span class="sd">returns an identity-similarity number in ``[0, 1]`` (1 = same identity).</span>
+
+<span class="sd">This is the measurement substrate for a &quot;reference supervisor&quot; — answering</span>
+<span class="sd">*&quot;does this generation still match the locked reference?&quot;* with a number a</span>
+<span class="sd">caller can gate on. It reuses lookbook&#39;s existing embedders unchanged:</span>
+
+<span class="sd">- ``arcface`` (InsightFace ``buffalo_l``) for **face identity** — the default;</span>
+<span class="sd">  neither CLIP nor DINOv2 reliably says &quot;same person&quot;.</span>
+<span class="sd">- ``clip`` / ``dinov2`` for **non-face subjects** (locations, architecture,</span>
+<span class="sd">  props) — injected via the same ``embedder=`` seam.</span>
+
+<span class="sd">Design notes</span>
+<span class="sd">------------</span>
+
+<span class="sd">- **The embedder is injected, never hard-wired.** :class:`IdentitySimilarity`</span>
+<span class="sd">  accepts an :class:`~lookbook.base.Embedder`, a registry name (resolved</span>
+<span class="sd">  lazily), or a bare ``embed_fn(ref) -&gt; vector`` callable. This keeps the heavy</span>
+<span class="sd">  ML deps (torch / insightface) behind lookbook&#39;s usual lazy boundary —</span>
+<span class="sd">  importing this module pulls in nothing heavy — and makes the cosine math</span>
+<span class="sd">  unit-testable with a fake embedder returning known vectors.</span>
+
+<span class="sd">- **The reference is embedded once.** Pass a precomputed ``reference_embedding``</span>
+<span class="sd">  (a single vector or a stacked array of vectors for a pool), or a reference</span>
+<span class="sd">  image / list of images that the scorer embeds **once at construction** and</span>
+<span class="sd">  caches. Candidates are never made to pay for re-embedding the reference.</span>
+
+<span class="sd">- **Set aggregation** is explicit: when the reference is a pool, the per-view</span>
+<span class="sd">  similarities are aggregated by ``aggregation`` (default ``&quot;max&quot;`` — &quot;matches</span>
+<span class="sd">  *any* locked view&quot;, the right default for a supervisor; ``&quot;mean&quot;`` is the</span>
+<span class="sd">  stricter &quot;matches the *average* view&quot;).</span>
+
+<span class="sd">- The result carries a ``passed`` flag against an injectable ``threshold``.</span>
+<span class="sd">  This is **advisory** — the consumer (e.g. reelee&#39;s reference supervisor)</span>
+<span class="sd">  decides whether to hard-block. Nothing here raises on a low score.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">Manifest</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">scorers</span>
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># Defaults (no magic numbers below this block)</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+<span class="c1">#: Default normalized-similarity threshold for the advisory pass/fail gate.</span>
+<span class="c1">#: On the ``[0, 1]`` scale (1 = same identity). 0.85 mirrors the common</span>
+<span class="c1">#: ArcFace &quot;same person&quot; operating point; owner-tunable per call.</span>
+<span class="n">DFLT_THRESHOLD</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span>
+
+<span class="c1">#: Default embedder used when none is injected. ``&quot;arcface&quot;`` is the identity</span>
+<span class="c1">#: space; swap for ``&quot;clip&quot;`` / ``&quot;dinov2&quot;`` for non-face subjects.</span>
+<span class="n">DFLT_EMBEDDER</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;arcface&quot;</span>
+
+<span class="c1">#: How to fold a pool of per-reference similarities into one number.</span>
+<span class="n">DFLT_AGGREGATION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;max&quot;</span>
+
+<span class="c1">#: How to map a cosine in ``[-1, 1]`` onto ``[0, 1]``.</span>
+<span class="c1">#: - ``&quot;rescale&quot;``: ``(cos + 1) / 2`` — order-preserving over the full range;</span>
+<span class="c1">#:   the safe default for any embedder (CLIP/DINOv2 cosines can go negative).</span>
+<span class="c1">#: - ``&quot;clamp&quot;``: ``max(0, cos)`` — for L2-normalized identity spaces where a</span>
+<span class="c1">#:   negative cosine just means &quot;unrelated&quot; and should floor at 0.</span>
+<span class="n">DFLT_NORMALIZATION</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rescale&quot;</span>
+
+<span class="c1">#: The metric_id this scorer writes to the manifest.</span>
+<span class="n">METRIC_ID</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;identity_similarity&quot;</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># Pure math helpers (the heart of the unit tests)</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+<span class="n">_AGGREGATIONS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;max&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span>
+    <span class="s2">&quot;mean&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span>
+    <span class="s2">&quot;min&quot;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">a</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">a</span><span class="p">)),</span>
+<span class="p">}</span>
+
+
+<div class="viewcode-block" id="cosine_similarity">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.cosine_similarity">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cosine_similarity</span><span class="p">(</span><span class="n">u</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">v</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cosine similarity in ``[-1, 1]`` between two vectors.</span>
+
+<span class="sd">    Safe against unnormalized inputs and zero vectors (returns 0.0 when either</span>
+<span class="sd">    has zero magnitude, which is what a no-face ArcFace embedding yields).</span>
+
+<span class="sd">    &gt;&gt;&gt; cosine_similarity(np.array([1.0, 0.0]), np.array([1.0, 0.0]))</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &gt;&gt;&gt; cosine_similarity(np.array([1.0, 0.0]), np.array([-1.0, 0.0]))</span>
+<span class="sd">    -1.0</span>
+<span class="sd">    &gt;&gt;&gt; cosine_similarity(np.array([1.0, 0.0]), np.array([0.0, 1.0]))</span>
+<span class="sd">    0.0</span>
+<span class="sd">    &gt;&gt;&gt; cosine_similarity(np.array([0.0, 0.0]), np.array([1.0, 0.0]))</span>
+<span class="sd">    0.0</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+    <span class="n">nu</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">u</span><span class="p">))</span>
+    <span class="n">nv</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">nu</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">nv</span> <span class="o">==</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nu</span> <span class="o">*</span> <span class="n">nv</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="normalize_cosine">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.normalize_cosine">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">normalize_cosine</span><span class="p">(</span><span class="n">cosine</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_NORMALIZATION</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Map a cosine in ``[-1, 1]`` onto ``[0, 1]`` (1 = identical direction).</span>
+
+<span class="sd">    &gt;&gt;&gt; normalize_cosine(1.0)</span>
+<span class="sd">    1.0</span>
+<span class="sd">    &gt;&gt;&gt; normalize_cosine(-1.0)</span>
+<span class="sd">    0.0</span>
+<span class="sd">    &gt;&gt;&gt; normalize_cosine(0.0)</span>
+<span class="sd">    0.5</span>
+<span class="sd">    &gt;&gt;&gt; normalize_cosine(-0.3, normalization=&quot;clamp&quot;)</span>
+<span class="sd">    0.0</span>
+<span class="sd">    &gt;&gt;&gt; normalize_cosine(0.6, normalization=&quot;clamp&quot;)</span>
+<span class="sd">    0.6</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">normalization</span> <span class="o">==</span> <span class="s2">&quot;rescale&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">((</span><span class="n">cosine</span> <span class="o">+</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">normalization</span> <span class="o">==</span> <span class="s2">&quot;clamp&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">cosine</span><span class="p">))</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Unknown normalization </span><span class="si">{</span><span class="n">normalization</span><span class="si">!r}</span><span class="s2">; &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;expected one of </span><span class="se">{{</span><span class="s2">&#39;rescale&#39;, &#39;clamp&#39;</span><span class="se">}}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_aggregate</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_AGGREGATION</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fold per-reference similarities into one. See ``_AGGREGATIONS``.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>  <span class="c1"># type: ignore[arg-type]</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot aggregate an empty similarity sequence&quot;</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">_AGGREGATIONS</span><span class="p">[</span><span class="n">aggregation</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Unknown aggregation </span><span class="si">{</span><span class="n">aggregation</span><span class="si">!r}</span><span class="s2">; &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;expected one of </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">_AGGREGATIONS</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="kc">None</span>
+    <span class="k">return</span> <span class="n">fn</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_as_2d</span><span class="p">(</span><span class="n">embedding</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Coerce a single vector or a pool of vectors into a 2-D (n, d) array.</span>
+
+<span class="sd">    Accepts a 1-D vector, a 2-D array, or a sequence of 1-D vectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">embedding</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">arr</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;reference embedding must be 1-D or 2-D, got shape </span><span class="si">{</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># Embedder resolution — the injection seam</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+<span class="c1"># An embedder can be supplied three ways, none of which import torch here:</span>
+<span class="c1">#   - an Embedder instance / object exposing ``.embed(ref)``</span>
+<span class="c1">#   - a registry name like ``&quot;arcface&quot;`` (resolved lazily, on first use)</span>
+<span class="c1">#   - a bare callable ``embed_fn(ref) -&gt; vector``</span>
+<span class="n">EmbedderSpec</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="s2">&quot;Embedder&quot;</span><span class="p">,</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageRef</span><span class="p">],</span> <span class="n">Any</span><span class="p">]]</span>  <span class="c1"># noqa: F821</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_resolve_embed_fn</span><span class="p">(</span><span class="n">embedder</span><span class="p">:</span> <span class="n">EmbedderSpec</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">ImageRef</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a ``embed(ref) -&gt; ndarray`` callable from any accepted spec.</span>
+
+<span class="sd">    Registry names are resolved here (lazily, so importing this module needs</span>
+<span class="sd">    no heavy deps). Objects with an ``.embed`` method use it; bare callables</span>
+<span class="sd">    are used as-is. This is the dependency-injection point the tests exploit</span>
+<span class="sd">    by passing a fake embedder returning known vectors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">embedder</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.registry</span><span class="w"> </span><span class="kn">import</span> <span class="n">embedders</span> <span class="k">as</span> <span class="n">_embedders</span>
+
+        <span class="n">embedder</span> <span class="o">=</span> <span class="n">_embedders</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">embedder</span><span class="p">)</span>
+    <span class="n">embed</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">embedder</span><span class="p">,</span> <span class="s2">&quot;embed&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">embed</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">embed</span>
+    <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">embedder</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">embedder</span>
+    <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+        <span class="s2">&quot;embedder must be a registry name, an object with .embed(ref), &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;or a callable embed_fn(ref); got </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">embedder</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.&quot;</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># Result type</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+
+<div class="viewcode-block" id="SimilarityResult">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.SimilarityResult">[docs]</a>
+<span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimilarityResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Outcome of comparing a candidate against a (possibly pooled) reference.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    identity_cosine:</span>
+<span class="sd">        The aggregated **raw cosine** in ``[-1, 1]`` (pre-normalization). The</span>
+<span class="sd">        ``identity_cosine`` name is kept for the supervisor&#39;s vocabulary even</span>
+<span class="sd">        when the embedder is CLIP/DINOv2 — it is the cosine in whatever space</span>
+<span class="sd">        the embedder defines.</span>
+<span class="sd">    score:</span>
+<span class="sd">        The aggregated similarity normalized to ``[0, 1]`` (1 = same identity).</span>
+<span class="sd">        This is what the gate compares against ``threshold``.</span>
+<span class="sd">    passed:</span>
+<span class="sd">        ``score &gt;= threshold``. **Advisory only** — the consumer decides</span>
+<span class="sd">        whether to act on it.</span>
+<span class="sd">    threshold:</span>
+<span class="sd">        The threshold used for ``passed`` (on the ``[0, 1]`` scale).</span>
+<span class="sd">    per_reference:</span>
+<span class="sd">        The per-reference normalized similarities before aggregation. Length</span>
+<span class="sd">        is the size of the reference pool. Lets callers see *which* locked view</span>
+<span class="sd">        matched (e.g. ``argmax`` for ``aggregation=&quot;max&quot;``).</span>
+<span class="sd">    aggregation:</span>
+<span class="sd">        The aggregation applied over ``per_reference``.</span>
+<span class="sd">    n_references:</span>
+<span class="sd">        Size of the reference pool.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">identity_cosine</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">score</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">passed</span><span class="p">:</span> <span class="nb">bool</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">per_reference</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">tuple</span><span class="p">)</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_AGGREGATION</span>
+    <span class="n">n_references</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+
+<div class="viewcode-block" id="SimilarityResult.as_dict">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.SimilarityResult.as_dict">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">as_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;JSON-able view (what the scorer writes to the manifest).&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s2">&quot;identity_cosine&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">identity_cosine</span><span class="p">,</span>
+            <span class="s2">&quot;score&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">score</span><span class="p">,</span>
+            <span class="s2">&quot;passed&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">passed</span><span class="p">,</span>
+            <span class="s2">&quot;threshold&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">,</span>
+            <span class="s2">&quot;per_reference&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">per_reference</span><span class="p">),</span>
+            <span class="s2">&quot;aggregation&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregation</span><span class="p">,</span>
+            <span class="s2">&quot;n_references&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_references</span><span class="p">,</span>
+        <span class="p">}</span></div>
+</div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_build_result</span><span class="p">(</span>
+    <span class="n">candidate_vec</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">reference_matrix</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimilarityResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Core comparison: candidate vector vs every reference vector → result.&quot;&quot;&quot;</span>
+    <span class="n">per_ref_norm</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">per_ref_cos</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">reference_matrix</span><span class="p">:</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">candidate_vec</span><span class="p">,</span> <span class="n">row</span><span class="p">)</span>
+        <span class="n">per_ref_cos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">per_ref_norm</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">normalize_cosine</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="n">normalization</span><span class="o">=</span><span class="n">normalization</span><span class="p">))</span>
+
+    <span class="n">score</span> <span class="o">=</span> <span class="n">_aggregate</span><span class="p">(</span><span class="n">per_ref_norm</span><span class="p">,</span> <span class="n">aggregation</span><span class="o">=</span><span class="n">aggregation</span><span class="p">)</span>
+    <span class="c1"># Report the cosine of the same reference the aggregation selected, so</span>
+    <span class="c1"># identity_cosine and score stay consistent (for max/min); for mean we</span>
+    <span class="c1"># report the mean cosine.</span>
+    <span class="k">if</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
+        <span class="n">agg_cos</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">per_ref_cos</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">per_ref_norm</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span> <span class="k">if</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span>
+                  <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">per_ref_norm</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">())</span>
+        <span class="n">agg_cos</span> <span class="o">=</span> <span class="n">per_ref_cos</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">SimilarityResult</span><span class="p">(</span>
+        <span class="n">identity_cosine</span><span class="o">=</span><span class="n">agg_cos</span><span class="p">,</span>
+        <span class="n">score</span><span class="o">=</span><span class="n">score</span><span class="p">,</span>
+        <span class="n">passed</span><span class="o">=</span><span class="n">score</span> <span class="o">&gt;=</span> <span class="n">threshold</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+        <span class="n">per_reference</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">per_ref_norm</span><span class="p">),</span>
+        <span class="n">aggregation</span><span class="o">=</span><span class="n">aggregation</span><span class="p">,</span>
+        <span class="n">n_references</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">reference_matrix</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
+    <span class="p">)</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># The scorer</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+
+<div class="viewcode-block" id="IdentitySimilarity">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.IdentitySimilarity">[docs]</a>
+<span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">IdentitySimilarity</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Score a candidate image&#39;s identity-likeness to a locked reference.</span>
+
+<span class="sd">    Unlike the single-image scorers, this one is **stateful by reference**:</span>
+<span class="sd">    it holds the reference embedding(s) and compares each candidate against</span>
+<span class="sd">    them. Construct one per locked subject, then ``score`` every generation.</span>
+
+<span class="sd">    Construction (provide exactly one of the reference inputs):</span>
+
+<span class="sd">    - ``reference_embedding`` — a precomputed vector (1-D) or pool (2-D /</span>
+<span class="sd">      sequence of vectors). Cheapest; the reference is never re-embedded.</span>
+<span class="sd">    - ``reference_image`` — a single :class:`~lookbook.base.ImageRef` (or</span>
+<span class="sd">      anything the injected embedder accepts), embedded **once** at</span>
+<span class="sd">      construction and cached.</span>
+<span class="sd">    - ``reference_images`` — a pool of refs, each embedded once.</span>
+
+<span class="sd">    Parameters (keyword-only past the embedder seam):</span>
+
+<span class="sd">    - ``embedder`` — registry name (``&quot;arcface&quot;`` default), an ``Embedder``</span>
+<span class="sd">      object, or a bare ``embed_fn(ref) -&gt; vector`` callable. Injectable so</span>
+<span class="sd">      tests pass a fake embedder and non-face subjects pass ``&quot;clip&quot;`` /</span>
+<span class="sd">      ``&quot;dinov2&quot;``.</span>
+<span class="sd">    - ``threshold`` — advisory pass/fail cutoff on the ``[0, 1]`` scale.</span>
+<span class="sd">    - ``aggregation`` — ``&quot;max&quot;`` (default) | ``&quot;mean&quot;`` | ``&quot;min&quot;`` over the</span>
+<span class="sd">      reference pool.</span>
+<span class="sd">    - ``normalization`` — cosine → ``[0, 1]`` map; see ``DFLT_NORMALIZATION``.</span>
+
+<span class="sd">    The ``score(ref, manifest)`` method returns a JSON-able dict (see</span>
+<span class="sd">    :meth:`SimilarityResult.as_dict`) so it persists through the manifest&#39;s</span>
+<span class="sd">    default codec. Use :func:`compare_to_reference` for a one-call facade that</span>
+<span class="sd">    returns the typed :class:`SimilarityResult`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">METRIC_ID</span>
+    <span class="n">cost_tier</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># ArcFace is a T2 embedder; honest default.</span>
+    <span class="n">requires</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">=</span> <span class="p">()</span>
+    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lookbook:identity_similarity&quot;</span>
+
+    <span class="c1"># Reference inputs (provide one). Kept out of the public positional API.</span>
+    <span class="n">reference_embedding</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">reference_image</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">reference_images</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="n">embedder</span><span class="p">:</span> <span class="n">EmbedderSpec</span> <span class="o">=</span> <span class="n">DFLT_EMBEDDER</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DFLT_THRESHOLD</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_AGGREGATION</span>
+    <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_NORMALIZATION</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Resolve the reference into a cached (n, d) matrix exactly once.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_reference_matrix</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_materialize_reference</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aggregation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_AGGREGATIONS</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown aggregation </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">aggregation</span><span class="si">!r}</span><span class="s2">; &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;expected one of </span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">_AGGREGATIONS</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">)</span>
+
+    <span class="c1"># -- config_hash -------------------------------------------------------- #</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">config_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="c1"># Cache key must change if the reference, threshold, or any knob</span>
+        <span class="c1"># changes — otherwise a stale candidate score would be reused.</span>
+        <span class="n">ref_digest</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reference_matrix</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">tobytes</span><span class="p">()</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">12</span><span class="p">]</span>
+        <span class="n">emb_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">embedder</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embedder</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="s2">&quot;injected&quot;</span>
+        <span class="n">payload</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">emb_name</span><span class="p">,</span>
+                <span class="nb">round</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">),</span> <span class="mi">6</span><span class="p">),</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">aggregation</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">normalization</span><span class="p">,</span>
+                <span class="n">ref_digest</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()[:</span><span class="mi">12</span><span class="p">]</span>
+
+    <span class="c1"># -- internals ---------------------------------------------------------- #</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_materialize_reference</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="n">provided</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">x</span>
+            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reference_embedding</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reference_image</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">reference_images</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">provided</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;IdentitySimilarity needs exactly one of &quot;</span>
+                <span class="s2">&quot;`reference_embedding`, `reference_image`, or &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;`reference_images` (got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">provided</span><span class="p">)</span><span class="si">}</span><span class="s2">).&quot;</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_embedding</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_as_2d</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_embedding</span><span class="p">)</span>
+
+        <span class="n">embed</span> <span class="o">=</span> <span class="n">_resolve_embed_fn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embedder</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_image</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_as_2d</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">embed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_image</span><span class="p">)))</span>
+        <span class="n">vecs</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">embed</span><span class="p">(</span><span class="n">r</span><span class="p">))</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">reference_images</span><span class="p">]</span>  <span class="c1"># type: ignore[union-attr]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">vecs</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`reference_images` was empty.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vecs</span><span class="p">])</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_embed_candidate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">_resolve_embed_fn</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">embedder</span><span class="p">)(</span><span class="n">ref</span><span class="p">))</span>
+
+    <span class="c1"># -- the Scorer protocol ------------------------------------------------ #</span>
+
+<div class="viewcode-block" id="IdentitySimilarity.compare">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.IdentitySimilarity.compare">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">compare</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimilarityResult</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compare one candidate ref against the reference; typed result.&quot;&quot;&quot;</span>
+        <span class="n">candidate_vec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_embed_candidate</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_build_result</span><span class="p">(</span>
+            <span class="n">candidate_vec</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_reference_matrix</span><span class="p">,</span>
+            <span class="n">threshold</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">threshold</span><span class="p">,</span>
+            <span class="n">aggregation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">aggregation</span><span class="p">,</span>
+            <span class="n">normalization</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">normalization</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="IdentitySimilarity.score">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.IdentitySimilarity.score">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">score</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Scorer-protocol entry point — returns the JSON-able result dict.&quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">ref</span><span class="p">)</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span></div>
+</div>
+
+
+
+<span class="c1"># Registered so it&#39;s discoverable like every other scorer. The default</span>
+<span class="c1"># instance carries a placeholder reference so registration never embeds</span>
+<span class="c1"># anything; real use always supplies a reference via the facade or a</span>
+<span class="c1"># ``(name, kwargs)`` override. We register a *factory-friendly* instance by</span>
+<span class="c1"># giving it a trivial 1-vector reference; callers override it.</span>
+<span class="c1">#</span>
+<span class="c1"># NOTE: a scorer needs a concrete reference to be meaningful, so the registry</span>
+<span class="c1"># entry is mostly a discoverability marker (it shows up in `list-plugins`).</span>
+<span class="n">scorers</span><span class="o">.</span><span class="n">register</span><span class="p">(</span>
+    <span class="n">METRIC_ID</span><span class="p">,</span>
+    <span class="n">IdentitySimilarity</span><span class="p">(</span><span class="n">reference_embedding</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)),</span>
+<span class="p">)</span>
+
+
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+<span class="c1"># One-call facade</span>
+<span class="c1"># --------------------------------------------------------------------------- #</span>
+
+
+<div class="viewcode-block" id="compare_to_reference">
+<a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.compare_to_reference">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compare_to_reference</span><span class="p">(</span>
+    <span class="n">reference_image</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="n">candidate_image</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">embedder</span><span class="p">:</span> <span class="n">EmbedderSpec</span> <span class="o">=</span> <span class="n">DFLT_EMBEDDER</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">DFLT_THRESHOLD</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_AGGREGATION</span><span class="p">,</span>
+    <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_NORMALIZATION</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimilarityResult</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compare a candidate to a reference in one call → :class:`SimilarityResult`.</span>
+
+<span class="sd">    The supervisor&#39;s headline verb. ``reference_image`` may be a single image</span>
+<span class="sd">    ref or a **pool** (any sequence of refs) — the pool is embedded once and</span>
+<span class="sd">    folded by ``aggregation``. ``candidate_image`` is a single ref.</span>
+
+<span class="sd">    All inputs are whatever the injected ``embedder`` accepts — typically an</span>
+<span class="sd">    :class:`~lookbook.base.ImageRef`, but with a fake/callable embedder they</span>
+<span class="sd">    can be anything (tests pass plain ids).</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    embedder:</span>
+<span class="sd">        Registry name (``&quot;arcface&quot;`` default for faces; ``&quot;clip&quot;`` / ``&quot;dinov2&quot;``</span>
+<span class="sd">        for scenes/architecture), an ``Embedder`` object, or a bare</span>
+<span class="sd">        ``embed_fn(x) -&gt; vector`` callable.</span>
+<span class="sd">    threshold:</span>
+<span class="sd">        Advisory pass/fail cutoff on the ``[0, 1]`` scale (1 = same identity).</span>
+<span class="sd">    aggregation:</span>
+<span class="sd">        How to fold a reference pool — ``&quot;max&quot;`` (default), ``&quot;mean&quot;``, ``&quot;min&quot;``.</span>
+<span class="sd">    normalization:</span>
+<span class="sd">        Cosine → ``[0, 1]`` map — ``&quot;rescale&quot;`` (default) or ``&quot;clamp&quot;``.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    SimilarityResult</span>
+<span class="sd">        ``.score`` (∈ ``[0, 1]``), ``.passed`` (advisory), ``.identity_cosine``</span>
+<span class="sd">        (raw cosine), and the per-reference breakdown.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">is_pool</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">reference_image</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">))</span>
+    <span class="n">scorer</span> <span class="o">=</span> <span class="n">IdentitySimilarity</span><span class="p">(</span>
+        <span class="n">reference_images</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="n">reference_image</span><span class="p">)</span> <span class="k">if</span> <span class="n">is_pool</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">reference_image</span><span class="o">=</span><span class="kc">None</span> <span class="k">if</span> <span class="n">is_pool</span> <span class="k">else</span> <span class="n">reference_image</span><span class="p">,</span>
+        <span class="n">embedder</span><span class="o">=</span><span class="n">embedder</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+        <span class="n">aggregation</span><span class="o">=</span><span class="n">aggregation</span><span class="p">,</span>
+        <span class="n">normalization</span><span class="o">=</span><span class="n">normalization</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">scorer</span><span class="o">.</span><span class="n">compare</span><span class="p">(</span><span class="n">candidate_image</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

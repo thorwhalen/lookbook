@@ -1,0 +1,4 @@
+lookbook.scorers.identity
+=========================
+.. automodule:: lookbook.scorers.identity
+   :members:

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to lookbook’s documentation! &mdash; lookbook 0.0.8 documentation</title>
+  <title>Welcome to lookbook’s documentation! &mdash; lookbook 0.0.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=53b53b71"></script>
+      <script src="_static/documentation_options.js?v=f7cdbf68"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -73,6 +73,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/registry.html">lookbook.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/report.html">lookbook.report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html">lookbook.scorers.identity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
@@ -116,6 +117,7 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.BytesImageRef"><code class="docutils literal notranslate"><span class="pre">BytesImageRef</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Embedder"><code class="docutils literal notranslate"><span class="pre">Embedder</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Filter"><code class="docutils literal notranslate"><span class="pre">Filter</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.IdentitySimilarity"><code class="docutils literal notranslate"><span class="pre">IdentitySimilarity</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.ImageRef"><code class="docutils literal notranslate"><span class="pre">ImageRef</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.InteractiveDecision"><code class="docutils literal notranslate"><span class="pre">InteractiveDecision</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.PathImageRef"><code class="docutils literal notranslate"><span class="pre">PathImageRef</span></code></a></li>
@@ -123,8 +125,10 @@
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.RunResult"><code class="docutils literal notranslate"><span class="pre">RunResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Scorer"><code class="docutils literal notranslate"><span class="pre">Scorer</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Selector"><code class="docutils literal notranslate"><span class="pre">Selector</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.SimilarityResult"><code class="docutils literal notranslate"><span class="pre">SimilarityResult</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.Stores"><code class="docutils literal notranslate"><span class="pre">Stores</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.UrlImageRef"><code class="docutils literal notranslate"><span class="pre">UrlImageRef</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.compare_to_reference"><code class="docutils literal notranslate"><span class="pre">compare_to_reference()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.curate_for_character"><code class="docutils literal notranslate"><span class="pre">curate_for_character()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook.html#lookbook.curate_for_environment"><code class="docutils literal notranslate"><span class="pre">curate_for_environment()</span></code></a></li>
@@ -201,6 +205,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/http.html">lookbook.http</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.compare_to_reference"><code class="docutils literal notranslate"><span class="pre">compare_to_reference()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.curate_source"><code class="docutils literal notranslate"><span class="pre">curate_source()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.get_annotations"><code class="docutils literal notranslate"><span class="pre">get_annotations()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/http.html#lookbook.http.get_image"><code class="docutils literal notranslate"><span class="pre">get_image()</span></code></a></li>
@@ -235,6 +240,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/mcp.html">lookbook.mcp</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_compare_to_reference"><code class="docutils literal notranslate"><span class="pre">mcp_compare_to_reference()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_curate_source"><code class="docutils literal notranslate"><span class="pre">mcp_curate_source()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_get_annotations"><code class="docutils literal notranslate"><span class="pre">mcp_get_annotations()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/mcp.html#lookbook.mcp.mcp_get_image"><code class="docutils literal notranslate"><span class="pre">mcp_get_image()</span></code></a></li>
@@ -275,6 +281,20 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html">lookbook.scorers.identity</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#design-notes">Design notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.DFLT_AGGREGATION"><code class="docutils literal notranslate"><span class="pre">DFLT_AGGREGATION</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.DFLT_EMBEDDER"><code class="docutils literal notranslate"><span class="pre">DFLT_EMBEDDER</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.DFLT_NORMALIZATION"><code class="docutils literal notranslate"><span class="pre">DFLT_NORMALIZATION</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.DFLT_THRESHOLD"><code class="docutils literal notranslate"><span class="pre">DFLT_THRESHOLD</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.IdentitySimilarity"><code class="docutils literal notranslate"><span class="pre">IdentitySimilarity</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.METRIC_ID"><code class="docutils literal notranslate"><span class="pre">METRIC_ID</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.SimilarityResult"><code class="docutils literal notranslate"><span class="pre">SimilarityResult</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.compare_to_reference"><code class="docutils literal notranslate"><span class="pre">compare_to_reference()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.cosine_similarity"><code class="docutils literal notranslate"><span class="pre">cosine_similarity()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.normalize_cosine"><code class="docutils literal notranslate"><span class="pre">normalize_cosine()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/person.html#lookbook.scorers.person.FaceArea"><code class="docutils literal notranslate"><span class="pre">FaceArea</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="module_docs/lookbook/scorers/person.html#lookbook.scorers.person.FaceQualityProxy"><code class="docutils literal notranslate"><span class="pre">FaceQualityProxy</span></code></a></li>
@@ -324,8 +344,8 @@
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-<p>Release: 0.0.8</p>
-<p>Last change: May 27, 2026</p>
+<p>Release: 0.0.9</p>
+<p>Last change: Jun 25, 2026</p>
 </section>
 
 
@@ -338,7 +358,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright NO COPYRIGHT.</p>
+    <p></p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

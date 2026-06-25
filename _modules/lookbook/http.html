@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.http &mdash; lookbook 0.0.8 documentation</title>
+  <title>lookbook.http &mdash; lookbook 0.0.9 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=53b53b71"></script>
+      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -71,6 +71,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/registry.html">lookbook.registry</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/report.html">lookbook.report</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/identity.html">lookbook.scorers.identity</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/person.html">lookbook.scorers.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/scorers/technical.html">lookbook.scorers.technical</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/selectors.html">lookbook.selectors</a></li>
@@ -269,6 +270,45 @@
 
 
 
+<div class="viewcode-block" id="compare_to_reference">
+<a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.compare_to_reference">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">compare_to_reference</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">reference_paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
+    <span class="n">candidate_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">embedder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;arcface&quot;</span><span class="p">,</span>
+    <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span>
+    <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rescale&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Identity/likeness of a candidate vs a locked reference (or pool).</span>
+
+<span class="sd">    The reference-supervisor verb: returns a normalized similarity in</span>
+<span class="sd">    ``[0, 1]`` (1 = same identity) plus an advisory ``passed`` flag. Pass one</span>
+<span class="sd">    or more ``reference_paths`` (server-local image paths) and a single</span>
+<span class="sd">    ``candidate_path``. ``embedder`` selects the space — ``&quot;arcface&quot;`` for</span>
+<span class="sd">    faces (default), ``&quot;clip&quot;`` / ``&quot;dinov2&quot;`` for scenes/architecture.</span>
+
+<span class="sd">    The pass/fail is **advisory** — the caller decides whether to act on it.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.scorers.identity</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+        <span class="n">compare_to_reference</span> <span class="k">as</span> <span class="n">_compare_to_reference</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">refs</span> <span class="o">=</span> <span class="p">[</span><span class="n">PathImageRef</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">reference_paths</span><span class="p">]</span>
+    <span class="n">reference</span> <span class="o">=</span> <span class="n">refs</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">refs</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">refs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">_compare_to_reference</span><span class="p">(</span>
+        <span class="n">reference</span><span class="p">,</span>
+        <span class="n">PathImageRef</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">candidate_path</span><span class="p">),</span>
+        <span class="n">embedder</span><span class="o">=</span><span class="n">embedder</span><span class="p">,</span>
+        <span class="n">threshold</span><span class="o">=</span><span class="n">threshold</span><span class="p">,</span>
+        <span class="n">aggregation</span><span class="o">=</span><span class="n">aggregation</span><span class="p">,</span>
+        <span class="n">normalization</span><span class="o">=</span><span class="n">normalization</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">as_dict</span><span class="p">()</span></div>
+
+
+
 <div class="viewcode-block" id="get_annotations">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.get_annotations">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_annotations</span><span class="p">(</span><span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
@@ -419,6 +459,7 @@
         <span class="n">ingest_source</span><span class="p">,</span>
         <span class="n">curate_source</span><span class="p">,</span>
         <span class="n">score_image</span><span class="p">,</span>
+        <span class="n">compare_to_reference</span><span class="p">,</span>
         <span class="n">get_annotations</span><span class="p">,</span>
         <span class="n">list_runs</span><span class="p">,</span>
         <span class="n">get_run</span><span class="p">,</span>
@@ -452,7 +493,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright NO COPYRIGHT.</p>
+    <p></p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
