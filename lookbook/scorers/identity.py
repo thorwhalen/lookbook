@@ -112,7 +112,9 @@ def cosine_similarity(u: np.ndarray, v: np.ndarray) -> float:
     return float(np.dot(u, v) / (nu * nv))
 
 
-def normalize_cosine(cosine: float, *, normalization: str = DFLT_NORMALIZATION) -> float:
+def normalize_cosine(
+    cosine: float, *, normalization: str = DFLT_NORMALIZATION
+) -> float:
     """Map a cosine in ``[-1, 1]`` onto ``[0, 1]`` (1 = identical direction).
 
     >>> normalize_cosine(1.0)
@@ -136,7 +138,9 @@ def normalize_cosine(cosine: float, *, normalization: str = DFLT_NORMALIZATION) 
     )
 
 
-def _aggregate(values: Sequence[float], *, aggregation: str = DFLT_AGGREGATION) -> float:
+def _aggregate(
+    values: Sequence[float], *, aggregation: str = DFLT_AGGREGATION
+) -> float:
     """Fold per-reference similarities into one. See ``_AGGREGATIONS``."""
     if not len(values):  # type: ignore[arg-type]
         raise ValueError("cannot aggregate an empty similarity sequence")
@@ -160,9 +164,7 @@ def _as_2d(embedding: Any) -> np.ndarray:
         return arr[np.newaxis, :]
     if arr.ndim == 2:
         return arr
-    raise ValueError(
-        f"reference embedding must be 1-D or 2-D, got shape {arr.shape}."
-    )
+    raise ValueError(f"reference embedding must be 1-D or 2-D, got shape {arr.shape}.")
 
 
 # --------------------------------------------------------------------------- #
@@ -277,8 +279,11 @@ def _build_result(
     if aggregation == "mean":
         agg_cos = float(np.mean(per_ref_cos))
     else:
-        idx = int(np.asarray(per_ref_norm).argmax() if aggregation == "max"
-                  else np.asarray(per_ref_norm).argmin())
+        idx = int(
+            np.asarray(per_ref_norm).argmax()
+            if aggregation == "max"
+            else np.asarray(per_ref_norm).argmin()
+        )
         agg_cos = per_ref_cos[idx]
 
     return SimilarityResult(
