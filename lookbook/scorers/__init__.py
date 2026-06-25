@@ -7,3 +7,4 @@ module top.
 
 from lookbook.scorers import technical  # noqa: F401  (registers Phase 0/1 scorers)
 from lookbook.scorers import person  # noqa: F401  (registers Phase 3 scorers)
+from lookbook.scorers import identity  # noqa: F401  (registers cross-image identity scorer)

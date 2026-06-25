@@ -15,6 +15,7 @@ from __future__ import annotations
 from typing import Any, Optional
 
 from lookbook.http import (
+    compare_to_reference,
     curate_source,
     get_annotations,
     get_image,
@@ -123,6 +124,46 @@ def mcp_score_image(
     )
 
 
+def mcp_compare_to_reference(
+    reference_paths: list,
+    candidate_path: str,
+    embedder: str = "arcface",
+    threshold: float = 0.85,
+    aggregation: str = "max",
+    normalization: str = "rescale",
+) -> dict:
+    """Check whether a generated image still matches a locked reference.
+
+    The reference-supervisor verb. Embeds the candidate and the reference(s)
+    in the chosen space and returns a normalized identity similarity in
+    `[0, 1]` (1 = same identity) plus an advisory `passed` flag against the
+    threshold. The pass/fail is advisory — you decide whether to act on it.
+
+    Args:
+        reference_paths: one or more server-local paths of the locked
+            reference image(s). A pool is folded by `aggregation`.
+        candidate_path: server-local path of the candidate generation.
+        embedder: `"arcface"` for face identity (default), `"clip"` or
+            `"dinov2"` for scenes / architecture / props.
+        threshold: advisory pass/fail cutoff on the [0, 1] scale.
+        aggregation: how to fold a reference pool — `"max"` (matches any
+            locked view; default), `"mean"`, or `"min"`.
+        normalization: cosine→[0,1] map — `"rescale"` (default) or `"clamp"`.
+
+    Returns:
+        `{identity_cosine, score, passed, threshold, per_reference,
+          aggregation, n_references}`.
+    """
+    return compare_to_reference(
+        reference_paths=reference_paths,
+        candidate_path=candidate_path,
+        embedder=embedder,
+        threshold=threshold,
+        aggregation=aggregation,
+        normalization=normalization,
+    )
+
+
 def mcp_get_annotations(image_id: str) -> dict:
     """All annotations stored for one image.
 
@@ -204,6 +245,7 @@ def mk_lookbook_mcp(*, name: str = "lookbook"):
     mcp.tool(name="ingest_source")(mcp_ingest_source)
     mcp.tool(name="curate_source")(mcp_curate_source)
     mcp.tool(name="score_image")(mcp_score_image)
+    mcp.tool(name="compare_to_reference")(mcp_compare_to_reference)
     mcp.tool(name="get_annotations")(mcp_get_annotations)
     mcp.tool(name="list_runs")(mcp_list_runs)
     mcp.tool(name="get_run")(mcp_get_run)
