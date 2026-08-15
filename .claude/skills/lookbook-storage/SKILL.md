@@ -17,14 +17,19 @@ layer.
 
 | Slot | Type | Keys | Values | Default backend |
 |---|---|---|---|---|
-| `images` | `MutableMapping` | `image_id` (str) | bytes / path / url payload | `dol.Files` |
+| `images` | `MutableMapping` | `image_id` (str) | metadata record, e.g. `{"path": ...}` | `dol.JsonFiles` |
 | `manifest` | `MutableMapping` | `(image_id, metric_id)` tuple | `Annotation` | `dol.JsonFiles` + codec |
 | `runs` | `MutableMapping` | `run_id` (str) | dict (JSON-able) | `dol.JsonFiles` |
 | `embeddings` | `MutableMapping[space_id, MutableMapping]` | `space_id` → per-space store | per-space: `image_id` → vector | dict-of-`JsonFiles` |
 
 The `embeddings` slot is a *mapping of mappings* — one per embedding space
-(`clip_vit_l14`, `dinov2_vitb14`, `arcface_r100`, etc.) — because different
-metrics use different spaces and they should be persisted independently.
+(the shipped `space_id`s are `clip_vit_b32`, `dinov2_base`, `arcface`,
+plus `mock` / `arcface_mock`) — because different metrics use different
+spaces and they should be persisted independently.
+
+`images` holds *records about* images, not the bytes: `ingest_to_store`
+writes `image_id -> {"path": ...}` so the HTTP layer can resolve an id back
+to a file. Pass a `Files`-backed store if you actually want the bytes.
 
 ## The default factory
 
@@ -72,8 +77,10 @@ def manifest_codec(store: MutableMapping) -> MutableMapping:
     )
 ```
 
-Filename format: `"{image_id}::{metric_id}.json"`. Pick this up from disk and
-the codec re-hydrates `Annotation` instances on read, including parsing the
+Filename format: `"{image_id}--{metric_id}.json"` — the separator is
+`lookbook.store._KEY_SEP`, and it is `--` rather than `::` because Windows
+disallows `:` in filenames. Pick a file up from disk and the codec
+re-hydrates `Annotation` instances on read, including parsing the
 ISO-format timestamp.
 
 ## Swapping backends

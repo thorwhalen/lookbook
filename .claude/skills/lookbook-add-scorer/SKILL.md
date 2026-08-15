@@ -20,6 +20,45 @@ class Scorer(Protocol):
 This skill is the recipe for adding one end-to-end. Read
 `lookbook-dev` first if you haven't.
 
+## What's already registered
+
+Check before you write — half the "new scorer" requests are already
+shipped. `registry.scorers.names()` is the ground truth; today it holds:
+
+| registry name | metric_id | tier | requires | module |
+|---|---|---|---|---|
+| `random_score` | `random_score` | 0 | — | `technical.py` |
+| `resolution` | `resolution` | 0 | — | `technical.py` |
+| `file_hash` | `file_hash` | 0 | — | `technical.py` |
+| `phash` | `phash` | 1 | — | `technical.py` |
+| `blur` | `blur` | 1 | — | `technical.py` |
+| `exposure` | `exposure` | 1 | — | `technical.py` |
+| `technical_quality` | `technical_quality` | 1 | `blur`, `exposure`, `resolution` | `technical.py` |
+| `mock_face` | `face_box` | 1 | — | `person.py` |
+| `insightface` | `face_box` | 1 | — | `person.py` |
+| `face_area` | `face_area` | 1 | `face_box`, `resolution` | `person.py` |
+| `mock_head_pose` | `head_pose` | 1 | `face_box` | `person.py` |
+| `head_pose` | `head_pose` | 2 | `face_box` | `person.py` |
+| `face_quality` | `face_quality` | 1 | `face_box`, `face_area` | `person.py` |
+| `identity_similarity` | `identity_similarity` | 2 | — | `identity.py` |
+
+Registry name ≠ metric_id: `mock_face` and `insightface` are two backends
+writing the same `face_box` annotation, distinguished by `config_hash`
+(same for `mock_head_pose` / `head_pose`). That's the pattern for "real
+backend + offline stand-in" — it keeps recipes swappable without changing
+what downstream scorers read.
+
+Two of those are the best worked examples in the package:
+
+- **`technical_quality`** — the canonical *derived* scorer. It computes
+  nothing itself: it reads three upstream annotations and folds them into
+  one rankable float. Copy its shape whenever the new metric is a blend of
+  metrics that already exist.
+- **`identity_similarity`** — the canonical *cross-image* scorer, and the
+  only stateful one. It holds a reference embedding and compares each
+  candidate against it, with the embedder injected rather than hard-wired.
+  Copy its shape whenever the metric is "candidate vs something else".
+
 ## The 8-step recipe
 
 ### 1. Decide the cost tier
@@ -31,8 +70,11 @@ This skill is the recipe for adding one end-to-end. Read
 | T2 | 5–100 ms | GPU helpful | CLIP, DINOv2, ArcFace, NR-IQA |
 | T3 | 100 ms – 2 s | GPU required | MLLM critique, FIQA, multi-stage |
 
-The orchestrator runs cheaper tiers first. Set `cost_tier` honestly — the
-budget controller (Phase 2) will skip T2/T3 scorers under tight budgets.
+The topo walk visits scorers in `cost_tier` order, so a cheap scorer runs
+first whenever the dependency order leaves it free. Set the tier honestly:
+it is the ordering signal today, and the input a future budget controller
+would use to skip T2/T3 work — there is no such controller yet, so a wrong
+tier just misorders the run.
 
 ### 2. Pick a `metric_id`
 
@@ -186,22 +228,58 @@ Embedders implement a separate Protocol (`Embedder` in `base.py`) and
 register into `registry.embedders`. Their `embed(ref)` returns a numpy
 array; the pipeline writes the vector to `stores.embeddings[space_id]`.
 
-### A scorer that reads the face box
+### A derived scorer — folding existing annotations into one number
+
+The shipped `technical_quality` (`scorers/technical.py:TechnicalQuality`)
+is the reference implementation. It computes nothing from pixels; it reads
+three upstream annotations and blends them:
 
 ```python
-def score(self, ref, manifest) -> dict:
-    box = value_of(manifest, ref.image_id, "face_box")
-    if box is None:
-        return {"face_area": 0.0}  # no face detected upstream
-    res = value_of(manifest, ref.image_id, "resolution") or {}
-    total = res.get("width", 1) * res.get("height", 1)
-    bw = box["x2"] - box["x1"]
-    bh = box["y2"] - box["y1"]
-    return {"face_area": (bw * bh) / total}
+@dataclass
+class TechnicalQuality:
+    metric_id: str = "technical_quality"
+    cost_tier: int = 1
+    requires: tuple = ("blur", "exposure", "resolution")
+    backend: str = "derived"
+    blur_normalization: float = 500.0   # every weight/knob is a field,
+    target_long_side: int = 1024        # never a literal in `score`
+    clipping_penalty: float = 2.0
+
+    def score(self, ref, manifest) -> float:
+        blur = value_of(manifest, ref.image_id, "blur")
+        ...
+        # neutral 0.5 when an upstream metric is absent — never raise
+        return float(0.5 * sharpness + 0.3 * exposure_score + 0.2 * resolution_score)
 ```
 
-Declare `requires=("face_box", "resolution")` on this scorer — the
-orchestrator will run those first.
+Three habits to copy: declare every upstream metric in `requires` so the
+topo-sort runs them first; degrade to a neutral value when one is missing
+rather than raising; and make every weight a dataclass field so
+`config_hash` invalidates when it changes.
+
+`face_area` (`scorers/person.py`) is the same pattern reading `face_box` +
+`resolution`, and `face_quality` reads `face_box` + `face_area`. Derived
+scorers stack.
+
+### A cross-image scorer — comparing against a reference
+
+`identity_similarity` (`scorers/identity.py:IdentitySimilarity`) breaks the
+"pure function of one image" mould: it holds a reference embedding and
+scores each candidate *against* it. Two design points to copy if you write
+another comparison scorer:
+
+- **Inject the embedder, don't hard-wire it.** `IdentitySimilarity` accepts
+  a registry name (`"arcface"`, resolved lazily), an `Embedder` object, or a
+  bare `embed_fn(ref) -> vector`. Importing the module pulls in no torch,
+  and the math is unit-tested with a fake embedder returning known vectors.
+- **Fold the reference state into `config_hash`.** It hashes the reference
+  matrix along with the threshold / aggregation / normalization, so a
+  different reference can never hit a cached candidate score.
+
+Its registry entry carries a zero-vector placeholder reference — it exists
+so the scorer shows up in `list-plugins`. Real use goes through
+`compare_to_reference(...)` or a `(name, kwargs)` override that supplies a
+real reference.
 
 ## Cache invalidation rules
 
@@ -218,9 +296,12 @@ adding a `version` field to `_hash_config`.
 ## Anti-patterns to avoid
 
 - **Importing torch / cv2 / pyiqa at module top.** Breaks the laptop tier.
-- **Mutating shared state across scorers.** Scorers must be pure functions
-  of `(ref, manifest)`. The pipeline calls them in unpredictable order
-  within a tier.
+- **Mutating shared state across scorers.** A scorer must be a pure
+  function of `(ref, manifest)` plus its own construction-time config —
+  the pipeline calls them in unpredictable order within a tier. Immutable
+  per-instance state fixed at construction is fine (that's how
+  `IdentitySimilarity` caches its reference embedding); anything another
+  scorer can observe is not.
 - **Returning numpy arrays directly to the manifest.** They don't JSON-serialize.
   Convert to lists, or use a custom codec on the manifest store.
 - **Raising on missing `requires`.** The pipeline already orders them; if

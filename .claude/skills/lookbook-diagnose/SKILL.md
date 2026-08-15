@@ -21,6 +21,11 @@ yet.
 | Why was *this* image dropped? | `get_annotations(image_id)` |
 | What did the run as a whole reject? | `get_run(run_id)` → `report.dropped_by_filter` |
 | What's missing / underrepresented in the kept set? | `get_run(run_id)` → `report.notes.cluster_coverage` |
+| Is *this* image the same person/subject as my reference? | `compare_to_reference(reference_paths, candidate_path)` |
+
+That last one is a different question from the other three: it compares two
+images rather than reading a run's trail, so it works on any image, curated
+or not. Its `passed` flag is advisory — report the `score` alongside it.
 
 ## Per-image diagnosis: `get_annotations`
 
@@ -134,6 +139,11 @@ not KMeans clusters. The `person` profile bins yaw into:
 ```
 front (|yaw|≤10) | three_quarter (10–30) | profile (30–60) | back (>60)
 ```
+
+The scheme is symmetric, so every bin except `front` has a left-hand twin:
+the actual labels are `front`, `three_quarter` / `three_quarter_left`,
+`profile` / `profile_left`, `back` / `back_left`. Tally the exact labels —
+`three_quarter` alone is half the bin.
 
 To diagnose pose coverage manually after a `person` curation:
 

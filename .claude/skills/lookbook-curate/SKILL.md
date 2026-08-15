@@ -13,6 +13,69 @@ score (diversity, pose balance, identity uniformity).
 This skill is for **using** lookbook to curate. If you're building or
 extending lookbook itself, use `lookbook-dev` and friends.
 
+## Shortcut: the two one-call facades
+
+Before reaching for a recipe, check whether the job is one of the two
+"pick the best reference image(s) from this pool" cases. Both are Python
+facades over `curate` (no HTTP/MCP verb) and both default to `k=1`:
+
+```python
+from lookbook import curate_for_character, curate_for_environment
+
+# A *known* character: scores resolution / blur / exposure / face box /
+# face area, then ranks by the composite `face_quality` (detector
+# confidence + how well-sized the face is + sharpness).
+result = curate_for_character("/abs/path/to/frames", k=1)
+
+# No-face pools — environment plates, props, style boards: ranks by the
+# composite `technical_quality`. Needs no ML dependency at all.
+result = curate_for_environment("/abs/path/to/plates", k=3)
+```
+
+Two things worth knowing about `curate_for_character`:
+
+- It does **not** score identity. The pool is assumed to already be one
+  character; what it picks is the frame that shows them most usably.
+  To ask "is this generation still the same person?", use
+  `compare_to_reference` (below).
+- `face_detector="mock_face"` swaps the real InsightFace/RetinaFace
+  detector for the deterministic centred-box one — that's the offline,
+  no-download path for tests and demos. The default is `"insightface"`,
+  which needs `pip install lookbook[person]`.
+
+Images with no detected face score 0 and sort last; the pool is never
+filtered to empty, so an awkward pool still yields a best-effort pick.
+
+## Checking a generation against a locked reference
+
+`compare_to_reference` is the reference-supervisor verb — the one to call
+when the question is *"does this new image still match the locked
+reference?"* rather than *"which of these is best?"*.
+
+```python
+from lookbook import compare_to_reference
+
+result = compare_to_reference(
+    reference,      # one ImageRef, or a list of them (a reference pool)
+    candidate,      # one ImageRef
+    embedder="arcface",   # "clip" / "dinov2" for scenes, props, architecture
+    threshold=0.85,
+    aggregation="max",    # fold a pool: "max" | "mean" | "min"
+)
+result.score        # [0, 1], 1 = same identity
+result.passed       # score >= threshold — ADVISORY, you decide what to do
+result.per_reference  # per-view breakdown, so you can see which view matched
+```
+
+It is also `POST /compare_to_reference` over HTTP and a `compare_to_reference`
+MCP tool; both take server-local `reference_paths` + `candidate_path` and
+return the same fields as a dict.
+
+Read the flags honestly when reporting: `passed` is advisory, and with
+`aggregation="max"` (the default) a pass means "matches *at least one*
+locked view", not "matches all of them". `"arcface"` requires
+`pip install lookbook[person]` and downloads model weights on first use.
+
 ## When to reach for which recipe
 
 The recipe is the single most important parameter. Pick it from the

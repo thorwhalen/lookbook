@@ -8,9 +8,10 @@ final selector. Running it:
 3. Hands the surviving candidates plus the read-only manifest to the
    selector.
 
-For Phase 0 the orchestration is deliberately simple — a hand-rolled topo
-walk. Phase 1+ will swap in `meshed.DAG` for richer dependency graphs and
-caching.
+The orchestration is a hand-rolled topo walk. Swapping in `meshed.DAG` for
+richer dependency graphs and caching was planned but never taken up; nothing
+in the package imports `meshed`. Whoever does make that switch: the
+`Scorer.requires` field is already the dependency graph.
 """
 
 from __future__ import annotations

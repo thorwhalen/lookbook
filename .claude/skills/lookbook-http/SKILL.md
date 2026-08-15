@@ -24,12 +24,20 @@ verbs that aren't really getters — agents prefer one consistent shape.
 | `POST /ingest_source` | `source_path` | `{image_ids, n}` |
 | `POST /curate_source` | `source_path, k, recipe` | run record |
 | `POST /score_image` | `source_path \| image_id, metric_id` | `{image_id, metric_id, value}` |
+| `POST /compare_to_reference` | `reference_paths, candidate_path, embedder, threshold, aggregation, normalization` | `{identity_cosine, score, passed, threshold, per_reference, aggregation, n_references}` |
 | `POST /get_annotations` | `image_id` | `{image_id, annotations}` |
 | `POST /list_runs` | — | `{runs: [...]}` |
 | `POST /get_run` | `run_id` | run record |
 | `POST /get_image` | `image_id` | `{image_id, path, n_bytes}` |
 
-Auto-generated Swagger UI at `/docs`; ReDoc at `/redoc`.
+Ten verbs, mounted in that order by `mk_lookbook_app()`. Auto-generated
+Swagger UI at `/docs`; ReDoc at `/redoc`.
+
+`compare_to_reference` is the odd one out: it takes *paths*, not ids, and
+never touches the stores singleton — it embeds the reference pool and the
+candidate on the fly and returns the comparison. `passed` is advisory; the
+caller decides whether to act on it. See `lookbook/scorers/identity.py` for
+the math and `lookbook-dev` for the injection seam.
 
 ## Server-wide stores
 
@@ -57,7 +65,7 @@ app folder). Always reset the singleton.
 
 ## Adding a new endpoint
 
-The 4-step recipe:
+The 5-step recipe:
 
 ### 1. Write the route function
 
@@ -86,7 +94,8 @@ In `mk_lookbook_app()`:
 ```python
 funcs = [
     list_recipes, list_plugins, ingest_source, curate_source,
-    score_image, get_annotations, list_runs, get_run, get_image,
+    score_image, compare_to_reference, get_annotations, list_runs,
+    get_run, get_image,
     my_verb,   # ← add here
 ]
 ```
@@ -106,7 +115,14 @@ def test_my_verb(client):
 The `client` fixture (in `tests/test_phase4.py`) wraps the app with
 `qh.testing.run_app`. No real port is bound; everything is in-process.
 
-### 4. Document it
+### 4. Mirror it on MCP (when agents should reach it)
+
+`lookbook/mcp.py` rewraps each HTTP verb as `mcp_<verb>` with an LLM-tuned
+docstring, then registers it under the bare name in `mk_lookbook_mcp()`. A
+verb that agents should call needs both halves — `compare_to_reference` is
+the worked example of a verb added to both surfaces in one pass.
+
+### 5. Document it
 
 Add a row to the route table at the top of this skill, and add the
 endpoint to README's CLI/curl examples if it's user-facing.
@@ -169,5 +185,6 @@ on the FastAPI app returned by `mk_lookbook_app()`.
   a JSON error dict on miss, not 500. Reserve exceptions for user-input
   errors (which become 422 via FastAPI's pydantic validation).
 - **Blocking on slow recipes.** `curate_source` with `recipe=person`
-  pulls insightface and may take 30s+. For Phase 5, expose this as an
-  async task via `qh.async_funcs` so the client can poll.
+  pulls insightface and may take 30s+, and every route is synchronous
+  today. Exposing the slow ones as async tasks the client can poll (e.g.
+  via `qh.async_funcs`) is still open work, not something already wired.

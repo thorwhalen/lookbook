@@ -27,7 +27,7 @@ Read `lookbook-dev` first if you haven't.
 |---|---|
 | "Pick K highest-scoring" | `top_k` (shipped) |
 | "Pick K diverse, well-represented" | `facility_location` (shipped, pure-numpy greedy) |
-| "Pick K under quotas (3 close-up, 5 medium, …)" | new constraint selector (Phase 3) |
+| "Pick K under quotas (3 close-up, 5 medium, …)" | `quota` (shipped, wraps any inner selector) |
 | "Pick K with hard must-include / must-exclude" | constrained wrapper |
 | "Pick K probabilistically diverse" | DPPy-based |
 | "Faster than the greedy at N > 10k" | `apricot` wrapper |
@@ -229,8 +229,8 @@ def select(self, candidates, manifest, k, constraints=None):
     return [candidates[i] for i in dpp.list_of_samples[-1]]
 ```
 
-DPPs are slower than apricot but give principled diversity. Reserve for
-small candidate pools (< 1000) and Phase 4+.
+DPPs are slower than apricot but give principled diversity. Nothing in the
+package uses them today; reserve for small candidate pools (< 1000).
 
 ## Anti-patterns to avoid
 
