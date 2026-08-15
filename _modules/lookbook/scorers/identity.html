@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.scorers.identity &mdash; lookbook 0.0.9 documentation</title>
+  <title>lookbook.scorers.identity &mdash; lookbook 0.0.10 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -56,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/facade.html">lookbook.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters.html">lookbook.filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
@@ -96,7 +97,6 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-          <li class="breadcrumb-item"><a href="../../lookbook.html">lookbook</a></li>
       <li class="breadcrumb-item active">lookbook.scorers.identity</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -226,7 +226,9 @@
 
 <div class="viewcode-block" id="normalize_cosine">
 <a class="viewcode-back" href="../../../module_docs/lookbook/scorers/identity.html#lookbook.normalize_cosine">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">normalize_cosine</span><span class="p">(</span><span class="n">cosine</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_NORMALIZATION</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">normalize_cosine</span><span class="p">(</span>
+    <span class="n">cosine</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_NORMALIZATION</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Map a cosine in ``[-1, 1]`` onto ``[0, 1]`` (1 = identical direction).</span>
 
 <span class="sd">    &gt;&gt;&gt; normalize_cosine(1.0)</span>
@@ -251,7 +253,9 @@
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_aggregate</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_AGGREGATION</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_aggregate</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="o">*</span><span class="p">,</span> <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">DFLT_AGGREGATION</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Fold per-reference similarities into one. See ``_AGGREGATIONS``.&quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="p">):</span>  <span class="c1"># type: ignore[arg-type]</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;cannot aggregate an empty similarity sequence&quot;</span><span class="p">)</span>
@@ -275,9 +279,7 @@
         <span class="k">return</span> <span class="n">arr</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="p">:]</span>
     <span class="k">if</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">arr</span>
-    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;reference embedding must be 1-D or 2-D, got shape </span><span class="si">{</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span>
-    <span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;reference embedding must be 1-D or 2-D, got shape </span><span class="si">{</span><span class="n">arr</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 
 
 <span class="c1"># --------------------------------------------------------------------------- #</span>
@@ -398,8 +400,11 @@
     <span class="k">if</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
         <span class="n">agg_cos</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">per_ref_cos</span><span class="p">))</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">per_ref_norm</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span> <span class="k">if</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span>
-                  <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">per_ref_norm</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">())</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">per_ref_norm</span><span class="p">)</span><span class="o">.</span><span class="n">argmax</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">aggregation</span> <span class="o">==</span> <span class="s2">&quot;max&quot;</span>
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">per_ref_norm</span><span class="p">)</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+        <span class="p">)</span>
         <span class="n">agg_cos</span> <span class="o">=</span> <span class="n">per_ref_cos</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="n">SimilarityResult</span><span class="p">(</span>

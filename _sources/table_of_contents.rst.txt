@@ -12,6 +12,7 @@
    module_docs/lookbook/embedders/clip
    module_docs/lookbook/embedders/dinov2
    module_docs/lookbook/embedders/mock
+   module_docs/lookbook/facade
    module_docs/lookbook/filters
    module_docs/lookbook/filters/person
    module_docs/lookbook/filters/technical

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; lookbook 0.0.9 documentation</title>
+  <title>Index &mdash; lookbook 0.0.10 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="_static/jquery.js?v=5d32c60e"></script>
       <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="_static/documentation_options.js?v=a83ce22a"></script>
       <script src="_static/doctools.js?v=fd6eb6e6"></script>
       <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -56,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/facade.html">lookbook.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters.html">lookbook.filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
@@ -197,8 +198,6 @@
         <li><a href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.compare_to_reference">(in module lookbook.scorers.identity)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.cosine_similarity">cosine_similarity() (in module lookbook.scorers.identity)</a>
 </li>
       <li><a href="module_docs/lookbook.html#lookbook.curate">curate() (in module lookbook)</a>
@@ -206,11 +205,23 @@
       <ul>
         <li><a href="module_docs/lookbook/__main__.html#lookbook.__main__.curate">(in module lookbook.__main__)</a>
 </li>
+        <li><a href="module_docs/lookbook/facade.html#lookbook.facade.curate">(in module lookbook.facade)</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/lookbook.html#lookbook.curate_for_character">curate_for_character() (in module lookbook)</a>
+
+      <ul>
+        <li><a href="module_docs/lookbook/facade.html#lookbook.facade.curate_for_character">(in module lookbook.facade)</a>
 </li>
+      </ul></li>
       <li><a href="module_docs/lookbook.html#lookbook.curate_for_environment">curate_for_environment() (in module lookbook)</a>
+
+      <ul>
+        <li><a href="module_docs/lookbook/facade.html#lookbook.facade.curate_for_environment">(in module lookbook.facade)</a>
 </li>
+      </ul></li>
       <li><a href="module_docs/lookbook.html#lookbook.curate_interactive">curate_interactive() (in module lookbook)</a>
 
       <ul>
@@ -490,6 +501,13 @@
 </li>
       </ul></li>
       <li>
+    lookbook.facade
+
+      <ul>
+        <li><a href="module_docs/lookbook/facade.html#module-lookbook.facade">module</a>
+</li>
+      </ul></li>
+      <li>
     lookbook.filters
 
       <ul>
@@ -728,6 +746,8 @@
 </li>
         <li><a href="module_docs/lookbook/embedders/mock.html#module-lookbook.embedders.mock">lookbook.embedders.mock</a>
 </li>
+        <li><a href="module_docs/lookbook/facade.html#module-lookbook.facade">lookbook.facade</a>
+</li>
         <li><a href="module_docs/lookbook/filters.html#module-lookbook.filters">lookbook.filters</a>
 </li>
         <li><a href="module_docs/lookbook/filters/person.html#module-lookbook.filters.person">lookbook.filters.person</a>
@@ -859,11 +879,13 @@
       </ul></li>
       <li><a href="module_docs/lookbook/report.html#lookbook.report.Report">Report (class in lookbook.report)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/lookbook/http.html#lookbook.http.reset_stores">reset_stores() (in module lookbook.http)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/lookbook/scorers/technical.html#lookbook.scorers.technical.Resolution">Resolution (class in lookbook.scorers.technical)</a>
+</li>
+      <li><a href="module_docs/lookbook/facade.html#lookbook.facade.resolve_plugin">resolve_plugin() (in module lookbook.facade)</a>
 </li>
       <li><a href="module_docs/lookbook.html#lookbook.Pipeline.run">run() (lookbook.Pipeline method)</a>
 
@@ -892,6 +914,8 @@
       <li><a href="module_docs/lookbook.html#lookbook.score">score() (in module lookbook)</a>
 
       <ul>
+        <li><a href="module_docs/lookbook/facade.html#lookbook.facade.score">(in module lookbook.facade)</a>
+</li>
         <li><a href="module_docs/lookbook.html#lookbook.IdentitySimilarity.score">(lookbook.IdentitySimilarity method)</a>
 </li>
         <li><a href="module_docs/lookbook/scorers/identity.html#lookbook.scorers.identity.IdentitySimilarity.score">(lookbook.scorers.identity.IdentitySimilarity method)</a>
@@ -911,6 +935,8 @@
         <li><a href="module_docs/lookbook/base.html#lookbook.base.Selector">(class in lookbook.base)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/lookbook/__main__.html#lookbook.__main__.serve">serve() (in module lookbook.__main__)</a>
 
       <ul>
@@ -919,8 +945,6 @@
         <li><a href="module_docs/lookbook/mcp.html#lookbook.mcp.serve">(in module lookbook.mcp)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="module_docs/lookbook.html#lookbook.SimilarityResult">SimilarityResult (class in lookbook)</a>
 
       <ul>

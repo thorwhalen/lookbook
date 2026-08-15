@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lookbook.facade &mdash; lookbook 0.0.10 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="lookbook.filters" href="filters.html" />
+    <link rel="prev" title="lookbook.embedders.mock" href="embedders/mock.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            lookbook
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../lookbook.html">lookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="__main__.html">lookbook.__main__</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_paths.html">lookbook._paths</a></li>
+<li class="toctree-l1"><a class="reference internal" href="base.html">lookbook.base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="diagnose.html">lookbook.diagnose</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders.html">lookbook.embedders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/arcface.html">lookbook.embedders.arcface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/clip.html">lookbook.embedders.clip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">lookbook.facade</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.facade.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.facade.curate_for_character"><code class="docutils literal notranslate"><span class="pre">curate_for_character()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.facade.curate_for_environment"><code class="docutils literal notranslate"><span class="pre">curate_for_environment()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.facade.resolve_plugin"><code class="docutils literal notranslate"><span class="pre">resolve_plugin()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.facade.score"><code class="docutils literal notranslate"><span class="pre">score()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="filters.html">lookbook.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters/person.html">lookbook.filters.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filters/technical.html">lookbook.filters.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="http.html">lookbook.http</a></li>
+<li class="toctree-l1"><a class="reference internal" href="interactive.html">lookbook.interactive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">lookbook.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/ingest.html">lookbook.io.ingest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="manifest.html">lookbook.manifest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mcp.html">lookbook.mcp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">lookbook.pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">lookbook.profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="refs.html">lookbook.refs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registry.html">lookbook.registry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="report.html">lookbook.report</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers.html">lookbook.scorers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/identity.html">lookbook.scorers.identity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/person.html">lookbook.scorers.person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scorers/technical.html">lookbook.scorers.technical</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors.html">lookbook.selectors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/quota.html">lookbook.selectors.quota</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/submodular.html">lookbook.selectors.submodular</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selectors/topk.html">lookbook.selectors.topk</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store.html">lookbook.store</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">lookbook</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">lookbook.facade</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/lookbook/facade.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lookbook.facade">
+<span id="lookbook-facade"></span><h1>lookbook.facade<a class="headerlink" href="#module-lookbook.facade" title="Link to this heading"></a></h1>
+<p>High-level facades — the one-call entry points into the pipeline.</p>
+<p><cite>curate</cite> is the general one: ingest a source, run scorers/embedders/filters,
+select K. <cite>curate_for_character</cite> and <cite>curate_for_environment</cite> are opinionated
+presets over it, and <cite>score</cite> is the single-image, single-metric shortcut.</p>
+<p>Everything here is re-exported from <cite>lookbook</cite>, which is where callers should
+import it from. Plugins are named, never subclassed: each <cite>*_ids</cite> argument
+takes registry names, optionally paired with config overrides as a
+<cite>(name, kwargs)</cite> tuple.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.facade.curate">
+<span class="sig-prename descclassname"><span class="pre">lookbook.facade.</span></span><span class="sig-name descname"><span class="pre">curate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scorer_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">('random_score',)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedder_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Sequence</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'top_k'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagnose_clusters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../../_modules/lookbook/facade.html#curate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.facade.curate" title="Link to this definition"></a></dt>
+<dd><p>High-level facade: ingest a source, run a pipeline, return the result.</p>
+<p>Each plugin id may be either a string (“blur”) or a (name, kwargs)
+tuple ((“blur”, {“max_side”: 256})) to override the default config.</p>
+<p><cite>diagnose_clusters &gt; 0</cite> runs cluster-coverage diagnosis after selection
+and writes the result into the report’s <cite>notes</cite>.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.facade.curate_for_character">
+<span class="sig-prename descclassname"><span class="pre">lookbook.facade.</span></span><span class="sig-name descname"><span class="pre">curate_for_character</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">face_detector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'insightface'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../../_modules/lookbook/facade.html#curate_for_character"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.facade.curate_for_character" title="Link to this definition"></a></dt>
+<dd><p>Curate the best reference image(s) of a <em>known</em> character from a pool.</p>
+<p>Opinionated facade over <a class="reference internal" href="#lookbook.facade.curate" title="lookbook.facade.curate"><code class="xref py py-func docutils literal notranslate"><span class="pre">curate()</span></code></a>, tuned for the “pick the
+reference image of this one character” job (IP-adapter conditioning,
+model-sheet seeding): every image is scored for resolution, sharpness,
+exposure and face quality, then the top <code class="docutils literal notranslate"><span class="pre">k</span></code> are taken by the
+composite <code class="docutils literal notranslate"><span class="pre">face_quality</span></code> metric.</p>
+<p>Identity is <em>not</em> scored — the pool is assumed to already be one
+character, so what matters is which frame shows them most usably: in
+focus, well exposed, face clearly visible and well sized. To check
+whether a <em>generation</em> still matches a locked reference, use
+<a class="reference internal" href="../lookbook.html#lookbook.compare_to_reference" title="lookbook.compare_to_reference"><code class="xref py py-func docutils literal notranslate"><span class="pre">lookbook.compare_to_reference()</span></code></a> instead.</p>
+<p><cite>face_detector</cite> names the registered face-box scorer:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;insightface&quot;</span></code> — real RetinaFace detection; needs
+<code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">lookbook[person]</span></code>. The default.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">&quot;mock_face&quot;</span></code> — the deterministic centred-box detector, for tests
+and demos without the ML dependency.</p></li>
+</ul>
+<p>Images with no detected face score <code class="docutils literal notranslate"><span class="pre">0</span></code> and sort last; the pool is
+never filtered down to empty, so a small or awkward pool still yields
+a best-effort pick.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.facade.curate_for_environment">
+<span class="sig-prename descclassname"><span class="pre">lookbook.facade.</span></span><span class="sig-name descname"><span class="pre">curate_for_environment</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Mapping</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="pipeline.html#lookbook.pipeline.RunResult" title="lookbook.pipeline.RunResult"><span class="pre">RunResult</span></a></span></span><a class="reference internal" href="../../_modules/lookbook/facade.html#curate_for_environment"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.facade.curate_for_environment" title="Link to this definition"></a></dt>
+<dd><p>Curate the best reference image(s) for a non-person subject.</p>
+<p>Opinionated facade over <a class="reference internal" href="#lookbook.facade.curate" title="lookbook.facade.curate"><code class="xref py py-func docutils literal notranslate"><span class="pre">curate()</span></code></a> for pools where face detection
+is moot — environment plates, prop references, style boards. Each
+image is scored for resolution, sharpness and exposure, folded into
+the composite <code class="docutils literal notranslate"><span class="pre">technical_quality</span></code> metric, and the top <code class="docutils literal notranslate"><span class="pre">k</span></code> are
+taken.</p>
+<p>Unlike <a class="reference internal" href="#lookbook.facade.curate_for_character" title="lookbook.facade.curate_for_character"><code class="xref py py-func docutils literal notranslate"><span class="pre">curate_for_character()</span></code></a> this needs no ML dependency — the
+scorers run on Pillow + numpy (cv2 is used for sharpness when present,
+with a numpy fallback otherwise).</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.facade.resolve_plugin">
+<span class="sig-prename descclassname"><span class="pre">lookbook.facade.</span></span><span class="sig-name descname"><span class="pre">resolve_plugin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">fresh</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/lookbook/facade.html#resolve_plugin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.facade.resolve_plugin" title="Link to this definition"></a></dt>
+<dd><p>Look up a plugin from a registry, optionally with config overrides.</p>
+<p><cite>spec</cite> is either a registered name or a <cite>(name, kwargs)</cite> tuple. With
+<cite>fresh=True</cite> (used for filters with internal state), returns a brand
+new instance even when no overrides are given.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.facade.score">
+<span class="sig-prename descclassname"><span class="pre">lookbook.facade.</span></span><span class="sig-name descname"><span class="pre">score</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ref</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="base.html#lookbook.base.ImageRef" title="lookbook.base.ImageRef"><span class="pre">ImageRef</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">metric_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stores</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="store.html#lookbook.store.Stores" title="lookbook.store.Stores"><span class="pre">Stores</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="../../_modules/lookbook/facade.html#score"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.facade.score" title="Link to this definition"></a></dt>
+<dd><p>Score one image against one metric. Returns the bare value.</p>
+<p>Caches into the manifest so repeated calls are free.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="embedders/mock.html" class="btn btn-neutral float-left" title="lookbook.embedders.mock" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="filters.html" class="btn btn-neutral float-right" title="lookbook.filters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

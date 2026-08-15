@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.pipeline &mdash; lookbook 0.0.9 documentation</title>
+  <title>lookbook.pipeline &mdash; lookbook 0.0.10 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -59,6 +59,7 @@
 <li class="toctree-l1"><a class="reference internal" href="embedders/clip.html">lookbook.embedders.clip</a></li>
 <li class="toctree-l1"><a class="reference internal" href="embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">lookbook.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters.html">lookbook.filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters/person.html">lookbook.filters.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters/technical.html">lookbook.filters.technical</a></li>
@@ -126,9 +127,10 @@ final selector. Running it:</p>
 <li><p>Hands the surviving candidates plus the read-only manifest to the
 selector.</p></li>
 </ol>
-<p>For Phase 0 the orchestration is deliberately simple — a hand-rolled topo
-walk. Phase 1+ will swap in <cite>meshed.DAG</cite> for richer dependency graphs and
-caching.</p>
+<p>The orchestration is a hand-rolled topo walk. Swapping in <cite>meshed.DAG</cite> for
+richer dependency graphs and caching was planned but never taken up; nothing
+in the package imports <cite>meshed</cite>. Whoever does make that switch: the
+<cite>Scorer.requires</cite> field is already the dependency graph.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="lookbook.pipeline.Pipeline">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">lookbook.pipeline.</span></span><span class="sig-name descname"><span class="pre">Pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scorers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="base.html#lookbook.base.Scorer" title="lookbook.base.Scorer"><span class="pre">Scorer</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">embedders</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="base.html#lookbook.base.Embedder" title="lookbook.base.Embedder"><span class="pre">Embedder</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="base.html#lookbook.base.Filter" title="lookbook.base.Filter"><span class="pre">Filter</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">&lt;factory&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">selector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="base.html#lookbook.base.Selector" title="lookbook.base.Selector"><span class="pre">Selector</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">diagnose_clusters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/lookbook/pipeline.html#Pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.pipeline.Pipeline" title="Link to this definition"></a></dt>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.store &mdash; lookbook 0.0.9 documentation</title>
+  <title>lookbook.store &mdash; lookbook 0.0.10 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -58,6 +58,7 @@
 <li class="toctree-l1"><a class="reference internal" href="embedders/clip.html">lookbook.embedders.clip</a></li>
 <li class="toctree-l1"><a class="reference internal" href="embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facade.html">lookbook.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters.html">lookbook.filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters/person.html">lookbook.filters.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="filters/technical.html">lookbook.filters.technical</a></li>
@@ -118,8 +119,8 @@
 <p>Three stores hold the package’s state. All three are MutableMappings so the
 backend (filesystem, SQLite, S3, Mongo, in-memory) is swappable:</p>
 <ul class="simple">
-<li><p><cite>images</cite>: image_id -&gt; bytes / path / url payload (depends on ingest)</p></li>
-<li><p><cite>manifest</cite>: “image_id::metric_id” -&gt; Annotation (as dict via codec)</p></li>
+<li><p><cite>images</cite>: image_id -&gt; record about the image, e.g. <cite>{“path”: …}</cite></p></li>
+<li><p><cite>manifest</cite>: “image_id–metric_id” -&gt; Annotation (as dict via codec)</p></li>
 <li><p><cite>runs</cite>: run_id -&gt; run record (recipe, kept set, report)</p></li>
 </ul>
 <p>The default factory wires everything to JSON-on-disk under the user’s app
@@ -150,7 +151,7 @@ slot to keep that store in memory (useful for tests).</p>
 <dt class="sig sig-object py" id="lookbook.store.manifest_codec">
 <span class="sig-prename descclassname"><span class="pre">lookbook.store.</span></span><span class="sig-name descname"><span class="pre">manifest_codec</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">store</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">MutableMapping</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">MutableMapping</span></span></span><a class="reference internal" href="../../_modules/lookbook/store.html#manifest_codec"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.store.manifest_codec" title="Link to this definition"></a></dt>
 <dd><p>Wrap a string-keyed JSON-dict store so it speaks Annotations.</p>
-<p>Keys flow as <cite>(image_id, metric_id) &lt;-&gt; “image_id::metric_id.json”</cite>.
+<p>Keys flow as <cite>(image_id, metric_id) &lt;-&gt; “image_id–metric_id.json”</cite>.
 Values flow as <cite>Annotation &lt;-&gt; dict</cite>.</p>
 </dd></dl>
 

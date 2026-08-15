@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.store &mdash; lookbook 0.0.9 documentation</title>
+  <title>lookbook.store &mdash; lookbook 0.0.10 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=f7cdbf68"></script>
+      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -56,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/clip.html">lookbook.embedders.clip</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/dinov2.html">lookbook.embedders.dinov2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/embedders/mock.html">lookbook.embedders.mock</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/facade.html">lookbook.facade</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters.html">lookbook.filters</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters/person.html">lookbook.filters.person</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../module_docs/lookbook/filters/technical.html">lookbook.filters.technical</a></li>
@@ -96,7 +97,6 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-          <li class="breadcrumb-item"><a href="../lookbook.html">lookbook</a></li>
       <li class="breadcrumb-item active">lookbook.store</li>
       <li class="wy-breadcrumbs-aside">
       </li>
@@ -112,8 +112,8 @@
 <span class="sd">Three stores hold the package&#39;s state. All three are MutableMappings so the</span>
 <span class="sd">backend (filesystem, SQLite, S3, Mongo, in-memory) is swappable:</span>
 
-<span class="sd">- `images`: image_id -&gt; bytes / path / url payload (depends on ingest)</span>
-<span class="sd">- `manifest`: &quot;image_id::metric_id&quot; -&gt; Annotation (as dict via codec)</span>
+<span class="sd">- `images`: image_id -&gt; record about the image, e.g. `{&quot;path&quot;: ...}`</span>
+<span class="sd">- `manifest`: &quot;image_id--metric_id&quot; -&gt; Annotation (as dict via codec)</span>
 <span class="sd">- `runs`: run_id -&gt; run record (recipe, kept set, report)</span>
 
 <span class="sd">The default factory wires everything to JSON-on-disk under the user&#39;s app</span>
@@ -181,7 +181,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">manifest_codec</span><span class="p">(</span><span class="n">store</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrap a string-keyed JSON-dict store so it speaks Annotations.</span>
 
-<span class="sd">    Keys flow as `(image_id, metric_id) &lt;-&gt; &quot;image_id::metric_id.json&quot;`.</span>
+<span class="sd">    Keys flow as `(image_id, metric_id) &lt;-&gt; &quot;image_id--metric_id.json&quot;`.</span>
 <span class="sd">    Values flow as `Annotation &lt;-&gt; dict`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">wrap_kvs</span><span class="p">(</span>
