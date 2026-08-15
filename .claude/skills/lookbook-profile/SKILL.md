@@ -168,6 +168,7 @@ def test_my_profile_loads():
     assert spec["name"] == "my_profile"
     # Check it parses what you expect.
 
+
 def test_my_profile_end_to_end_via_mock():
     """If your profile uses heavy backends, write a `my_profile_mock`
     sibling that swaps in MockFaceDetect / MockHeadPose / MockArcFace

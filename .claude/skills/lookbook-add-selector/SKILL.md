@@ -81,12 +81,15 @@ class FacilityLocation:
         candidates = list(candidates)
         if k <= 0 or not candidates:
             return []
-        embeddings = np.stack([
-            np.asarray(value_of(manifest, r.image_id, self.embedding))
-            for r in candidates
-        ])
+        embeddings = np.stack(
+            [
+                np.asarray(value_of(manifest, r.image_id, self.embedding))
+                for r in candidates
+            ]
+        )
         # Heavy import inside the method:
         from apricot import FacilityLocationSelection
+
         sel = FacilityLocationSelection(min(k, len(candidates)))
         sel.fit(embeddings)
         idx = sel.ranking[:k]
@@ -139,13 +142,20 @@ def test_selector_returns_at_most_k():
     out = sel.select(refs, {}, k=3)
     assert len(out) <= 3
 
+
 def test_selector_picks_high_score_first(memory_stores):
     # Set up manifest with known scores; assert the right items come back.
     ...
 
+
 def test_selector_end_to_end_via_curate(image_dir, memory_stores):
-    result = curate(image_dir, k=3, selector_id="my_selector",
-                    scorer_ids=("random_score",), stores=memory_stores)
+    result = curate(
+        image_dir,
+        k=3,
+        selector_id="my_selector",
+        scorer_ids=("random_score",),
+        stores=memory_stores,
+    )
     assert len(result.kept) == 3
 ```
 
@@ -222,6 +232,7 @@ location within a bin, etc.
 ```python
 def select(self, candidates, manifest, k, constraints=None):
     from dppy.finite_dpps import FiniteDPP
+
     embeddings = np.stack([...])
     L = embeddings @ embeddings.T  # similarity kernel
     dpp = FiniteDPP("likelihood", **{"L": L})

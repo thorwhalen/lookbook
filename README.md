@@ -99,7 +99,7 @@ result = curate(
     ),
     selector_id=("top_k", {"metric_id": "blur"}),
 )
-print(result.report)        # drop counts attributed to each filter
+print(result.report)  # drop counts attributed to each filter
 print([r.image_id for r in result.kept])
 ```
 
@@ -127,8 +127,8 @@ best = curate_for_environment("./plates", k=3)
 from lookbook import compare_to_reference
 
 result = compare_to_reference(reference, candidate, embedder="arcface")
-result.score          # [0, 1], 1 = same identity
-result.passed         # score >= threshold (0.85 default) — advisory
+result.score  # [0, 1], 1 = same identity
+result.passed  # score >= threshold (0.85 default) — advisory
 result.per_reference  # per-view breakdown when the reference is a pool
 ```
 
@@ -146,12 +146,17 @@ into the loop, one round at a time:
 ```python
 from lookbook import curate_interactive, InteractiveDecision
 
+
 def decide(presented, info):
     # show `presented` to the user; collect their picks
     return InteractiveDecision(keep=("img-abc",), reject=("img-xyz",))
 
+
 result = curate_interactive(
-    "./photos", on_decision=decide, k=20, present=8,
+    "./photos",
+    on_decision=decide,
+    k=20,
+    present=8,
     scorer_ids=("blur", "exposure"),
 )
 ```

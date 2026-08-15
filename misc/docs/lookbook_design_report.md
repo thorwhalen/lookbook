@@ -263,10 +263,11 @@ The original sketch proposed a per-image JSON object. That is exactly the right 
 class Annotation:
     image_id: str
     metric_id: str
-    value: Any                # number, vector, dict, label
-    config_hash: str          # which model / threshold produced this
+    value: Any  # number, vector, dict, label
+    config_hash: str  # which model / threshold produced this
     cost_tier: int
     timestamp: datetime
+
 
 # The manifest is a Mapping over annotations
 Manifest = MutableMapping[Tuple[image_id, metric_id], Annotation]
@@ -315,24 +316,34 @@ A tiny set of duck-typed interfaces (Python `Protocol`s) is the entire extension
 ```python
 from typing import Protocol, Iterable, Any, Mapping
 
+
 class ImageRef(Protocol):
     """Anything that knows its identity and how to be opened lazily."""
+
     image_id: str
+
     def open(self) -> "PIL.Image.Image": ...
+
     metadata: Mapping[str, Any]
+
 
 class Scorer(Protocol):
     metric_id: str
     cost_tier: int
-    requires: tuple[str, ...]   # other metric_ids this depends on
+    requires: tuple[str, ...]  # other metric_ids this depends on
+
     def score(self, ref: ImageRef, manifest: "Manifest") -> Any: ...
+
 
 class Filter(Protocol):
     def keep(self, ref: ImageRef, manifest: "Manifest") -> bool: ...
 
+
 class Embedder(Protocol):
     space_id: str
+
     def embed(self, ref: ImageRef) -> "np.ndarray": ...
+
 
 class Selector(Protocol):
     def select(

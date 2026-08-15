@@ -253,6 +253,7 @@ Internally, each is built from `dol` primitives:
 # lookbook/_paths.py
 from config2py import get_app_data_folder
 
+
 def default_data_root() -> str:
     return get_app_data_folder("lookbook", folder_kind="data", ensure_exists=True)
 ```
@@ -279,10 +280,11 @@ A single function returns a fully-wired set of stores. Users override pieces:
 # lookbook/store.py
 @dataclass
 class Stores:
-    images:    MutableMapping
-    manifest:  MutableMapping
-    runs:      MutableMapping
-    embeddings: Mapping[str, MutableMapping]   # space_id → vector store
+    images: MutableMapping
+    manifest: MutableMapping
+    runs: MutableMapping
+    embeddings: Mapping[str, MutableMapping]  # space_id → vector store
+
 
 def get_stores(
     *,
@@ -364,41 +366,51 @@ from typing import Protocol, runtime_checkable, Any, Iterable, Mapping
 from dataclasses import dataclass
 from datetime import datetime
 
+
 @runtime_checkable
 class ImageRef(Protocol):
     image_id: str
     metadata: Mapping[str, Any]
+
     def open(self) -> "PIL.Image.Image": ...
     def bytes(self) -> bytes: ...
+
 
 @dataclass(frozen=True)
 class Annotation:
     image_id: str
     metric_id: str
-    value: Any                  # number | vector | dict | label
-    config_hash: str            # which model / params produced this
+    value: Any  # number | vector | dict | label
+    config_hash: str  # which model / params produced this
     cost_tier: int
     timestamp: datetime
-    backend: str = ""           # provenance: e.g. "pyiqa:musiq", "insightface:arcface"
+    backend: str = ""  # provenance: e.g. "pyiqa:musiq", "insightface:arcface"
+
 
 # Manifest is the canonical type for "everything we know about every image".
 # It is a MutableMapping[(image_id, metric_id) -> Annotation].
 # In code, helpers below provide the ergonomics.
+
 
 class Scorer(Protocol):
     metric_id: str
     cost_tier: int
     requires: tuple[str, ...] = ()
     config_hash: str
+
     def score(self, ref: ImageRef, manifest: "Manifest") -> Any: ...
+
 
 class Filter(Protocol):
     def keep(self, ref: ImageRef, manifest: "Manifest") -> bool: ...
 
+
 class Embedder(Protocol):
     space_id: str
     cost_tier: int
+
     def embed(self, ref: ImageRef) -> "np.ndarray": ...
+
 
 class Selector(Protocol):
     def select(

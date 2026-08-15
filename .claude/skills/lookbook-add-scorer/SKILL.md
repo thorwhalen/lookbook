@@ -14,6 +14,7 @@ class Scorer(Protocol):
     cost_tier: int
     requires: tuple[str, ...]
     config_hash: str
+
     def score(self, ref: ImageRef, manifest: Manifest) -> Any: ...
 ```
 
@@ -107,6 +108,7 @@ def _hash_config(**kwargs) -> str:
     payload = repr(sorted(kwargs.items())).encode("utf-8")
     return hashlib.sha1(payload).hexdigest()[:12]
 
+
 @dataclass
 class MyScorer:
     metric_id: str = "my_metric"
@@ -130,6 +132,7 @@ or fields that don't affect the output.
 def score(self, ref: ImageRef, manifest: Manifest) -> Any:
     # Lazy-import heavy deps INSIDE the method:
     import pyiqa  # ← never at module top
+
     img = ref.open()
     return float(pyiqa.create_metric(self.model)(img))
 ```
@@ -166,6 +169,7 @@ Two equivalent ways:
 ```python
 # A: register an instance with default config (most common)
 scorers.register("my_metric", MyScorer())
+
 
 # B: decorator on a callable (when the scorer is a function with attrs)
 @register_scorer("my_metric")
@@ -212,6 +216,7 @@ class PyiqaScorer:
 
     def score(self, ref: ImageRef, manifest: Manifest) -> float:
         import pyiqa
+
         if not hasattr(self, "_iqa"):
             self._iqa = pyiqa.create_metric(self.pyiqa_model)
         with ref.open() as img:
@@ -241,8 +246,8 @@ class TechnicalQuality:
     cost_tier: int = 1
     requires: tuple = ("blur", "exposure", "resolution")
     backend: str = "derived"
-    blur_normalization: float = 500.0   # every weight/knob is a field,
-    target_long_side: int = 1024        # never a literal in `score`
+    blur_normalization: float = 500.0  # every weight/knob is a field,
+    target_long_side: int = 1024  # never a literal in `score`
     clipping_penalty: float = 2.0
 
     def score(self, ref, manifest) -> float:

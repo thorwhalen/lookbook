@@ -56,14 +56,14 @@ reference?"* rather than *"which of these is best?"*.
 from lookbook import compare_to_reference
 
 result = compare_to_reference(
-    reference,      # one ImageRef, or a list of them (a reference pool)
-    candidate,      # one ImageRef
-    embedder="arcface",   # "clip" / "dinov2" for scenes, props, architecture
+    reference,  # one ImageRef, or a list of them (a reference pool)
+    candidate,  # one ImageRef
+    embedder="arcface",  # "clip" / "dinov2" for scenes, props, architecture
     threshold=0.85,
-    aggregation="max",    # fold a pool: "max" | "mean" | "min"
+    aggregation="max",  # fold a pool: "max" | "mean" | "min"
 )
-result.score        # [0, 1], 1 = same identity
-result.passed       # score >= threshold — ADVISORY, you decide what to do
+result.score  # [0, 1], 1 = same identity
+result.passed  # score >= threshold — ADVISORY, you decide what to do
 result.per_reference  # per-view breakdown, so you can see which view matched
 ```
 
@@ -109,11 +109,14 @@ to `recipe="funnel"` and `k=20`, run it, and let them iterate.
 
 Via MCP:
 ```python
-result = await client.call_tool("curate_source", {
-    "source_path": "/abs/path/to/photos",
-    "k": 20,
-    "recipe": "person",
-})
+result = await client.call_tool(
+    "curate_source",
+    {
+        "source_path": "/abs/path/to/photos",
+        "k": 20,
+        "recipe": "person",
+    },
+)
 ```
 
 Via HTTP:
@@ -126,9 +129,14 @@ curl -X POST http://localhost:8000/curate_source \
 Via Python:
 ```python
 from lookbook import curate
-result = curate("/abs/path", k=20, scorer_ids=("resolution", "blur", "phash"),
-                filter_ids=("min_resolution", "no_exact_duplicate"),
-                selector_id="top_k")
+
+result = curate(
+    "/abs/path",
+    k=20,
+    scorer_ids=("resolution", "blur", "phash"),
+    filter_ids=("min_resolution", "no_exact_duplicate"),
+    selector_id="top_k",
+)
 ```
 
 ### 3. Read the run record

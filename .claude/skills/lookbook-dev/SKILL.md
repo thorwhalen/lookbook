@@ -136,14 +136,20 @@ or call `register(...)` directly:
 ```python
 from lookbook.registry import scorers, register_scorer
 
+
 @dataclass
 class MyScorer:
     metric_id: str = "my_metric"
     cost_tier: int = 1
     requires: tuple = ()
+
     @property
-    def config_hash(self): return "v1"
-    def score(self, ref, manifest): return ...
+    def config_hash(self):
+        return "v1"
+
+    def score(self, ref, manifest):
+        return ...
+
 
 scorers.register("my_metric", MyScorer())
 ```

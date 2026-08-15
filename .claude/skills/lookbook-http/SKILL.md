@@ -53,8 +53,9 @@ The fixture in `tests/test_phase4.py` is the canonical pattern:
 ```python
 @pytest.fixture
 def memory_server():
-    stores = get_stores(images_store={}, manifest_store={},
-                        runs_store={}, embeddings={})
+    stores = get_stores(
+        images_store={}, manifest_store={}, runs_store={}, embeddings={}
+    )
     reset_stores(stores)
     yield stores
     reset_stores(None)
@@ -93,10 +94,17 @@ In `mk_lookbook_app()`:
 
 ```python
 funcs = [
-    list_recipes, list_plugins, ingest_source, curate_source,
-    score_image, compare_to_reference, get_annotations, list_runs,
-    get_run, get_image,
-    my_verb,   # ← add here
+    list_recipes,
+    list_plugins,
+    ingest_source,
+    curate_source,
+    score_image,
+    compare_to_reference,
+    get_annotations,
+    list_runs,
+    get_run,
+    get_image,
+    my_verb,  # ← add here
 ]
 ```
 
@@ -160,6 +168,7 @@ qh's default JSON wrapping doesn't support that. When the time comes:
 
 ```python
 from fastapi import Response
+
 
 def get_image_bytes(image_id: str) -> Response:
     stores = _get_stores()

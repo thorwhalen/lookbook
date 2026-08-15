@@ -95,12 +95,12 @@ report includes a `cluster_coverage` block:
 
 ```python
 {
-  "n_clusters": 12,                     # how many clusters KMeans formed
-  "n_clusters_filled": 9,               # clusters with ≥ 1 kept image
-  "cluster_sizes_candidates": [4, 7, 5, 3, 2, 6, 8, 5, 4, 3, 9, 6],
-  "cluster_sizes_kept":       [2, 3, 0, 1, 0, 2, 1, 2, 0, 0, 4, 5],
-  "empty_clusters": [2, 4, 8, 9],
-  "underrepresented_clusters": [2, 4, 8]   # empty AND ≥2 candidates
+    "n_clusters": 12,  # how many clusters KMeans formed
+    "n_clusters_filled": 9,  # clusters with ≥ 1 kept image
+    "cluster_sizes_candidates": [4, 7, 5, 3, 2, 6, 8, 5, 4, 3, 9, 6],
+    "cluster_sizes_kept": [2, 3, 0, 1, 0, 2, 1, 2, 0, 0, 4, 5],
+    "empty_clusters": [2, 4, 8, 9],
+    "underrepresented_clusters": [2, 4, 8],  # empty AND ≥2 candidates
 }
 ```
 

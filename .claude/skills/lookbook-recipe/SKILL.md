@@ -38,8 +38,8 @@ result = curate(
     source,
     k=20,
     scorer_ids=(
-        "resolution",                                      # string form, defaults
-        ("blur", {"max_side": 256}),                       # tuned form
+        "resolution",  # string form, defaults
+        ("blur", {"max_side": 256}),  # tuned form
         "exposure",
     ),
     filter_ids=(
@@ -49,12 +49,15 @@ result = curate(
         "no_exact_duplicate",
         ("no_near_duplicate", {"max_distance": 8}),
     ),
-    selector_id=("facility_location", {
-        "embedding_space": "dinov2_base",
-        "quality_metric_id": "blur",
-        "weight_quality": 0.05,
-        "weight_diversity": 1.0,
-    }),
+    selector_id=(
+        "facility_location",
+        {
+            "embedding_space": "dinov2_base",
+            "quality_metric_id": "blur",
+            "weight_quality": 0.05,
+            "weight_diversity": 1.0,
+        },
+    ),
 )
 ```
 
@@ -186,8 +189,14 @@ result = curate(
     source,
     k=10,
     # ... the rest of the person recipe ...
-    constraints={"quotas": {"front": 5, "three_quarter": 3,
-                            "three_quarter_left": 1, "profile": 1}},
+    constraints={
+        "quotas": {
+            "front": 5,
+            "three_quarter": 3,
+            "three_quarter_left": 1,
+            "profile": 1,
+        }
+    },
 )
 ```
 

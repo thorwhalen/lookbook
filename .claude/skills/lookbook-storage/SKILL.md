@@ -42,7 +42,10 @@ stores = get_stores()
 
 # Test mode: everything in memory, nothing touches disk.
 stores = get_stores(
-    images_store={}, manifest_store={}, runs_store={}, embeddings={},
+    images_store={},
+    manifest_store={},
+    runs_store={},
+    embeddings={},
 )
 
 # Custom root: same layout, different folder.
@@ -50,6 +53,7 @@ stores = get_stores(root="/path/to/some/dir")
 
 # Mix-and-match: keep manifest in memory, runs on disk.
 from dol import JsonFiles
+
 stores = get_stores(
     manifest_store={},
     runs_store=JsonFiles("/path/runs/"),
@@ -70,8 +74,8 @@ def manifest_codec(store: MutableMapping) -> MutableMapping:
     """Wrap a string-keyed JSON-dict store so it speaks Annotations."""
     return wrap_kvs(
         store,
-        key_of_id=_str_to_key,        # filename -> tuple
-        id_of_key=_key_to_str,        # tuple -> filename
+        key_of_id=_str_to_key,  # filename -> tuple
+        id_of_key=_key_to_str,  # tuple -> filename
         obj_of_data=_dict_to_annotation,
         data_of_obj=_annotation_to_dict,
     )
@@ -106,7 +110,9 @@ from lookbook.store import manifest_codec, get_stores
 
 stores = get_stores(
     images_store=S3BinaryStore("my-bucket", prefix="lookbook/images/"),
-    manifest_store=manifest_codec(S3JsonStore("my-bucket", prefix="lookbook/manifest/")),
+    manifest_store=manifest_codec(
+        S3JsonStore("my-bucket", prefix="lookbook/manifest/")
+    ),
     runs_store=S3JsonStore("my-bucket", prefix="lookbook/runs/"),
     embeddings={},  # in-memory; embeddings are usually local-only
 )
@@ -116,6 +122,7 @@ stores = get_stores(
 
 ```python
 from mongodol import MongoStore
+
 stores = get_stores(runs_store=MongoStore(db="lookbook", collection="runs"))
 ```
 
@@ -128,8 +135,12 @@ Always go through `lookbook.manifest` helpers when possible:
 
 ```python
 from lookbook.manifest import (
-    get_annotation, has_annotation, put_annotation,
-    iter_annotations_for, image_ids, value_of,
+    get_annotation,
+    has_annotation,
+    put_annotation,
+    iter_annotations_for,
+    image_ids,
+    value_of,
 )
 
 # Read
