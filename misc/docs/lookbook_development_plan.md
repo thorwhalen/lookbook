@@ -22,6 +22,7 @@ development and (b) let AI agents use lookbook well once it ships.
 | — | Cross-image identity scorer + `compare_to_reference` (HTTP + MCP verb) | ✅ Shipped post-v1 |
 | — | Curation decisions as lacing annotations (`annot://schema/curation-decision/v1`) | ⬜ Deferred (on-disk format change) |
 | — | `meshed.DAG` orchestration (planned in §4) | ⬜ Not taken up |
+| — | Budget controller / cost accounting (`budget.py` in §2, `budget=` in §4) | ⬜ Not taken up |
 
 ### Phase 0 deliverables (done)
 

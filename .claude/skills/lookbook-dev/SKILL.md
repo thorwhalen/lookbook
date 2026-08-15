@@ -84,10 +84,10 @@ federation callers actually reach for:
   object, or bare `embed_fn`), so importing the module pulls in no torch /
   insightface and the cosine math is unit-tested with a fake embedder.
 
-Every function and class named above is a top-level `lookbook` export
-(`technical_quality` is a registry name, reached through
-`registry.scorers`). `compare_to_reference` is additionally an HTTP verb and
-an MCP tool; the `curate_for_*` presets are deliberately Python-only.
+Every function and class named above is a top-level `lookbook` export except
+`TechnicalQuality`, which is reached as the `technical_quality` registry name
+through `registry.scorers`. `compare_to_reference` is additionally an HTTP verb
+and an MCP tool; the `curate_for_*` presets are deliberately Python-only.
 
 `lookbook/__init__.py` is now pure re-export — no logic, and no
 `from __future__ import annotations`, so `dir(lookbook)` is the public API
@@ -100,11 +100,11 @@ Interface (CLI, HTTP via qh, MCP via fastmcp, Python lib)
    ↓
 Recipe / facade   (lookbook.facade, profiles)
    ↓
-Orchestration    (lookbook.pipeline, budget, manifest)
+Orchestration    (lookbook.pipeline, manifest, drop attribution, run records)
    ↓
 Plugin layer     (Scorer, Filter, Embedder, Selector — Protocols in base.py)
    ↓
-Backend          (CLIP, DINOv2, InsightFace, pyiqa, apricot — wrapped)
+Backend          (CLIP, DINOv2, InsightFace, 6DRepNet — wrapped, lazy-imported)
 ```
 
 **No `import torch` above the backend layer.** Heavy ML deps must be
@@ -112,9 +112,10 @@ lazy-imported inside scorer/embedder methods, never at module top. This is
 what keeps the package laptop-installable and lets the planning/inspection
 layers work without GPU.
 
-## The four protocols are the extension surface
+## The five protocols are the extension surface
 
-Defined in `lookbook/base.py`:
+Defined in `lookbook/base.py`. `ImageRef` is the input type; the other four
+are the plugin layer:
 
 - `ImageRef` — has `image_id`, `metadata`, `open()`, `bytes()`. Three concrete
   impls in `refs.py`: `PathImageRef`, `BytesImageRef`, `UrlImageRef`.
@@ -197,11 +198,12 @@ for the canonical example.
 
 ## Stores: the repository pattern via `dol`
 
-`lookbook.store.Stores` bundles three (and a half) MutableMappings:
+`lookbook.store.Stores` bundles four MutableMappings (plus the filesystem
+`root` they came from, when there is one):
 
 | Store | Keys | Values |
 |---|---|---|
-| `images` | `image_id` | bytes / path / url payload |
+| `images` | `image_id` | metadata record, e.g. `{"path": ...}` |
 | `manifest` | `(image_id, metric_id)` | `Annotation` |
 | `runs` | `run_id` | run record (JSON-able dict) |
 | `embeddings` | `space_id -> { image_id: vector }` | per-space vector index |
@@ -215,7 +217,9 @@ get_stores(images_store={}, manifest_store={}, runs_store={}, embeddings={})
 ```
 
 The manifest goes through a codec (`lookbook.store.manifest_codec`) that:
-- Translates `(image_id, metric_id)` ↔ `"image_id::metric_id.json"` filenames.
+- Translates `(image_id, metric_id)` ↔ `"image_id--metric_id.json"` filenames.
+  The separator is `lookbook.store._KEY_SEP`, and it is `--` rather than `::`
+  because Windows disallows `:` in filenames.
 - Serializes `Annotation` ↔ JSON-able dicts.
 
 Swapping to S3/Mongo/SQLite is a one-line change — pass an alternate
@@ -242,10 +246,15 @@ just feed it to meshed.
 
 ## Folder & path defaults
 
-Everything goes through `lookbook._paths`:
-- `default_data_root()` → `~/.local/share/lookbook` on Linux, `~/Library/Application Support/lookbook` on macOS.
-- `default_cache_root()` for regeneratable model weights / embeddings.
-- `default_config_root()` for user-edited recipes/profiles.
+Everything goes through `lookbook._paths`, which wraps `config2py`. On POSIX —
+macOS included, it does *not* use `~/Library/Application Support` — the XDG
+convention applies, and the `$XDG_*_HOME` env vars override it:
+- `default_data_root()` → `~/.local/share/lookbook`.
+- `default_cache_root()` → `~/.cache/lookbook`, for regeneratable model weights / embeddings.
+- `default_config_root()` → `~/.config/lookbook`, for user-edited recipes/profiles.
+
+On Windows the same three funnel into `%LOCALAPPDATA%` / `%APPDATA%` instead;
+`config2py` owns that branch, which is why nothing here hardcodes a path.
 
 Do **not** hardcode paths anywhere else; route them through this module so
 swapping app names is a one-place change.

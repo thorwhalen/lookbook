@@ -68,7 +68,7 @@ Interface       (CLI, HTTP via qh, MCP via fastmcp, Python lib)
 Recipe / facade (lookbook.facade, named recipes, YAML profiles)
 Orchestration   (lookbook.pipeline, manifest, drop attribution, run records)
 Plugin layer    (Scorer | Filter | Embedder | Selector — Protocols in base.py)
-Backend         (CLIP, DINOv2, InsightFace — wrapped, lazy-imported)
+Backend         (CLIP, DINOv2, InsightFace, 6DRepNet — wrapped, lazy-imported)
 ```
 
 Four commitments hold this together:

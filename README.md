@@ -183,13 +183,14 @@ Orchestration  (lookbook.pipeline, manifest, drop attribution, run records)
    ↓
 Plugin layer   (Scorer | Filter | Embedder | Selector — Protocols)
    ↓
-Backend        (CLIP, DINOv2, InsightFace, pyiqa, apricot — wrapped, lazy-imported)
+Backend        (CLIP, DINOv2, InsightFace, 6DRepNet — wrapped, lazy-imported)
 ```
 
 The **manifest** — `MutableMapping[(image_id, metric_id), Annotation]` — is
 the SSOT. Persistence is pluggable via `dol`: filesystem (default), SQLite,
 S3, Mongo, Redis. The default location is the user's app data folder via
-`config2py` (`~/Library/Application Support/lookbook` on macOS).
+`config2py`: `~/.local/share/lookbook` on Linux *and* macOS (it follows the XDG
+convention, not `~/Library/Application Support`), `%LOCALAPPDATA%` on Windows.
 
 New scorers/selectors/filters are *registered*, never subclassed. See the
 `.claude/skills/` directory for developer skills (`lookbook-dev`,

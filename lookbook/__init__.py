@@ -69,6 +69,7 @@ __all__ = [
     "Manifest",
     "PathImageRef",
     "Pipeline",
+    "PluginSpec",
     "RunResult",
     "Scorer",
     "Selector",
