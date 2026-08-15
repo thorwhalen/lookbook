@@ -20,6 +20,11 @@ There are three ways to customize, in increasing order of permanence:
 This skill covers (1) and (2). For dev-time work see `lookbook-profile`,
 `lookbook-add-scorer`, `lookbook-add-selector`.
 
+Before tuning anything: if the job is "pick the best reference image(s) of
+this character / this environment", `curate_for_character` and
+`curate_for_environment` are already that recipe, pre-tuned. See
+`lookbook-curate`.
+
 ## Per-call overrides — the (name, kwargs) tuple form
 
 Every `*_ids` argument to `curate(...)` accepts either a string or a
@@ -80,6 +85,8 @@ The most-tuned defaults, by plugin id:
 | `exposure` | `max_side=512` |
 | `phash` | `algorithm="phash"` — also `ahash`, `dhash`, `whash` |
 | `face_quality` | `blur_normalization=500.0` — divisor for the sharpness term |
+| `technical_quality` | `blur_normalization=500.0`, `target_long_side=1024`, `clipping_penalty=2.0` |
+| `identity_similarity` | `threshold=0.85`, `aggregation="max"`, `embedder="arcface"`, `normalization="rescale"` |
 
 ### Embedders
 

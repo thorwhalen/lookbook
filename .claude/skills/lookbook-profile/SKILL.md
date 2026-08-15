@@ -109,9 +109,13 @@ Always include the cheap funnel — they're free:
 
 Then add subject-specific:
 - For person: `insightface` (face_box), `face_area`, `head_pose`, `face_quality`
-- For product: `yolo` (bbox of subject) — not yet shipped, see
+- For any no-face subject: `technical_quality` — the derived composite of
+  blur + exposure + resolution. It gives a `top_k` selector one rankable
+  number without an ML dependency, which is what `curate_for_environment`
+  uses; a profile that has no better quality signal should include it.
+- For product: `yolo` (bbox of subject) — not shipped, see
   `lookbook-add-scorer` for adding new ones
-- For style: an "aesthetic" scorer (LAION-Aesthetic-V2) — Phase 2.5+
+- For style: an "aesthetic" scorer (LAION-Aesthetic-V2) — not shipped either
 
 ### 4. List the filters needed
 
@@ -174,7 +178,7 @@ def test_my_profile_end_to_end_via_mock():
     assert len(result.kept) == 5
 ```
 
-The `_mock` sibling is the canonical Phase 3 pattern. It lets the test
+The `_mock` sibling is the canonical pattern. It lets the test
 suite exercise the full orchestration without downloading model weights.
 See `lookbook/profiles/person_mock.yaml` for the template.
 

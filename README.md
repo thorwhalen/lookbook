@@ -9,7 +9,10 @@ training personalized models (character LoRAs, product LoRAs, style LoRAs).
 > character LoRA with face detection, ArcFace identity diversity, and
 > pose-bin quotas; serve every verb over HTTP (FastAPI via `qh`); and
 > expose every verb over MCP (via `fastmcp`) so an LLM agent can drive
-> curation directly. See
+> curation directly. Since then it has also gained one-call character /
+> environment reference picks, a human-in-the-loop `curate_interactive`,
+> and `compare_to_reference` — "is this generation still the same
+> subject?" as a number. See
 > [`misc/docs/lookbook_development_plan.md`](misc/docs/lookbook_development_plan.md)
 > for the full roadmap and [`misc/docs/lookbook_design_report.md`](misc/docs/lookbook_design_report.md)
 > for the design rationale.
@@ -100,6 +103,40 @@ print(result.report)        # drop counts attributed to each filter
 print([r.image_id for r in result.kept])
 ```
 
+### One-call presets: character and environment references
+
+Two opinionated facades over `curate` for the "pick the best reference
+image(s) from this pool" job:
+
+```python
+from lookbook import curate_for_character, curate_for_environment
+
+# Known character: scores resolution / sharpness / exposure / face quality,
+# ranks by the composite `face_quality`. face_detector="mock_face" runs it
+# offline; the default "insightface" needs `pip install lookbook[person]`.
+best = curate_for_character("./frames", k=1)
+
+# No-face pools (environment plates, props, style boards): ranks by the
+# composite `technical_quality`. No ML dependency at all.
+best = curate_for_environment("./plates", k=3)
+```
+
+### Identity check: does this generation still match the reference?
+
+```python
+from lookbook import compare_to_reference
+
+result = compare_to_reference(reference, candidate, embedder="arcface")
+result.score          # [0, 1], 1 = same identity
+result.passed         # score >= threshold (0.85 default) — advisory
+result.per_reference  # per-view breakdown when the reference is a pool
+```
+
+`reference` is one image ref or a list of them (folded by `aggregation`,
+`"max"` by default). Use `"clip"` / `"dinov2"` as the embedder for scenes,
+props and architecture. Also exposed as `POST /compare_to_reference` and as
+the `compare_to_reference` MCP tool.
+
 ### Interactive curate (keep the human in the loop)
 
 Pipeline-only top-k can rank "boring but sharp" above "stylistically
@@ -138,7 +175,7 @@ Five layers; the heavy ML libs live only at the bottom so the upper layers
 stay laptop-installable.
 
 ```
-Interface       (CLI, HTTP via qh, MCP via py2mcp, Python lib)
+Interface       (CLI, HTTP via qh, MCP via fastmcp, Python lib)
    ↓
 Recipe / facade (lookbook.curate, named recipes, profiles)
    ↓
@@ -169,9 +206,13 @@ lookbook/
   manifest.py           Manifest helpers
   registry.py           Plugin registries
   pipeline.py           Orchestrator (topo-sorted scorers + filters + selector)
+  facade.py             curate, score, curate_for_character/environment
+  interactive.py        curate_interactive + InteractiveDecision
   report.py             Drop-attributing Report
-  scorers/              random, resolution, file_hash, phash, blur, exposure
+  scorers/              random, resolution, file_hash, phash, blur, exposure,
+                          technical_quality
                           + person.py: face detection, area, head pose, quality
+                          + identity.py: cross-image identity similarity
   embedders/            mock, clip, dinov2, arcface (lazy-imported)
   filters/              min_resolution, min_blur, exposure_range, dedup
                           + person.py: has_face, single_face_only, min_face_*

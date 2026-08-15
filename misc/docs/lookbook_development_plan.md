@@ -1,7 +1,7 @@
 # Lookbook — Development Plan
 
 **Companion to:** `lookbook_design_report.md`
-**Status:** All five phases shipped (2026-05-04). Package is feature-complete for v1.
+**Status:** All five v1 phases shipped, plus the post-v1 work listed below.
 **Goal:** A flexible, extensible Python library for image-set curation, with a thin
 HTTP surface (FastAPI via `qh`), and a set of Claude Code skills that (a) accelerate
 development and (b) let AI agents use lookbook well once it ships.
@@ -14,8 +14,14 @@ development and (b) let AI agents use lookbook well once it ships.
 | 1 | Cheap funnel (resolution / dedup / blur / exposure / phash) | ✅ Done |
 | 2 | Embeddings (CLIP, DINOv2) + facility-location + cluster diagnosis | ✅ Done |
 | 3 | Person profile (InsightFace, ArcFace, head pose, quotas, YAML loader) | ✅ Done |
-| 4 | HTTP surface via `qh` | ✅ Done |
-| 5 | MCP via `fastmcp` + usage skills | ✅ Done |
+| 4 | HTTP surface via `qh` — 10 verbs | ✅ Done |
+| 5 | MCP via `fastmcp` + usage skills — 10 tools | ✅ Done |
+| — | `local_path()` on every ImageRef + `to_local_path` | ✅ Shipped post-v1 |
+| — | `curate_interactive` (human in the loop) | ✅ Shipped post-v1 |
+| — | `technical_quality` scorer + `curate_for_character` / `curate_for_environment` | ✅ Shipped post-v1 |
+| — | Cross-image identity scorer + `compare_to_reference` (HTTP + MCP verb) | ✅ Shipped post-v1 |
+| — | Curation decisions as lacing annotations (`annot://schema/curation-decision/v1`) | ⬜ Deferred (on-disk format change) |
+| — | `meshed.DAG` orchestration (planned in §4) | ⬜ Not taken up |
 
 ### Phase 0 deliverables (done)
 
@@ -104,6 +110,7 @@ development and (b) let AI agents use lookbook well once it ships.
 - `lookbook/http.py` — JSON-friendly HTTP surface built with `qh.mk_app`:
   - `list_recipes`, `list_plugins`, `ingest_source`, `curate_source`,
     `score_image`, `get_annotations`, `list_runs`, `get_run`, `get_image`
+    (a 10th verb, `compare_to_reference`, landed post-v1 — see below)
   - Uniform `POST /<verb>` routes with JSON bodies (no convention-based
     routing — keeps the API consistent for agent clients and the future
     MCP layer)
@@ -128,7 +135,8 @@ development and (b) let AI agents use lookbook well once it ships.
   returns), exposed as a FastMCP tool with an LLM-tuned description
 - 9 tools: `list_recipes`, `list_plugins`, `ingest_source`,
   `curate_source`, `score_image`, `get_annotations`, `list_runs`,
-  `get_run`, `get_image`
+  `get_run`, `get_image` (a 10th, `compare_to_reference`, landed
+  post-v1 — see below)
 - Note on substitution: the original plan named `py2mcp` as the MCP
   framework. `py2mcp` isn't on this user's machine and `fastmcp` is the
   community-standard choice; the protocol is identical, so the
@@ -147,7 +155,36 @@ development and (b) let AI agents use lookbook well once it ships.
   - `lookbook-diagnose` — interpreting reports, querying the manifest
   - `lookbook-recipe` — per-call overrides + user YAML profiles
 
-## All shipped skills (8 total)
+### Post-v1 deliverables (done)
+
+Shipped after the five phases closed, each driven by a federation consumer:
+
+- **`ImageRef.local_path()` + `lookbook.to_local_path(ref)`** — every ref
+  type answers "give me a real file on disk"; bytes/url refs materialize
+  once into a content-addressed cache (`$LOOKBOOK_REFS_CACHE_DIR`). What
+  downstream tools that shell out to ffmpeg or upload files need.
+- **`curate_interactive` + `InteractiveDecision`** (`lookbook/interactive.py`)
+  — round-based human-in-the-loop curation; `on_decision` is a callable or a
+  pre-recorded list of decisions (headless replay). `muvid` drives this.
+- **`technical_quality` scorer** — derived 0..1 composite of `blur` +
+  `exposure` + `resolution`; the non-face counterpart of `face_quality`,
+  giving `top_k` one rankable metric for environment / prop / style pools.
+- **`curate_for_character` / `curate_for_environment`** (`lookbook/facade.py`)
+  — opinionated `k=1`-by-default presets over `curate`, ranking by
+  `face_quality` and `technical_quality` respectively. Python-only; they are
+  deliberately *not* HTTP/MCP verbs.
+- **Cross-image identity scorer** (`lookbook/scorers/identity.py`) —
+  `IdentitySimilarity` (registered as `identity_similarity`),
+  `compare_to_reference(...) -> SimilarityResult`, and the matching HTTP verb
+  + MCP tool. The measurement substrate for a reference supervisor: "does
+  this generation still match the locked reference?" as a `[0, 1]` score with
+  an advisory `passed` flag. The embedder is injected, so the module imports
+  without torch and the cosine math is unit-tested offline with a fake
+  embedder.
+- `lookbook/__init__.py` reduced to pure re-exports; the `curate*` / `score`
+  entry points live in `lookbook/facade.py`.
+
+## All shipped skills (9 total)
 
 **Dev skills** (used while building / extending lookbook):
 - `lookbook-dev` — overall architecture, cross-references
@@ -163,6 +200,12 @@ development and (b) let AI agents use lookbook well once it ships.
 - `lookbook-recipe` — customizing recipes per-call or via user YAML
 
 ---
+
+**Everything below this line is the original plan of record**, kept for the
+rationale. Where it disagrees with the status sections above, the status
+sections win — notably: the MCP layer is `fastmcp`, not `py2mcp`; the usage
+skill shipped as `lookbook-curate`, not `lookbook-use`; and the orchestrator
+is still a hand-rolled topo walk, not `meshed.DAG`.
 
 ## 0. Guiding Principles
 

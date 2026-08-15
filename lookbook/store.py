@@ -3,8 +3,8 @@
 Three stores hold the package's state. All three are MutableMappings so the
 backend (filesystem, SQLite, S3, Mongo, in-memory) is swappable:
 
-- `images`: image_id -> bytes / path / url payload (depends on ingest)
-- `manifest`: "image_id::metric_id" -> Annotation (as dict via codec)
+- `images`: image_id -> record about the image, e.g. `{"path": ...}`
+- `manifest`: "image_id--metric_id" -> Annotation (as dict via codec)
 - `runs`: run_id -> run record (recipe, kept set, report)
 
 The default factory wires everything to JSON-on-disk under the user's app
@@ -70,7 +70,7 @@ def _dict_to_annotation(d: Mapping[str, Any]) -> Annotation:
 def manifest_codec(store: MutableMapping) -> MutableMapping:
     """Wrap a string-keyed JSON-dict store so it speaks Annotations.
 
-    Keys flow as `(image_id, metric_id) <-> "image_id::metric_id.json"`.
+    Keys flow as `(image_id, metric_id) <-> "image_id--metric_id.json"`.
     Values flow as `Annotation <-> dict`.
     """
     return wrap_kvs(

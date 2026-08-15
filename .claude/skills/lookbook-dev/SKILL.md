@@ -1,6 +1,6 @@
 ---
 name: lookbook-dev
-description: Use when developing or modifying the lookbook package — extending the curation pipeline, adding scorers/selectors/embedders, working with the manifest, swapping storage backends. Triggers on lookbook architecture questions, "how do I add a scorer", "where does the manifest live", "what's the registry pattern", or any work inside /Users/thorwhalen/Dropbox/py/proj/t/lookbook/.
+description: Use when developing or modifying the lookbook package — extending the curation pipeline, adding scorers/selectors/embedders, working with the manifest, swapping storage backends. Triggers on lookbook architecture questions, "how do I add a scorer", "where does the manifest live", "what's the registry pattern", or any work inside the lookbook repo.
 ---
 
 # lookbook — developer's reference
@@ -43,7 +43,7 @@ carries the authoritative status table), but as a quick orientation:
   (real backends) and `person_mock` (no-download). The CLI's `--recipe`
   resolves through in-code RECIPES first, then YAML profiles. New skill:
   `lookbook-profile`.
-- **Phase 4 (HTTP via qh)** — done. `lookbook/http.py` exposes 9 verbs
+- **Phase 4 (HTTP via qh)** — done. `lookbook/http.py` exposes 10 verbs
   as uniform `POST /<verb>` endpoints with JSON bodies (no convention-
   based routing). Server-wide stores singleton, lazy-init to the user's
   app data folder; override with `LOOKBOOK_DATA_ROOT`. CLI: `lookbook
@@ -54,12 +54,51 @@ carries the authoritative status table), but as a quick orientation:
   `lookbook-diagnose`, `lookbook-recipe`. (The plan named `py2mcp`;
   `fastmcp` is the community-standard substitute.)
 
+### Shipped after the five phases
+
+The five-phase plan is done; these landed on top of it and are the parts
+federation callers actually reach for:
+
+- **`local_path()` on every ImageRef** — `PathImageRef` / `BytesImageRef` /
+  `UrlImageRef` all answer `local_path(*, cache_dir=None) -> str`, and the
+  free function `lookbook.to_local_path(ref)` dispatches across them. Bytes/url
+  refs materialize once into a content-addressed cache (honors
+  `$LOOKBOOK_REFS_CACHE_DIR`). This is what downstream tools that need a real
+  file (ffmpeg, uploads) call.
+- **`curate_interactive` + `InteractiveDecision`** (`lookbook/interactive.py`)
+  — round-based human-in-the-loop curation. `on_decision` is either a callable
+  or a pre-recorded list of decisions (headless replay, tests).
+- **`technical_quality` scorer** (`scorers/technical.py:TechnicalQuality`) — a
+  derived 0..1 composite of `blur` + `exposure` + `resolution`; the non-face
+  counterpart of `face_quality`, giving `top_k` one rankable metric for
+  environment / prop / style pools.
+- **`curate_for_character` / `curate_for_environment`** (`lookbook/facade.py`)
+  — opinionated one-call presets over `curate`, ranking by `face_quality` and
+  `technical_quality` respectively. `curate_for_character(face_detector=...)`
+  swaps the real `insightface` detector for `mock_face` in tests/demos.
+- **Cross-image identity scorer** (`scorers/identity.py`) — `IdentitySimilarity`
+  (the `identity_similarity` registry entry), the `compare_to_reference(...)
+  -> SimilarityResult` facade, and its HTTP + MCP verb. Answers "does this
+  generation still match the locked reference?" with a `[0, 1]` score and an
+  *advisory* `passed` flag. The embedder is injected (registry name, `Embedder`
+  object, or bare `embed_fn`), so importing the module pulls in no torch /
+  insightface and the cosine math is unit-tested with a fake embedder.
+
+Every function and class named above is a top-level `lookbook` export
+(`technical_quality` is a registry name, reached through
+`registry.scorers`). `compare_to_reference` is additionally an HTTP verb and
+an MCP tool; the `curate_for_*` presets are deliberately Python-only.
+
+`lookbook/__init__.py` is now pure re-export — no logic, and no
+`from __future__ import annotations`, so `dir(lookbook)` is the public API
+plus submodules. New facade functions belong in `lookbook/facade.py`.
+
 ## The five-layer architecture
 
 ```
-Interface (CLI, HTTP via qh, MCP via py2mcp, Python lib)
+Interface (CLI, HTTP via qh, MCP via fastmcp, Python lib)
    ↓
-Recipe / facade   (lookbook.curate, profiles)
+Recipe / facade   (lookbook.facade, profiles)
    ↓
 Orchestration    (lookbook.pipeline, budget, manifest)
    ↓
@@ -195,10 +234,11 @@ Details in the `lookbook-storage` skill.
 4. Calls `selector.select(survivors, manifest, k, constraints)`.
 5. Persists a run record to `stores.runs`.
 
-For Phase 0 the orchestrator is a hand-rolled topo walk. Phase 1+ swaps in
-`meshed.DAG` for richer dependency graphs and persistent caching. When you
-make that switch: the `Scorer.requires` field is already the dependency
-graph — just feed it to meshed.
+The orchestrator is still a hand-rolled topo walk — the planned swap to
+`meshed.DAG` (richer dependency graphs, persistent caching) has never been
+taken up, and nothing in the package imports `meshed`. When someone does make
+that switch: the `Scorer.requires` field is already the dependency graph —
+just feed it to meshed.
 
 ## Folder & path defaults
 

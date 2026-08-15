@@ -37,12 +37,10 @@ from uuid import uuid4
 
 from lookbook import registry
 from lookbook.base import ImageRef
+from lookbook.facade import resolve_plugin
 from lookbook.io import ingest as _ingest
 from lookbook.pipeline import Pipeline, RunResult
 from lookbook.store import Stores
-
-
-PluginSpec = "Union[str, tuple]"  # mirror of lookbook.__init__'s alias
 
 
 @dataclass(frozen=True, slots=True, kw_only=True)
@@ -128,15 +126,11 @@ def curate_interactive(
         raise ValueError(f"present must be positive (got {present})")
 
     # Resolve plugins once.
-    from lookbook import _resolve as _resolve_plugin  # noqa: WPS433
-
     pipeline = Pipeline(
-        scorers=[_resolve_plugin(registry.scorers, sp) for sp in scorer_ids],
-        embedders=[_resolve_plugin(registry.embedders, sp) for sp in embedder_ids],
-        filters=[
-            _resolve_plugin(registry.filters, sp, fresh=True) for sp in filter_ids
-        ],
-        selector=_resolve_plugin(registry.selectors, selector_id),
+        scorers=[resolve_plugin(registry.scorers, sp) for sp in scorer_ids],
+        embedders=[resolve_plugin(registry.embedders, sp) for sp in embedder_ids],
+        filters=[resolve_plugin(registry.filters, sp, fresh=True) for sp in filter_ids],
+        selector=resolve_plugin(registry.selectors, selector_id),
     )
 
     pool: list[ImageRef] = list(refs)
