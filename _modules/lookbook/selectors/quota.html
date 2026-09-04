@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.selectors.quota &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.selectors.quota &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,7 +107,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.selectors.quota</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Quota-aware selection: pick K from N with per-bin budgets.</span>
+<span></span><span class="sd">"""Quota-aware selection: pick K from N with per-bin budgets.</span>
 
 <span class="sd">The QuotaSelector wraps an inner selector and runs it once per bin. Bins</span>
 <span class="sd">are derived from a manifest annotation (`bin_metric_id`); quotas are a</span>
@@ -116,18 +116,18 @@
 <span class="sd">Typical use for character LoRAs:</span>
 
 <span class="sd">    QuotaSelector(</span>
-<span class="sd">        bin_metric_id=&quot;head_pose.yaw_bin&quot;,   # or any nested-key path</span>
-<span class="sd">        inner_selector_id=&quot;top_k&quot;,</span>
-<span class="sd">        inner_overrides={&quot;metric_id&quot;: &quot;face_quality&quot;},</span>
+<span class="sd">        bin_metric_id="head_pose.yaw_bin",   # or any nested-key path</span>
+<span class="sd">        inner_selector_id="top_k",</span>
+<span class="sd">        inner_overrides={"metric_id": "face_quality"},</span>
 <span class="sd">    )</span>
 
 <span class="sd">    # via curate(...)</span>
-<span class="sd">    constraints = {&quot;quotas&quot;: {&quot;front&quot;: 8, &quot;three_quarter&quot;: 5, &quot;profile&quot;: 3, &quot;back&quot;: 1}}</span>
+<span class="sd">    constraints = {"quotas": {"front": 8, "three_quarter": 5, "profile": 3, "back": 1}}</span>
 
-<span class="sd">If a bin doesn&#39;t reach its quota (not enough survivors there), the deficit</span>
+<span class="sd">If a bin doesn't reach its quota (not enough survivors there), the deficit</span>
 <span class="sd">falls back to the highest-quality survivors from any bin so the kept-set</span>
 <span class="sd">size still hits K when possible. Set `strict=True` to disable that fallback.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -141,10 +141,10 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_resolve_path</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Traverse a dotted path into a nested dict-like value.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Traverse a dotted path into a nested dict-like value."""</span>
     <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="kc">None</span>
-    <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+    <span class="n">parts</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
     <span class="n">cur</span> <span class="o">=</span> <span class="n">value</span>
     <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cur</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">)</span> <span class="ow">or</span> <span class="n">p</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">cur</span><span class="p">:</span>
@@ -154,13 +154,13 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_bin_for</span><span class="p">(</span><span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">,</span> <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">bin_metric_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the bin label for an image.</span>
+<span class="w">    </span><span class="sd">"""Read the bin label for an image.</span>
 
-<span class="sd">    `bin_metric_id` may be a plain metric_id (`&quot;size_bin&quot;`) or a dotted path</span>
-<span class="sd">    into a nested-dict annotation (`&quot;head_pose.yaw_bin&quot;`).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">bin_metric_id</span><span class="p">:</span>
-        <span class="n">head</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">bin_metric_id</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+<span class="sd">    `bin_metric_id` may be a plain metric_id (`"size_bin"`) or a dotted path</span>
+<span class="sd">    into a nested-dict annotation (`"head_pose.yaw_bin"`).</span>
+<span class="sd">    """</span>
+    <span class="k">if</span> <span class="s2">"."</span> <span class="ow">in</span> <span class="n">bin_metric_id</span><span class="p">:</span>
+        <span class="n">head</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">tail</span> <span class="o">=</span> <span class="n">bin_metric_id</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="s2">"."</span><span class="p">)</span>
         <span class="n">ann_value</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">image_id</span><span class="p">,</span> <span class="n">head</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">_resolve_path</span><span class="p">(</span><span class="n">ann_value</span><span class="p">,</span> <span class="n">tail</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">image_id</span><span class="p">,</span> <span class="n">bin_metric_id</span><span class="p">)</span>
@@ -170,11 +170,11 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/selectors/quota.html#lookbook.selectors.quota.QuotaSelector">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">QuotaSelector</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Per-bin quota selection wrapping an inner Selector.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Per-bin quota selection wrapping an inner Selector."""</span>
 
-    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;quota&quot;</span>
-    <span class="n">bin_metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;head_pose.yaw_bin&quot;</span>
-    <span class="n">inner_selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;top_k&quot;</span>
+    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"quota"</span>
+    <span class="n">bin_metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"head_pose.yaw_bin"</span>
+    <span class="n">inner_selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"top_k"</span>
     <span class="n">inner_overrides</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
     <span class="n">embedding_space</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># forwarded if the inner needs it</span>
@@ -190,7 +190,7 @@
         <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">candidates</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">[]</span>
         <span class="n">constraints</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">constraints</span> <span class="ow">or</span> <span class="p">{})</span>
-        <span class="n">quotas</span> <span class="o">=</span> <span class="n">constraints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;quotas&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">quotas</span> <span class="o">=</span> <span class="n">constraints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"quotas"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
 
         <span class="c1"># Bin candidates.</span>
         <span class="n">by_bin</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -236,7 +236,7 @@
 
 
 
-<span class="n">selectors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;quota&quot;</span><span class="p">,</span> <span class="n">QuotaSelector</span><span class="p">())</span>
+<span class="n">selectors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"quota"</span><span class="p">,</span> <span class="n">QuotaSelector</span><span class="p">())</span>
 </pre></div>
 
            </div>

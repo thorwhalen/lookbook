@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.filters.technical &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.filters.technical &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,7 +107,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.filters.technical</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Phase 1 filters — cheap funnel.</span>
+<span></span><span class="sd">"""Phase 1 filters — cheap funnel.</span>
 
 <span class="sd">Filters consume the manifest and return True/False per image. Two of them</span>
 <span class="sd">(`NoExactDuplicate`, `NoNearDuplicate`) carry per-pipeline state and must</span>
@@ -115,7 +115,7 @@
 
 <span class="sd">Each filter exposes a `name` attribute (the filter id) so the run report</span>
 <span class="sd">can attribute drops back to the rule that fired.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -137,71 +137,71 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/technical.html#lookbook.filters.technical.MinResolution">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MinResolution</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Drop images whose long side is below `min_long_side` pixels.</span>
+<span class="w">    </span><span class="sd">"""Drop images whose long side is below `min_long_side` pixels.</span>
 
 <span class="sd">    Reads the `resolution` annotation. If absent, the filter keeps the image</span>
 <span class="sd">    (under the principle that filters never drop on missing evidence).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">min_long_side</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1024</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;min_resolution&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"min_resolution"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">res</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;resolution&quot;</span><span class="p">)</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"resolution"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">res</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;long_side&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_long_side</span></div>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">res</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"long_side"</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_long_side</span></div>
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min_resolution&quot;</span><span class="p">,</span> <span class="n">MinResolution</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"min_resolution"</span><span class="p">,</span> <span class="n">MinResolution</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="MinBlur">
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/technical.html#lookbook.filters.technical.MinBlur">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MinBlur</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Drop images whose Laplacian variance is below `threshold` (blurry).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Drop images whose Laplacian variance is below `threshold` (blurry)."""</span>
 
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">100.0</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;min_blur&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"min_blur"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">v</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;blur&quot;</span><span class="p">)</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"blur"</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span></div>
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min_blur&quot;</span><span class="p">,</span> <span class="n">MinBlur</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"min_blur"</span><span class="p">,</span> <span class="n">MinBlur</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="ExposureRange">
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/technical.html#lookbook.filters.technical.ExposureRange">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">ExposureRange</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Drop images that are mostly black or mostly white.</span>
+<span class="w">    </span><span class="sd">"""Drop images that are mostly black or mostly white.</span>
 
 <span class="sd">    Defaults: drop if more than 50% of pixels are below 16 or above 240.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">max_underexposed_frac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
     <span class="n">max_overexposed_frac</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;exposure_range&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"exposure_range"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">e</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;exposure&quot;</span><span class="p">)</span>
+        <span class="n">e</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"exposure"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="p">(</span>
-            <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;frac_underexposed&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_underexposed_frac</span>
-            <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;frac_overexposed&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_overexposed_frac</span>
+            <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"frac_underexposed"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_underexposed_frac</span>
+            <span class="ow">and</span> <span class="n">e</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"frac_overexposed"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_overexposed_frac</span>
         <span class="p">)</span></div>
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;exposure_range&quot;</span><span class="p">,</span> <span class="n">ExposureRange</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"exposure_range"</span><span class="p">,</span> <span class="n">ExposureRange</span><span class="p">())</span>
 
 
 <span class="c1"># ---------------------------------------------------------------------------</span>
@@ -213,17 +213,17 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/technical.html#lookbook.filters.technical.NoExactDuplicate">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">NoExactDuplicate</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Keep at most one image per `file_hash`.</span>
+<span class="w">    </span><span class="sd">"""Keep at most one image per `file_hash`.</span>
 
 <span class="sd">    The first image in iteration order to claim a hash wins; later images</span>
 <span class="sd">    with the same hash are dropped.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;no_exact_duplicate&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"no_exact_duplicate"</span>
     <span class="n">_seen</span><span class="p">:</span> <span class="nb">set</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">set</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;file_hash&quot;</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"file_hash"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">h</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">if</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen</span><span class="p">:</span>
@@ -233,26 +233,26 @@
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;no_exact_duplicate&quot;</span><span class="p">,</span> <span class="n">NoExactDuplicate</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"no_exact_duplicate"</span><span class="p">,</span> <span class="n">NoExactDuplicate</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="NoNearDuplicate">
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/technical.html#lookbook.filters.technical.NoNearDuplicate">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">NoNearDuplicate</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Keep at most one image per near-duplicate cluster.</span>
+<span class="w">    </span><span class="sd">"""Keep at most one image per near-duplicate cluster.</span>
 
 <span class="sd">    Clusters are formed greedily: the first image to be visited is the</span>
 <span class="sd">    cluster representative, and any later image whose `phash` is within</span>
 <span class="sd">    `max_distance` Hamming bits is dropped.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">max_distance</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;no_near_duplicate&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"no_near_duplicate"</span>
     <span class="n">_seen_hashes</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;phash&quot;</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"phash"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">h</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">for</span> <span class="n">prior</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_seen_hashes</span><span class="p">:</span>
@@ -263,17 +263,17 @@
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;no_near_duplicate&quot;</span><span class="p">,</span> <span class="n">NoNearDuplicate</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"no_near_duplicate"</span><span class="p">,</span> <span class="n">NoNearDuplicate</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="fresh_filter">
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/technical.html#lookbook.filters.technical.fresh_filter">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">fresh_filter</span><span class="p">(</span><span class="n">filter_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">overrides</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a fresh instance of a registered filter.</span>
+<span class="w">    </span><span class="sd">"""Return a fresh instance of a registered filter.</span>
 
 <span class="sd">    Stateful filters (dedup) must be re-instantiated per pipeline; the</span>
 <span class="sd">    registry holds a singleton, so call this when building a fresh pipeline.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">inst</span> <span class="o">=</span> <span class="n">filters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">filter_id</span><span class="p">)</span>
     <span class="bp">cls</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">inst</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">overrides</span><span class="p">:</span>

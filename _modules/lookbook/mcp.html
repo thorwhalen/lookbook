@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.mcp &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.mcp &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,17 +107,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.mcp</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;MCP surface for lookbook, built with `fastmcp`.</span>
+<span></span><span class="sd">"""MCP surface for lookbook, built with `fastmcp`.</span>
 
 <span class="sd">Each verb from `lookbook.http` is exposed as an MCP tool that an LLM</span>
 <span class="sd">agent can call. The tool functions are intentionally the same callables</span>
 <span class="sd">used by the HTTP layer — JSON-able args, JSON-able returns. This means</span>
-<span class="sd">swapping between an HTTP frontend and an MCP frontend is &quot;wire it once,</span>
-<span class="sd">expose it twice.&quot;</span>
+<span class="sd">swapping between an HTTP frontend and an MCP frontend is "wire it once,</span>
+<span class="sd">expose it twice."</span>
 
 <span class="sd">Run the server over stdio with `lookbook mcp` (the default transport</span>
 <span class="sd">that Claude Desktop and the Anthropic SDK expect).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -142,20 +142,20 @@
 <span class="c1"># ---------------------------------------------------------------------------</span>
 <span class="c1">#</span>
 <span class="c1"># We rewrap each http function as a thin top-level function with a tighter</span>
-<span class="c1"># signature and a description that&#39;s tuned for an LLM caller. This gives</span>
+<span class="c1"># signature and a description that's tuned for an LLM caller. This gives</span>
 <span class="c1"># us MCP-friendly schemas without needing to touch the HTTP versions.</span>
 
 
 <div class="viewcode-block" id="mcp_list_recipes">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mcp_list_recipes">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_list_recipes</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;List every available curation recipe / profile.</span>
+<span class="w">    </span><span class="sd">"""List every available curation recipe / profile.</span>
 
 <span class="sd">    Returns a dict where each value is a recipe spec describing the</span>
 <span class="sd">    scorers, embedders, filters, selector, and default constraints. Use</span>
 <span class="sd">    this first to see what `curate_source` will accept for the `recipe`</span>
 <span class="sd">    argument.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">list_recipes</span><span class="p">()</span></div>
 
 
@@ -163,11 +163,11 @@
 <div class="viewcode-block" id="mcp_list_plugins">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mcp_list_plugins">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_list_plugins</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;List every registered scorer / embedder / filter / selector.</span>
+<span class="w">    </span><span class="sd">"""List every registered scorer / embedder / filter / selector.</span>
 
 <span class="sd">    Use this to discover available metric_ids for `score_image` and to</span>
 <span class="sd">    understand what capabilities each recipe is wiring together.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">list_plugins</span><span class="p">()</span></div>
 
 
@@ -175,15 +175,15 @@
 <div class="viewcode-block" id="mcp_ingest_source">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mcp_ingest_source">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_ingest_source</span><span class="p">(</span><span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Scan a directory or file for images and register them on the server.</span>
+<span class="w">    </span><span class="sd">"""Scan a directory or file for images and register them on the server.</span>
 
-<span class="sd">    Records `image_id -&gt; path` in the server&#39;s image store so later calls</span>
+<span class="sd">    Records `image_id -&gt; path` in the server's image store so later calls</span>
 <span class="sd">    (`score_image`, `get_image`, `curate_source`) can refer to images by</span>
 <span class="sd">    id. Returns the list of image_ids and the count.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        source_path: absolute path on the server&#39;s filesystem.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        source_path: absolute path on the server's filesystem.</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">ingest_source</span><span class="p">(</span><span class="n">source_path</span><span class="p">)</span></div>
 
 
@@ -193,9 +193,9 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_curate_source</span><span class="p">(</span>
     <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="n">recipe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;funnel&quot;</span><span class="p">,</span>
+    <span class="n">recipe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"funnel"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run a full curation pipeline on a directory and return the K best.</span>
+<span class="w">    </span><span class="sd">"""Run a full curation pipeline on a directory and return the K best.</span>
 
 <span class="sd">    The high-level entry point. Picks K reference images from the</span>
 <span class="sd">    directory using the named recipe (cheap funnel, embeddings + facility</span>
@@ -217,7 +217,7 @@
 <span class="sd">      - `person`        : full character LoRA recipe (face detection +</span>
 <span class="sd">                          ArcFace identity + pose-bin quotas).</span>
 <span class="sd">      - `person_mock`   : person without model downloads (testing).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">curate_source</span><span class="p">(</span><span class="n">source_path</span><span class="o">=</span><span class="n">source_path</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">recipe</span><span class="o">=</span><span class="n">recipe</span><span class="p">)</span></div>
 
 
@@ -226,10 +226,10 @@
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mcp_score_image">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_score_image</span><span class="p">(</span>
     <span class="n">metric_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
-    <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
+    <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Score one image against one metric and cache the result.</span>
+<span class="w">    </span><span class="sd">"""Score one image against one metric and cache the result.</span>
 
 <span class="sd">    Pass either `source_path` (a path on the server) or `image_id` (must</span>
 <span class="sd">    already be registered via `ingest_source`). Returns the metric value;</span>
@@ -239,7 +239,7 @@
 <span class="sd">        metric_id: a registered scorer name (see `list_plugins`).</span>
 <span class="sd">        source_path: optional, the path to the image.</span>
 <span class="sd">        image_id: optional, an id from a previous `ingest_source`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">score_image</span><span class="p">(</span>
         <span class="n">source_path</span><span class="o">=</span><span class="n">source_path</span><span class="p">,</span>
         <span class="n">image_id</span><span class="o">=</span><span class="n">image_id</span><span class="p">,</span>
@@ -253,12 +253,12 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_compare_to_reference</span><span class="p">(</span>
     <span class="n">reference_paths</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
     <span class="n">candidate_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">embedder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;arcface&quot;</span><span class="p">,</span>
+    <span class="n">embedder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"arcface"</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span><span class="p">,</span>
-    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span>
-    <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rescale&quot;</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"max"</span><span class="p">,</span>
+    <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"rescale"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Check whether a generated image still matches a locked reference.</span>
+<span class="w">    </span><span class="sd">"""Check whether a generated image still matches a locked reference.</span>
 
 <span class="sd">    The reference-supervisor verb. Embeds the candidate and the reference(s)</span>
 <span class="sd">    in the chosen space and returns a normalized identity similarity in</span>
@@ -269,17 +269,17 @@
 <span class="sd">        reference_paths: one or more server-local paths of the locked</span>
 <span class="sd">            reference image(s). A pool is folded by `aggregation`.</span>
 <span class="sd">        candidate_path: server-local path of the candidate generation.</span>
-<span class="sd">        embedder: `&quot;arcface&quot;` for face identity (default), `&quot;clip&quot;` or</span>
-<span class="sd">            `&quot;dinov2&quot;` for scenes / architecture / props.</span>
+<span class="sd">        embedder: `"arcface"` for face identity (default), `"clip"` or</span>
+<span class="sd">            `"dinov2"` for scenes / architecture / props.</span>
 <span class="sd">        threshold: advisory pass/fail cutoff on the [0, 1] scale.</span>
-<span class="sd">        aggregation: how to fold a reference pool — `&quot;max&quot;` (matches any</span>
-<span class="sd">            locked view; default), `&quot;mean&quot;`, or `&quot;min&quot;`.</span>
-<span class="sd">        normalization: cosine→[0,1] map — `&quot;rescale&quot;` (default) or `&quot;clamp&quot;`.</span>
+<span class="sd">        aggregation: how to fold a reference pool — `"max"` (matches any</span>
+<span class="sd">            locked view; default), `"mean"`, or `"min"`.</span>
+<span class="sd">        normalization: cosine→[0,1] map — `"rescale"` (default) or `"clamp"`.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        `{identity_cosine, score, passed, threshold, per_reference,</span>
 <span class="sd">          aggregation, n_references}`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">compare_to_reference</span><span class="p">(</span>
         <span class="n">reference_paths</span><span class="o">=</span><span class="n">reference_paths</span><span class="p">,</span>
         <span class="n">candidate_path</span><span class="o">=</span><span class="n">candidate_path</span><span class="p">,</span>
@@ -294,7 +294,7 @@
 <div class="viewcode-block" id="mcp_get_annotations">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mcp_get_annotations">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_get_annotations</span><span class="p">(</span><span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;All annotations stored for one image.</span>
+<span class="w">    </span><span class="sd">"""All annotations stored for one image.</span>
 
 <span class="sd">    Includes the metric_id, value, config_hash, cost_tier, backend, and</span>
 <span class="sd">    timestamp for each annotation. Use this to understand *why* an image</span>
@@ -302,7 +302,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        image_id: as returned from `ingest_source` or `curate_source`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">get_annotations</span><span class="p">(</span><span class="n">image_id</span><span class="p">)</span></div>
 
 
@@ -310,7 +310,7 @@
 <div class="viewcode-block" id="mcp_list_runs">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mcp_list_runs">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_list_runs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;All curation runs stored on this server.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""All curation runs stored on this server."""</span>
     <span class="k">return</span> <span class="n">list_runs</span><span class="p">()</span></div>
 
 
@@ -318,12 +318,12 @@
 <div class="viewcode-block" id="mcp_get_run">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mcp_get_run">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_get_run</span><span class="p">(</span><span class="n">run_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetch a stored run record by id.</span>
+<span class="w">    </span><span class="sd">"""Fetch a stored run record by id.</span>
 
 <span class="sd">    The run record contains: kept and candidate image_ids, scorer_ids,</span>
 <span class="sd">    selector_id, started_at / finished_at timestamps, and a `report`</span>
 <span class="sd">    block with drop attributions and (when applicable) cluster coverage.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">get_run</span><span class="p">(</span><span class="n">run_id</span><span class="p">)</span></div>
 
 
@@ -331,12 +331,12 @@
 <div class="viewcode-block" id="mcp_get_image">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mcp_get_image">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mcp_get_image</span><span class="p">(</span><span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Look up an image&#39;s path and metadata by id.</span>
+<span class="w">    </span><span class="sd">"""Look up an image's path and metadata by id.</span>
 
 <span class="sd">    Returns `{image_id, path, n_bytes}` when found. Phase 5 returns</span>
 <span class="sd">    metadata only — agents that want the raw bytes should read the file</span>
 <span class="sd">    directly when running on the same host as the server.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">get_image</span><span class="p">(</span><span class="n">image_id</span><span class="p">)</span></div>
 
 
@@ -348,10 +348,10 @@
 
 <div class="viewcode-block" id="mk_lookbook_mcp">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.mk_lookbook_mcp">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">mk_lookbook_mcp</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lookbook&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a FastMCP server exposing the lookbook curation verbs.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">mk_lookbook_mcp</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"lookbook"</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Build a FastMCP server exposing the lookbook curation verbs.</span>
 
-<span class="sd">    Each verb becomes an MCP tool. The agent&#39;s typical sequence is:</span>
+<span class="sd">    Each verb becomes an MCP tool. The agent's typical sequence is:</span>
 
 <span class="sd">        list_recipes() -&gt; pick a recipe</span>
 <span class="sd">        curate_source(path, k, recipe) -&gt; get back a run record</span>
@@ -361,36 +361,36 @@
 <span class="sd">    The server uses the same Stores singleton as `lookbook.http`, so an</span>
 <span class="sd">    HTTP server and an MCP server backed by the same data folder share</span>
 <span class="sd">    the manifest and the runs index.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">fastmcp</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastMCP</span>  <span class="c1"># type: ignore</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-            <span class="s2">&quot;MCP server requires `fastmcp`. &quot;</span>
-            <span class="s2">&quot;`pip install lookbook[mcp]` or `pip install fastmcp`.&quot;</span>
+            <span class="s2">"MCP server requires `fastmcp`. "</span>
+            <span class="s2">"`pip install lookbook[mcp]` or `pip install fastmcp`."</span>
         <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
     <span class="n">mcp</span> <span class="o">=</span> <span class="n">FastMCP</span><span class="p">(</span>
         <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
         <span class="n">instructions</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;lookbook curates image pools for personalized model training. &quot;</span>
-            <span class="s2">&quot;Use `list_recipes` to see what recipes are available, then &quot;</span>
-            <span class="s2">&quot;`curate_source` to pick K best images. `get_annotations` and &quot;</span>
-            <span class="s2">&quot;`get_run` give the full provenance behind each decision.&quot;</span>
+            <span class="s2">"lookbook curates image pools for personalized model training. "</span>
+            <span class="s2">"Use `list_recipes` to see what recipes are available, then "</span>
+            <span class="s2">"`curate_source` to pick K best images. `get_annotations` and "</span>
+            <span class="s2">"`get_run` give the full provenance behind each decision."</span>
         <span class="p">),</span>
     <span class="p">)</span>
 
     <span class="c1"># Register each tool with a clean MCP-visible name (drop the `mcp_` prefix).</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;list_recipes&quot;</span><span class="p">)(</span><span class="n">mcp_list_recipes</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;list_plugins&quot;</span><span class="p">)(</span><span class="n">mcp_list_plugins</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;ingest_source&quot;</span><span class="p">)(</span><span class="n">mcp_ingest_source</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;curate_source&quot;</span><span class="p">)(</span><span class="n">mcp_curate_source</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;score_image&quot;</span><span class="p">)(</span><span class="n">mcp_score_image</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;compare_to_reference&quot;</span><span class="p">)(</span><span class="n">mcp_compare_to_reference</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;get_annotations&quot;</span><span class="p">)(</span><span class="n">mcp_get_annotations</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;list_runs&quot;</span><span class="p">)(</span><span class="n">mcp_list_runs</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;get_run&quot;</span><span class="p">)(</span><span class="n">mcp_get_run</span><span class="p">)</span>
-    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;get_image&quot;</span><span class="p">)(</span><span class="n">mcp_get_image</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"list_recipes"</span><span class="p">)(</span><span class="n">mcp_list_recipes</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"list_plugins"</span><span class="p">)(</span><span class="n">mcp_list_plugins</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"ingest_source"</span><span class="p">)(</span><span class="n">mcp_ingest_source</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"curate_source"</span><span class="p">)(</span><span class="n">mcp_curate_source</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"score_image"</span><span class="p">)(</span><span class="n">mcp_score_image</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"compare_to_reference"</span><span class="p">)(</span><span class="n">mcp_compare_to_reference</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"get_annotations"</span><span class="p">)(</span><span class="n">mcp_get_annotations</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"list_runs"</span><span class="p">)(</span><span class="n">mcp_list_runs</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"get_run"</span><span class="p">)(</span><span class="n">mcp_get_run</span><span class="p">)</span>
+    <span class="n">mcp</span><span class="o">.</span><span class="n">tool</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"get_image"</span><span class="p">)(</span><span class="n">mcp_get_image</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">mcp</span></div>
 
@@ -398,14 +398,14 @@
 
 <div class="viewcode-block" id="serve">
 <a class="viewcode-back" href="../../module_docs/lookbook/mcp.html#lookbook.mcp.serve">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">serve</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;stdio&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the lookbook MCP server.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">serve</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">transport</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"stdio"</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Run the lookbook MCP server.</span>
 
 <span class="sd">    The default transport is stdio — the protocol Claude Desktop and the</span>
 <span class="sd">    Anthropic SDK expect when launching an MCP server as a subprocess.</span>
-<span class="sd">    Pass `transport=&quot;http&quot;` (and a port via kwargs) for HTTP-streamable</span>
+<span class="sd">    Pass `transport="http"` (and a port via kwargs) for HTTP-streamable</span>
 <span class="sd">    transport.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">mcp</span> <span class="o">=</span> <span class="n">mk_lookbook_mcp</span><span class="p">()</span>
     <span class="n">mcp</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">transport</span><span class="o">=</span><span class="n">transport</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 

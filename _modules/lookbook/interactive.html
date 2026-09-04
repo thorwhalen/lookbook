@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.interactive &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.interactive &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,23 +107,23 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.interactive</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Interactive curate loop — keep the human in the loop.</span>
+<span></span><span class="sd">"""Interactive curate loop — keep the human in the loop.</span>
 
 <span class="sd">The non-interactive :func:`lookbook.curate` runs the pipeline once</span>
 <span class="sd">and returns its top-k. That works for fully-automated workflows but</span>
-<span class="sd">loses the human&#39;s taste signal: a ranking that ranks &quot;boring but</span>
-<span class="sd">high-quality&quot; images above &quot;stylistically perfect but slightly</span>
-<span class="sd">blurry&quot; ones.</span>
+<span class="sd">loses the human's taste signal: a ranking that ranks "boring but</span>
+<span class="sd">high-quality" images above "stylistically perfect but slightly</span>
+<span class="sd">blurry" ones.</span>
 
 <span class="sd">:func:`curate_interactive` invites the caller into the loop. Each</span>
 <span class="sd">round:</span>
 
 <span class="sd">1. The pipeline picks the top ``present`` unseen candidates.</span>
-<span class="sd">2. The caller&#39;s ``on_decision(refs, info)`` returns an</span>
+<span class="sd">2. The caller's ``on_decision(refs, info)`` returns an</span>
 <span class="sd">   :class:`InteractiveDecision` saying which to keep, which to</span>
 <span class="sd">   reject, and whether to stop.</span>
 <span class="sd">3. Kept refs lock into the final selection. Rejected refs leave the</span>
-<span class="sd">   candidate pool and won&#39;t be shown again. Everything else is</span>
+<span class="sd">   candidate pool and won't be shown again. Everything else is</span>
 <span class="sd">   eligible to come back next round (handy when the caller wants to</span>
 <span class="sd">   defer a decision).</span>
 <span class="sd">4. The loop terminates when the caller says ``stop``, when the</span>
@@ -135,7 +135,7 @@
 <span class="sd">- A function: ``on_decision(refs, info) -&gt; InteractiveDecision``.</span>
 <span class="sd">- A list of pre-recorded :class:`InteractiveDecision` items, applied</span>
 <span class="sd">  one per round. Useful for tests and headless replays.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -156,18 +156,18 @@
 <a class="viewcode-back" href="../../module_docs/lookbook/interactive.html#lookbook.InteractiveDecision">[docs]</a>
 <span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">slots</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">kw_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">InteractiveDecision</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;One round&#39;s verdict from the caller.</span>
+<span class="w">    </span><span class="sd">"""One round's verdict from the caller.</span>
 
 <span class="sd">    Attributes:</span>
 <span class="sd">        keep: ``image_id``s the caller wants to lock into the final</span>
-<span class="sd">            selection. They&#39;re added immediately, removed from the</span>
+<span class="sd">            selection. They're added immediately, removed from the</span>
 <span class="sd">            candidate pool, and not shown again.</span>
 <span class="sd">        reject: ``image_id``s the caller never wants to see again in</span>
 <span class="sd">            this run.</span>
 <span class="sd">        stop: When True, the loop terminates after applying this</span>
-<span class="sd">            round&#39;s keep/reject and returns whatever is in the</span>
+<span class="sd">            round's keep/reject and returns whatever is in the</span>
 <span class="sd">            confirmed-kept set so far (clipped to ``k``).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">keep</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
     <span class="n">reject</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="p">()</span>
@@ -181,15 +181,15 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_as_decision_fn</span><span class="p">(</span>
     <span class="n">on_decision</span><span class="p">:</span> <span class="n">DecisionCallable</span> <span class="o">|</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">InteractiveDecision</span><span class="p">],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DecisionCallable</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Adapt either form of ``on_decision`` to a callable.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Adapt either form of ``on_decision`` to a callable."""</span>
     <span class="k">if</span> <span class="nb">callable</span><span class="p">(</span><span class="n">on_decision</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">on_decision</span>
     <span class="n">decisions</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">on_decision</span><span class="p">)</span>
-    <span class="n">state</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;i&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"i"</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_replay</span><span class="p">(</span><span class="n">refs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">],</span> <span class="n">info</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">InteractiveDecision</span><span class="p">:</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">&quot;i&quot;</span><span class="p">]</span>
-        <span class="n">state</span><span class="p">[</span><span class="s2">&quot;i&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"i"</span><span class="p">]</span>
+        <span class="n">state</span><span class="p">[</span><span class="s2">"i"</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
         <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">decisions</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">decisions</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">InteractiveDecision</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -206,21 +206,21 @@
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
     <span class="n">present</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span>
     <span class="n">max_rounds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="n">scorer_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;random_score&quot;</span><span class="p">,),</span>
+    <span class="n">scorer_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"random_score"</span><span class="p">,),</span>
     <span class="n">embedder_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">filter_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
-    <span class="n">selector_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="s2">&quot;top_k&quot;</span><span class="p">,</span>
+    <span class="n">selector_id</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="s2">"top_k"</span><span class="p">,</span>
     <span class="n">stores</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Stores</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">constraints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the pipeline in rounds, taking keep/reject decisions per round.</span>
+<span class="w">    </span><span class="sd">"""Run the pipeline in rounds, taking keep/reject decisions per round.</span>
 
 <span class="sd">    Args mirror :func:`lookbook.curate` plus:</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        on_decision: A callable or a pre-recorded sequence of</span>
 <span class="sd">            :class:`InteractiveDecision`. The callable receives the</span>
-<span class="sd">            round&#39;s top candidates and an info dict</span>
+<span class="sd">            round's top candidates and an info dict</span>
 <span class="sd">            ``{round, n_kept_so_far, n_pool_remaining}``.</span>
 <span class="sd">        present: How many candidates to surface per round.</span>
 <span class="sd">        max_rounds: Hard cap on iterations; a defensive guard against</span>
@@ -229,15 +229,15 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A :class:`RunResult` whose ``kept`` list is the confirmed</span>
 <span class="sd">        set (in the order they were kept). ``candidates`` carries the</span>
-<span class="sd">        same as the final round&#39;s pre-selection candidate pool.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">        same as the final round's pre-selection candidate pool.</span>
+<span class="sd">    """</span>
     <span class="n">decision_fn</span> <span class="o">=</span> <span class="n">_as_decision_fn</span><span class="p">(</span><span class="n">on_decision</span><span class="p">)</span>
 
     <span class="n">refs</span> <span class="o">=</span> <span class="n">_coerce_to_refs</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">k</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;k must be positive (got </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"k must be positive (got </span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">present</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;present must be positive (got </span><span class="si">{</span><span class="n">present</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"present must be positive (got </span><span class="si">{</span><span class="n">present</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
 
     <span class="c1"># Resolve plugins once.</span>
     <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
@@ -266,7 +266,7 @@
         <span class="p">]</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">eligible</span><span class="p">:</span>
             <span class="k">break</span>
-        <span class="c1"># Re-run the pipeline on the eligible pool to get this round&#39;s top.</span>
+        <span class="c1"># Re-run the pipeline on the eligible pool to get this round's top.</span>
         <span class="n">last_result</span> <span class="o">=</span> <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
             <span class="n">eligible</span><span class="p">,</span>
             <span class="n">k</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="n">present</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">eligible</span><span class="p">)),</span>
@@ -274,11 +274,11 @@
             <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">info</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">&quot;round&quot;</span><span class="p">:</span> <span class="n">round_idx</span><span class="p">,</span>
-            <span class="s2">&quot;n_kept_so_far&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">confirmed</span><span class="p">),</span>
-            <span class="s2">&quot;n_pool_remaining&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">eligible</span><span class="p">),</span>
-            <span class="s2">&quot;k&quot;</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
-            <span class="s2">&quot;present&quot;</span><span class="p">:</span> <span class="n">present</span><span class="p">,</span>
+            <span class="s2">"round"</span><span class="p">:</span> <span class="n">round_idx</span><span class="p">,</span>
+            <span class="s2">"n_kept_so_far"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">confirmed</span><span class="p">),</span>
+            <span class="s2">"n_pool_remaining"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">eligible</span><span class="p">),</span>
+            <span class="s2">"k"</span><span class="p">:</span> <span class="n">k</span><span class="p">,</span>
+            <span class="s2">"present"</span><span class="p">:</span> <span class="n">present</span><span class="p">,</span>
         <span class="p">}</span>
         <span class="n">decision</span> <span class="o">=</span> <span class="n">decision_fn</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">last_result</span><span class="o">.</span><span class="n">kept</span><span class="p">),</span> <span class="n">info</span><span class="p">)</span>
 
@@ -309,19 +309,19 @@
         <span class="n">started_at</span><span class="o">=</span><span class="n">started</span><span class="p">,</span>
         <span class="n">finished_at</span><span class="o">=</span><span class="n">finished</span><span class="p">,</span>
         <span class="n">report</span><span class="o">=</span><span class="p">{</span>
-            <span class="s2">&quot;interactive&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-            <span class="s2">&quot;rounds&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">round_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">last_result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;n_rejected&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">rejected_ids</span><span class="p">),</span>
+            <span class="s2">"interactive"</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">"rounds"</span><span class="p">:</span> <span class="p">(</span><span class="n">round_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">last_result</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"n_rejected"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">rejected_ids</span><span class="p">),</span>
         <span class="p">},</span>
     <span class="p">)</span></div>
 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_coerce_to_refs</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Accept the same range of source types as :func:`lookbook.curate`,</span>
+<span class="w">    </span><span class="sd">"""Accept the same range of source types as :func:`lookbook.curate`,</span>
 <span class="sd">    and additionally accept a list of ``str``/``Path`` values by wrapping</span>
 <span class="sd">    each as a :class:`PathImageRef`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">os</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">_os</span>
 
     <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.refs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathImageRef</span>
@@ -338,8 +338,8 @@
 
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">&quot;InteractiveDecision&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;curate_interactive&quot;</span><span class="p">,</span>
+    <span class="s2">"InteractiveDecision"</span><span class="p">,</span>
+    <span class="s2">"curate_interactive"</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 

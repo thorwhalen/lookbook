@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.profiles &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.profiles &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,7 +107,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.profiles</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Subject profiles — declarative recipes loaded from YAML.</span>
+<span></span><span class="sd">"""Subject profiles — declarative recipes loaded from YAML.</span>
 
 <span class="sd">A profile is just a recipe with a name and a YAML file. The schema mirrors</span>
 <span class="sd">the in-code `RECIPES` dict in `lookbook/__main__.py`:</span>
@@ -124,7 +124,7 @@
 <span class="sd">Profiles ship in `lookbook/profiles/*.yaml`. Users can override or add</span>
 <span class="sd">profiles by dropping YAML files into `&lt;config_root&gt;/profiles/` (resolved</span>
 <span class="sd">via `config2py`).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -139,31 +139,31 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_user_profiles_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">subdir</span><span class="p">(</span><span class="n">default_config_root</span><span class="p">(),</span> <span class="s2">&quot;profiles&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">subdir</span><span class="p">(</span><span class="n">default_config_root</span><span class="p">(),</span> <span class="s2">"profiles"</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="list_profiles">
 <a class="viewcode-back" href="../../module_docs/lookbook/profiles.html#lookbook.profiles.list_profiles">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">list_profiles</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;All profile names available, shipped + user-defined.</span>
+<span class="w">    </span><span class="sd">"""All profile names available, shipped + user-defined.</span>
 
 <span class="sd">    User profiles override shipped ones with the same name.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">names</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_PROFILES_DIR</span><span class="p">,</span> <span class="n">_user_profiles_dir</span><span class="p">()):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
             <span class="k">continue</span>
         <span class="k">for</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
-            <span class="k">if</span> <span class="n">fn</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s2">&quot;.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;.yml&quot;</span><span class="p">)):</span>
-                <span class="n">names</span><span class="p">[</span><span class="n">fn</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fn</span><span class="o">.</span><span class="n">endswith</span><span class="p">((</span><span class="s2">".yaml"</span><span class="p">,</span> <span class="s2">".yml"</span><span class="p">)):</span>
+                <span class="n">names</span><span class="p">[</span><span class="n">fn</span><span class="o">.</span><span class="n">rsplit</span><span class="p">(</span><span class="s2">"."</span><span class="p">,</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">fn</span><span class="p">)</span>
     <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">names</span><span class="p">)</span></div>
 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_profile_path</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Locate a profile by name. User profiles win over shipped ones.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Locate a profile by name. User profiles win over shipped ones."""</span>
     <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="p">(</span><span class="n">_user_profiles_dir</span><span class="p">(),</span> <span class="n">_PROFILES_DIR</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;.yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;.yml&quot;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">ext</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">".yaml"</span><span class="p">,</span> <span class="s2">".yml"</span><span class="p">):</span>
             <span class="n">p</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">name</span> <span class="o">+</span> <span class="n">ext</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
                 <span class="k">return</span> <span class="n">p</span>
@@ -173,47 +173,47 @@
 <div class="viewcode-block" id="load">
 <a class="viewcode-back" href="../../module_docs/lookbook/profiles.html#lookbook.profiles.load">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a profile by name, returning a recipe-shaped dict.</span>
+<span class="w">    </span><span class="sd">"""Load a profile by name, returning a recipe-shaped dict.</span>
 
 <span class="sd">    Raises `KeyError` if the profile is unknown.</span>
 
-<span class="sd">    &gt;&gt;&gt; spec = load(&quot;person&quot;)</span>
-<span class="sd">    &gt;&gt;&gt; &quot;scorers&quot; in spec</span>
+<span class="sd">    &gt;&gt;&gt; spec = load("person")</span>
+<span class="sd">    &gt;&gt;&gt; "scorers" in spec</span>
 <span class="sd">    True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">path</span> <span class="o">=</span> <span class="n">_profile_path</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">path</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown profile: </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">. Known: </span><span class="si">{</span><span class="n">list_profiles</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown profile: </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">. Known: </span><span class="si">{</span><span class="n">list_profiles</span><span class="p">()</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">yaml</span>  <span class="c1"># type: ignore</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-            <span class="s2">&quot;Loading lookbook profiles requires `pyyaml`. &quot;</span>
-            <span class="s2">&quot;`pip install pyyaml` or `pip install lookbook[profiles]`.&quot;</span>
+            <span class="s2">"Loading lookbook profiles requires `pyyaml`. "</span>
+            <span class="s2">"`pip install pyyaml` or `pip install lookbook[profiles]`."</span>
         <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">safe_load</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
     <span class="k">return</span> <span class="n">_normalize</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_normalize</span><span class="p">(</span><span class="n">spec</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Coerce YAML-friendly forms into the runtime recipe shape.</span>
+<span class="w">    </span><span class="sd">"""Coerce YAML-friendly forms into the runtime recipe shape.</span>
 
 <span class="sd">    YAML naturally uses lists for `[name, kwargs]` overrides. The runtime</span>
 <span class="sd">    recipe shape uses tuples for the same purpose; `lookbook.__main__`</span>
 <span class="sd">    handles either. Here we just ensure the keys are present with safe</span>
 <span class="sd">    defaults.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;description&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;scorers&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;scorers&quot;</span><span class="p">,</span> <span class="p">[])),</span>
-        <span class="s2">&quot;embedders&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;embedders&quot;</span><span class="p">,</span> <span class="p">[])),</span>
-        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;filters&quot;</span><span class="p">,</span> <span class="p">[])),</span>
-        <span class="s2">&quot;selector&quot;</span><span class="p">:</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;selector&quot;</span><span class="p">,</span> <span class="s2">&quot;top_k&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
-        <span class="s2">&quot;constraints&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constraints&quot;</span><span class="p">,</span> <span class="p">{})</span> <span class="ow">or</span> <span class="p">{}),</span>
+        <span class="s2">"name"</span><span class="p">:</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"name"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="s2">"description"</span><span class="p">:</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"description"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="s2">"scorers"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"scorers"</span><span class="p">,</span> <span class="p">[])),</span>
+        <span class="s2">"embedders"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"embedders"</span><span class="p">,</span> <span class="p">[])),</span>
+        <span class="s2">"filters"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"filters"</span><span class="p">,</span> <span class="p">[])),</span>
+        <span class="s2">"selector"</span><span class="p">:</span> <span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"selector"</span><span class="p">,</span> <span class="s2">"top_k"</span><span class="p">),</span>
+        <span class="s2">"diagnose_clusters"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"diagnose_clusters"</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="s2">"constraints"</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"constraints"</span><span class="p">,</span> <span class="p">{})</span> <span class="ow">or</span> <span class="p">{}),</span>
     <span class="p">}</span>
 </pre></div>
 

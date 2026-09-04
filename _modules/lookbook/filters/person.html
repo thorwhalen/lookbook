@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.filters.person &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.filters.person &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,13 +107,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.filters.person</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Person-LoRA filters — Phase 3.</span>
+<span></span><span class="sd">"""Person-LoRA filters — Phase 3.</span>
 
 <span class="sd">These read `face_box`, `face_area`, and (optionally) `head_pose` from the</span>
 <span class="sd">manifest. Like all filters in lookbook, they keep an image when the</span>
 <span class="sd">relevant evidence is missing — the design principle is that filters never</span>
 <span class="sd">drop on absent annotations.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -128,85 +128,85 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/person.html#lookbook.filters.person.HasFace">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">HasFace</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Drop images with no detected face.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Drop images with no detected face."""</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;has_face&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"has_face"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">box</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;face_box&quot;</span><span class="p">)</span>
-        <span class="c1"># When the detector hasn&#39;t run yet, keep — filters are non-destructive.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;face_box&quot;</span><span class="p">)):</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"face_box"</span><span class="p">)</span>
+        <span class="c1"># When the detector hasn't run yet, keep — filters are non-destructive.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">manifest</span><span class="o">.</span><span class="n">get</span><span class="p">((</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"face_box"</span><span class="p">)):</span>
             <span class="c1"># Annotation absent entirely → keep (no evidence).</span>
             <span class="k">return</span> <span class="kc">True</span>
         <span class="k">return</span> <span class="n">box</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;has_face&quot;</span><span class="p">,</span> <span class="n">HasFace</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"has_face"</span><span class="p">,</span> <span class="n">HasFace</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="SingleFaceOnly">
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/person.html#lookbook.filters.person.SingleFaceOnly">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">SingleFaceOnly</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Drop images with more than one detected face.</span>
+<span class="w">    </span><span class="sd">"""Drop images with more than one detected face.</span>
 
 <span class="sd">    Reads `face_box.n_faces`. Useful for character LoRAs where you want</span>
 <span class="sd">    isolated subject images.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;single_face_only&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"single_face_only"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">box</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;face_box&quot;</span><span class="p">)</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"face_box"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">box</span><span class="p">:</span>
             <span class="c1"># No face at all is a separate concern; HasFace filter handles it.</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;n_faces&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">1</span></div>
+        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"n_faces"</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span> <span class="o">&lt;=</span> <span class="mi">1</span></div>
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;single_face_only&quot;</span><span class="p">,</span> <span class="n">SingleFaceOnly</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"single_face_only"</span><span class="p">,</span> <span class="n">SingleFaceOnly</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="MinFaceArea">
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/person.html#lookbook.filters.person.MinFaceArea">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MinFaceArea</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Drop images whose face occupies less than `min_fraction` of the frame.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Drop images whose face occupies less than `min_fraction` of the frame."""</span>
 
     <span class="n">min_fraction</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.05</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;min_face_area&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"min_face_area"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">area</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;face_area&quot;</span><span class="p">)</span>
+        <span class="n">area</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"face_area"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">area</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">area</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;fraction&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_fraction</span></div>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">area</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"fraction"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_fraction</span></div>
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min_face_area&quot;</span><span class="p">,</span> <span class="n">MinFaceArea</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"min_face_area"</span><span class="p">,</span> <span class="n">MinFaceArea</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="MinFaceConfidence">
 <a class="viewcode-back" href="../../../module_docs/lookbook/filters/person.html#lookbook.filters.person.MinFaceConfidence">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MinFaceConfidence</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Drop images whose face-detection confidence is below `threshold`.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Drop images whose face-detection confidence is below `threshold`."""</span>
 
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.5</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;min_face_confidence&quot;</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"min_face_confidence"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">keep</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">,</span> <span class="n">manifest</span><span class="p">:</span> <span class="n">Manifest</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="n">box</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;face_box&quot;</span><span class="p">)</span>
+        <span class="n">box</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"face_box"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">box</span><span class="p">:</span>
             <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;confidence&quot;</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span></div>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">box</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"confidence"</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">))</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">threshold</span></div>
 
 
 
-<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;min_face_confidence&quot;</span><span class="p">,</span> <span class="n">MinFaceConfidence</span><span class="p">())</span>
+<span class="n">filters</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"min_face_confidence"</span><span class="p">,</span> <span class="n">MinFaceConfidence</span><span class="p">())</span>
 </pre></div>
 
            </div>

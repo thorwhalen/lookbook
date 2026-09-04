@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.selectors.submodular &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.selectors.submodular &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,23 +107,23 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.selectors.submodular</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Submodular selectors over embedding spaces.</span>
+<span></span><span class="sd">"""Submodular selectors over embedding spaces.</span>
 
 <span class="sd">Phase 2 ships a greedy facility-location selector implemented in pure</span>
-<span class="sd">numpy. It&#39;s the right default for &quot;best K from N&quot; when diversity matters:</span>
+<span class="sd">numpy. It's the right default for "best K from N" when diversity matters:</span>
 
 <span class="sd">  f(S) = sum over y in V of max over x in S of similarity(x, y)</span>
 <span class="sd">       + alpha * sum over x in S of quality(x)</span>
 
 <span class="sd">The greedy algorithm gives a (1 - 1/e) ≈ 0.63 approximation guarantee.</span>
 <span class="sd">For typical curation sizes (N ≤ 1000, K ≤ 50), pure numpy is fast enough</span>
-<span class="sd">and avoids the `apricot` dependency. For larger pools, swap in `apricot`&#39;s</span>
+<span class="sd">and avoids the `apricot` dependency. For larger pools, swap in `apricot`'s</span>
 <span class="sd">optimized lazy-greedy via the same Selector protocol.</span>
 
 <span class="sd">Embeddings are not read from the manifest directly. The pipeline pre-fetches</span>
 <span class="sd">them from `stores.embeddings[space_id]` and passes them via</span>
-<span class="sd">`constraints[&quot;embeddings&quot;]` as a `dict[image_id, np.ndarray]`.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">`constraints["embeddings"]` as a `dict[image_id, np.ndarray]`.</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -142,7 +142,7 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/selectors/submodular.html#lookbook.selectors.submodular.FacilityLocation">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">FacilityLocation</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Greedy facility-location subset selection.</span>
+<span class="w">    </span><span class="sd">"""Greedy facility-location subset selection.</span>
 
 <span class="sd">    The objective is:</span>
 <span class="sd">        f(S) = sum_y max_{x in S} sim(x, y)  +  weight_quality * sum_{x in S} q(x)</span>
@@ -152,12 +152,12 @@
 <span class="sd">    annotation `quality_metric_id` for `x`, defaulting to 0 when absent.</span>
 
 <span class="sd">    `weight_quality=0` gives a pure-diversity selection. `weight_quality`</span>
-<span class="sd">    in 0.1–0.5 typically works well for &quot;diverse but high-quality.&quot;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    in 0.1–0.5 typically works well for "diverse but high-quality."</span>
+<span class="sd">    """</span>
 
-    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;facility_location&quot;</span>
-    <span class="n">embedding_space</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dinov2_base&quot;</span>  <span class="c1"># which embeddings to read</span>
-    <span class="n">quality_metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>  <span class="c1"># optional per-image quality score</span>
+    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"facility_location"</span>
+    <span class="n">embedding_space</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"dinov2_base"</span>  <span class="c1"># which embeddings to read</span>
+    <span class="n">quality_metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>  <span class="c1"># optional per-image quality score</span>
     <span class="n">weight_quality</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="n">weight_diversity</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span>
 
@@ -174,13 +174,13 @@
         <span class="n">k</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">))</span>
 
         <span class="n">constraints</span> <span class="o">=</span> <span class="n">constraints</span> <span class="ow">or</span> <span class="p">{}</span>
-        <span class="n">embeddings_map</span> <span class="o">=</span> <span class="n">constraints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;embeddings&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
+        <span class="n">embeddings_map</span> <span class="o">=</span> <span class="n">constraints</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"embeddings"</span><span class="p">)</span> <span class="ow">or</span> <span class="p">{}</span>
         <span class="n">missing</span> <span class="o">=</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">candidates</span> <span class="k">if</span> <span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">embeddings_map</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">missing</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;FacilityLocation: missing embeddings for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2"> candidates &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;in space </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_space</span><span class="si">!r}</span><span class="s2">. Run the embedder first. &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;First missing id: </span><span class="si">{</span><span class="n">missing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">!r}</span><span class="s2">&quot;</span>
+                <span class="sa">f</span><span class="s2">"FacilityLocation: missing embeddings for </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">missing</span><span class="p">)</span><span class="si">}</span><span class="s2"> candidates "</span>
+                <span class="sa">f</span><span class="s2">"in space </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding_space</span><span class="si">!r}</span><span class="s2">. Run the embedder first. "</span>
+                <span class="sa">f</span><span class="s2">"First missing id: </span><span class="si">{</span><span class="n">missing</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">!r}</span><span class="s2">"</span>
             <span class="p">)</span>
 
         <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
@@ -195,7 +195,7 @@
         <span class="n">X</span> <span class="o">=</span> <span class="n">X</span> <span class="o">/</span> <span class="n">norms</span>
 
         <span class="c1"># NxN similarity matrix, clipped to [0, 1] so anti-correlations</span>
-        <span class="c1"># don&#39;t contribute to the facility-location objective and the empty</span>
+        <span class="c1"># don't contribute to the facility-location objective and the empty</span>
         <span class="c1"># set has f({}) = 0.</span>
         <span class="n">sim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">X</span> <span class="o">@</span> <span class="n">X</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
 
@@ -216,8 +216,8 @@
         <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
         <span class="n">chosen</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="c1"># `best_so_far[y]` holds max_{x in S} sim(x, y) for the current S.</span>
-        <span class="c1"># Start at 0 so the first round&#39;s gain is `sum_y sim[i, y]` — i.e.</span>
-        <span class="c1"># the most &quot;central&quot; candidate wins ties from quality.</span>
+        <span class="c1"># Start at 0 so the first round's gain is `sum_y sim[i, y]` — i.e.</span>
+        <span class="c1"># the most "central" candidate wins ties from quality.</span>
         <span class="n">best_so_far</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
 
         <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
@@ -237,7 +237,7 @@
 
 
 
-<span class="n">selectors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;facility_location&quot;</span><span class="p">,</span> <span class="n">FacilityLocation</span><span class="p">())</span>
+<span class="n">selectors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"facility_location"</span><span class="p">,</span> <span class="n">FacilityLocation</span><span class="p">())</span>
 </pre></div>
 
            </div>

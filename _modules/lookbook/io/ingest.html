@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.io.ingest &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.io.ingest &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,15 +107,15 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.io.ingest</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Turn a source spec into a stream of `ImageRef`s.</span>
+<span></span><span class="sd">"""Turn a source spec into a stream of `ImageRef`s.</span>
 
 <span class="sd">Phase 0 supports: a single directory path (recursive), a single file, or an</span>
 <span class="sd">already-iterable of refs. URL lists, zip archives, and cloud buckets are</span>
 <span class="sd">deferred to Phase 1+.</span>
 
-<span class="sd">`ingest_to_store` (Phase 4) additionally records `image_id -&gt; {&quot;path&quot;: ...}`</span>
+<span class="sd">`ingest_to_store` (Phase 4) additionally records `image_id -&gt; {"path": ...}`</span>
 <span class="sd">into `stores.images` so the HTTP layer can serve image bytes by id.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -126,7 +126,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">ImageRef</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.refs</span><span class="w"> </span><span class="kn">import</span> <span class="n">PathImageRef</span>
 
-<span class="n">ImageExtensions</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;.jpg&quot;</span><span class="p">,</span> <span class="s2">&quot;.jpeg&quot;</span><span class="p">,</span> <span class="s2">&quot;.png&quot;</span><span class="p">,</span> <span class="s2">&quot;.webp&quot;</span><span class="p">,</span> <span class="s2">&quot;.bmp&quot;</span><span class="p">,</span> <span class="s2">&quot;.gif&quot;</span><span class="p">,</span> <span class="s2">&quot;.tiff&quot;</span><span class="p">,</span> <span class="s2">&quot;.tif&quot;</span><span class="p">)</span>
+<span class="n">ImageExtensions</span> <span class="o">=</span> <span class="p">(</span><span class="s2">".jpg"</span><span class="p">,</span> <span class="s2">".jpeg"</span><span class="p">,</span> <span class="s2">".png"</span><span class="p">,</span> <span class="s2">".webp"</span><span class="p">,</span> <span class="s2">".bmp"</span><span class="p">,</span> <span class="s2">".gif"</span><span class="p">,</span> <span class="s2">".tiff"</span><span class="p">,</span> <span class="s2">".tif"</span><span class="p">)</span>
 
 <span class="n">Source</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">,</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]]</span>
 
@@ -144,16 +144,16 @@
 <div class="viewcode-block" id="ingest">
 <a class="viewcode-back" href="../../../module_docs/lookbook/io/ingest.html#lookbook.ingest">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ingest</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Materialize a source into a list of ImageRefs.</span>
+<span class="w">    </span><span class="sd">"""Materialize a source into a list of ImageRefs.</span>
 
 <span class="sd">    &gt;&gt;&gt; import tempfile, os</span>
 <span class="sd">    &gt;&gt;&gt; with tempfile.TemporaryDirectory() as d:</span>
-<span class="sd">    ...     for name in [&#39;a.jpg&#39;, &#39;b.png&#39;, &#39;note.txt&#39;]:</span>
-<span class="sd">    ...         open(os.path.join(d, name), &#39;wb&#39;).close()</span>
+<span class="sd">    ...     for name in ['a.jpg', 'b.png', 'note.txt']:</span>
+<span class="sd">    ...         open(os.path.join(d, name), 'wb').close()</span>
 <span class="sd">    ...     refs = ingest(d)</span>
 <span class="sd">    &gt;&gt;&gt; sorted(os.path.basename(r.path) for r in refs)</span>
-<span class="sd">    [&#39;a.jpg&#39;, &#39;b.png&#39;]</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    ['a.jpg', 'b.png']</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">PathLike</span><span class="p">)):</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">PathImageRef</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">_walk_paths</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">fspath</span><span class="p">(</span><span class="n">source</span><span class="p">))]</span>
     <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">source</span><span class="p">)</span></div>
@@ -163,18 +163,18 @@
 <div class="viewcode-block" id="ingest_to_store">
 <a class="viewcode-back" href="../../../module_docs/lookbook/io/ingest.html#lookbook.ingest_to_store">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ingest_to_store</span><span class="p">(</span><span class="n">source</span><span class="p">:</span> <span class="n">Source</span><span class="p">,</span> <span class="n">stores</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">ImageRef</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ingest plus a side-effect: record `image_id -&gt; {&quot;path&quot;: ...}` for</span>
+<span class="w">    </span><span class="sd">"""Ingest plus a side-effect: record `image_id -&gt; {"path": ...}` for</span>
 <span class="sd">    every `PathImageRef` into `stores.images`.</span>
 
 <span class="sd">    The HTTP layer relies on this mapping to serve image bytes by id.</span>
 <span class="sd">    Returns the same list of refs `ingest()` would return.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">refs</span> <span class="o">=</span> <span class="n">ingest</span><span class="p">(</span><span class="n">source</span><span class="p">)</span>
     <span class="n">images_store</span> <span class="o">=</span> <span class="n">stores</span><span class="o">.</span><span class="n">images</span>
     <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">:</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">PathImageRef</span><span class="p">):</span>
             <span class="k">try</span><span class="p">:</span>
-                <span class="n">images_store</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">path</span><span class="p">)}</span>
+                <span class="n">images_store</span><span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"path"</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">path</span><span class="p">)}</span>
             <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
                 <span class="c1"># Some store backends require JSON values; if the codec</span>
                 <span class="c1"># disagrees, just skip. The HTTP layer can still serve</span>

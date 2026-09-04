@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.selectors.topk &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.selectors.topk &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,7 +107,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.selectors.topk</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Top-K selector: pick the K highest-scoring images by a single metric.&quot;&quot;&quot;</span>
+<span></span><span class="sd">"""Top-K selector: pick the K highest-scoring images by a single metric."""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -124,10 +124,10 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/selectors/topk.html#lookbook.selectors.topk.TopK">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">TopK</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sort candidates by `metric_id` (descending) and take the first K.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Sort candidates by `metric_id` (descending) and take the first K."""</span>
 
-    <span class="n">metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;random_score&quot;</span>
-    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;top_k&quot;</span>
+    <span class="n">metric_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"random_score"</span>
+    <span class="n">selector_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"top_k"</span>
     <span class="n">descending</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">select</span><span class="p">(</span>
@@ -141,7 +141,7 @@
         <span class="n">ranked</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
             <span class="n">cands</span><span class="p">,</span>
             <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">value_of</span><span class="p">(</span>
-                <span class="n">manifest</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metric_id</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s2">&quot;-inf&quot;</span><span class="p">)</span>
+                <span class="n">manifest</span><span class="p">,</span> <span class="n">r</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">metric_id</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="s2">"-inf"</span><span class="p">)</span>
             <span class="p">),</span>
             <span class="n">reverse</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">descending</span><span class="p">,</span>
         <span class="p">)</span>
@@ -149,7 +149,7 @@
 
 
 
-<span class="n">selectors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;top_k&quot;</span><span class="p">,</span> <span class="n">TopK</span><span class="p">())</span>
+<span class="n">selectors</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"top_k"</span><span class="p">,</span> <span class="n">TopK</span><span class="p">())</span>
 </pre></div>
 
            </div>

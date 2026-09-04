@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.__main__ &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.__main__ &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -54,6 +54,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.curate"><code class="docutils literal notranslate"><span class="pre">curate()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.list_plugins"><code class="docutils literal notranslate"><span class="pre">list_plugins()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.list_recipes"><code class="docutils literal notranslate"><span class="pre">list_recipes()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.mcp"><code class="docutils literal notranslate"><span class="pre">mcp()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#lookbook.__main__.serve"><code class="docutils literal notranslate"><span class="pre">serve()</span></code></a></li>
 </ul>
@@ -147,6 +148,14 @@ the user’s app data folder unless <cite>–in-memory</cite> is passed.</p>
 <dt class="sig sig-object py" id="lookbook.__main__.list_recipes">
 <span class="sig-prename descclassname"><span class="pre">lookbook.__main__.</span></span><span class="sig-name descname"><span class="pre">list_recipes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../../_modules/lookbook/__main__.html#list_recipes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.__main__.list_recipes" title="Link to this definition"></a></dt>
 <dd><p>List built-in curation recipes and YAML profiles.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lookbook.__main__.main">
+<span class="sig-prename descclassname"><span class="pre">lookbook.__main__.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/lookbook/__main__.html#main"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lookbook.__main__.main" title="Link to this definition"></a></dt>
+<dd><p>Entry point for the <code class="docutils literal notranslate"><span class="pre">lookbook</span></code> console script.</p>
+<p>Returns the exit code (<code class="docutils literal notranslate"><span class="pre">cw.run</span></code> returns it rather than exiting), which
+is what the console-script shim and the <code class="docutils literal notranslate"><span class="pre">__main__</span></code> guard below expect.</p>
 </dd></dl>
 
 <dl class="py function">

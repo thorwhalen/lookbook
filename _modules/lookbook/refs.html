@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.refs &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.refs &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,7 +107,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.refs</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Concrete `ImageRef` implementations.</span>
+<span></span><span class="sd">"""Concrete `ImageRef` implementations.</span>
 
 <span class="sd">Refs are the unit of identity in lookbook. The orchestrator passes refs</span>
 <span class="sd">around; scorers open them lazily; the manifest is keyed by `image_id`.</span>
@@ -120,7 +120,7 @@
 <span class="sd">their existing path; bytes/url refs materialize once into a content-</span>
 <span class="sd">addressed cache and reuse the result. This is the ergonomic surface for</span>
 <span class="sd">downstream tools that want a file (e.g. ffmpeg, lookbook → fal upload).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -137,45 +137,45 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_materialized_cache_dir</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Where to land bytes that need a path. Honors ``$LOOKBOOK_REFS_CACHE_DIR``</span>
-<span class="sd">    then a temp subdirectory.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Where to land bytes that need a path. Honors ``$LOOKBOOK_REFS_CACHE_DIR``</span>
+<span class="sd">    then a temp subdirectory."""</span>
     <span class="k">if</span> <span class="n">cache_dir</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">cache_dir</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">out</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
-            <span class="s2">&quot;LOOKBOOK_REFS_CACHE_DIR&quot;</span><span class="p">,</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s2">&quot;lookbook_refs&quot;</span><span class="p">),</span>
+            <span class="s2">"LOOKBOOK_REFS_CACHE_DIR"</span><span class="p">,</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">(),</span> <span class="s2">"lookbook_refs"</span><span class="p">),</span>
         <span class="p">)</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">out</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_ext_from_payload</span><span class="p">(</span><span class="n">payload</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sniff a likely extension from the first few bytes. Defaults to .bin.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Sniff a likely extension from the first few bytes. Defaults to .bin."""</span>
     <span class="n">head</span> <span class="o">=</span> <span class="n">payload</span><span class="p">[:</span><span class="mi">16</span><span class="p">]</span>
-    <span class="k">if</span> <span class="n">head</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x89</span><span class="s2">PNG</span><span class="se">\r\n\x1a\n</span><span class="s2">&quot;</span><span class="p">):</span>
-        <span class="k">return</span> <span class="s2">&quot;.png&quot;</span>
-    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\xff\xd8\xff</span><span class="s2">&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;.jpg&quot;</span>
-    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;GIF8&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;.gif&quot;</span>
-    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;RIFF&quot;</span> <span class="ow">and</span> <span class="n">head</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;WEBP&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;.webp&quot;</span>
-    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;BM</span><span class="se">\x00\x00</span><span class="s2">&quot;</span> <span class="ow">or</span> <span class="n">head</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;BM&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="s2">&quot;.bmp&quot;</span>
-    <span class="k">return</span> <span class="s2">&quot;.bin&quot;</span>
+    <span class="k">if</span> <span class="n">head</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="sa">b</span><span class="s2">"</span><span class="se">\x89</span><span class="s2">PNG</span><span class="se">\r\n\x1a\n</span><span class="s2">"</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">".png"</span>
+    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"</span><span class="se">\xff\xd8\xff</span><span class="s2">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">".jpg"</span>
+    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"GIF8"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">".gif"</span>
+    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"RIFF"</span> <span class="ow">and</span> <span class="n">head</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">12</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"WEBP"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">".webp"</span>
+    <span class="k">if</span> <span class="n">head</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"BM</span><span class="se">\x00\x00</span><span class="s2">"</span> <span class="ow">or</span> <span class="n">head</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">"BM"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">".bmp"</span>
+    <span class="k">return</span> <span class="s2">".bin"</span>
 
 
 <div class="viewcode-block" id="to_local_path">
 <a class="viewcode-back" href="../../module_docs/lookbook/refs.html#lookbook.to_local_path">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">to_local_path</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a filesystem path where the bytes of ``ref`` can be read.</span>
+<span class="w">    </span><span class="sd">"""Return a filesystem path where the bytes of ``ref`` can be read.</span>
 
 <span class="sd">    Works on any object that exposes ``.local_path(cache_dir)`` — i.e.</span>
 <span class="sd">    every concrete ``ImageRef`` shipped with lookbook. Provided as a</span>
-<span class="sd">    free function so downstream code doesn&#39;t need to know which subtype</span>
+<span class="sd">    free function so downstream code doesn't need to know which subtype</span>
 <span class="sd">    it has.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">ref</span><span class="o">.</span><span class="n">local_path</span><span class="p">(</span><span class="n">cache_dir</span><span class="o">=</span><span class="n">cache_dir</span><span class="p">)</span></div>
 
 
@@ -184,17 +184,17 @@
 <a class="viewcode-back" href="../../module_docs/lookbook/refs.html#lookbook.PathImageRef">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">PathImageRef</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An image referenced by filesystem path.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""An image referenced by filesystem path."""</span>
 
     <span class="n">path</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_id</span><span class="p">:</span>
             <span class="c1"># Cheap, stable, content-independent id; full content hash is a</span>
             <span class="c1"># separate (more expensive) scorer.</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">image_id</span> <span class="o">=</span> <span class="n">_hash_id</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_id</span> <span class="o">=</span> <span class="n">_hash_id</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">open</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="kn">from</span><span class="w"> </span><span class="nn">PIL</span><span class="w"> </span><span class="kn">import</span> <span class="n">Image</span>  <span class="c1"># lazy</span>
@@ -202,13 +202,13 @@
         <span class="k">return</span> <span class="n">Image</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 
 <div class="viewcode-block" id="PathImageRef.local_path">
 <a class="viewcode-back" href="../../module_docs/lookbook/refs.html#lookbook.PathImageRef.local_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">local_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the existing on-disk path. ``cache_dir`` is ignored.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Return the existing on-disk path. ``cache_dir`` is ignored."""</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span></div>
 </div>
 
@@ -218,10 +218,10 @@
 <a class="viewcode-back" href="../../module_docs/lookbook/refs.html#lookbook.BytesImageRef">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">BytesImageRef</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An image stored as raw bytes in memory.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""An image stored as raw bytes in memory."""</span>
 
     <span class="n">payload</span><span class="p">:</span> <span class="nb">bytes</span>
-    <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -240,13 +240,13 @@
 <div class="viewcode-block" id="BytesImageRef.local_path">
 <a class="viewcode-back" href="../../module_docs/lookbook/refs.html#lookbook.BytesImageRef.local_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">local_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Materialize the bytes into a file (cached by image_id).&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Materialize the bytes into a file (cached by image_id)."""</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">_materialized_cache_dir</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span>
         <span class="n">ext</span> <span class="o">=</span> <span class="n">_ext_from_payload</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">payload</span><span class="p">)</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_id</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_id</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;.tmp&quot;</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">".tmp"</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">payload</span><span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">path</span></div>
@@ -258,19 +258,19 @@
 <a class="viewcode-back" href="../../module_docs/lookbook/refs.html#lookbook.UrlImageRef">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">UrlImageRef</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An image referenced by URL.</span>
+<span class="w">    </span><span class="sd">"""An image referenced by URL.</span>
 
 <span class="sd">    The bytes are fetched on first access and cached on the instance.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span>
     <span class="n">metadata</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
     <span class="n">_cached</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bytes</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_id</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">image_id</span> <span class="o">=</span> <span class="n">_hash_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">image_id</span> <span class="o">=</span> <span class="n">_hash_id</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">bytes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bytes</span><span class="p">:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cached</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -289,14 +289,14 @@
 <div class="viewcode-block" id="UrlImageRef.local_path">
 <a class="viewcode-back" href="../../module_docs/lookbook/refs.html#lookbook.UrlImageRef.local_path">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">local_path</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">cache_dir</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Download (once) and return the local path.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""Download (once) and return the local path."""</span>
         <span class="n">d</span> <span class="o">=</span> <span class="n">_materialized_cache_dir</span><span class="p">(</span><span class="n">cache_dir</span><span class="p">)</span>
         <span class="n">payload</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bytes</span><span class="p">()</span>
         <span class="n">ext</span> <span class="o">=</span> <span class="n">_ext_from_payload</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
-        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_id</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">image_id</span><span class="si">}{</span><span class="n">ext</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-            <span class="n">tmp</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;.tmp&quot;</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">tmp</span> <span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">".tmp"</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="s2">"wb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
                 <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">payload</span><span class="p">)</span>
             <span class="n">os</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">path</span></div>

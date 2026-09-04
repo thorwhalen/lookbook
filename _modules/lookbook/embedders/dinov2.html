@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.embedders.dinov2 &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.embedders.dinov2 &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,13 +107,13 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.embedders.dinov2</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;DINOv2 embedder via `transformers`.</span>
+<span></span><span class="sd">"""DINOv2 embedder via `transformers`.</span>
 
 <span class="sd">DINOv2 is the right embedding for *visual* similarity (same scene/object,</span>
-<span class="sd">robust to style). Voxel51&#39;s benchmarks show it outperforming CLIP on image</span>
+<span class="sd">robust to style). Voxel51's benchmarks show it outperforming CLIP on image</span>
 <span class="sd">classification by 5-28 points on natural-image datasets. For curation, that</span>
-<span class="sd">makes it the better default for &quot;find redundant shots.&quot;</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">makes it the better default for "find redundant shots."</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -131,22 +131,22 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/embedders/dinov2.html#lookbook.embedders.dinov2.DINOv2Embedder">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">DINOv2Embedder</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Facebook DINOv2 image embeddings via HuggingFace transformers.</span>
+<span class="w">    </span><span class="sd">"""Facebook DINOv2 image embeddings via HuggingFace transformers.</span>
 
 <span class="sd">    Defaults to ViT-B/14 (~350 MB). Use `facebook/dinov2-small` for</span>
 <span class="sd">    smaller-but-weaker (~85 MB), `facebook/dinov2-large` for stronger</span>
 <span class="sd">    (~1.2 GB).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;dinov2_base&quot;</span>
+    <span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"dinov2_base"</span>
     <span class="n">cost_tier</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;facebook/dinov2-base&quot;</span>
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"facebook/dinov2-base"</span>
     <span class="n">device</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;transformers:dinov2&quot;</span>
+    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"transformers:dinov2"</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">config_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;dinov2:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"dinov2:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
@@ -154,11 +154,11 @@
             <span class="kn">from</span><span class="w"> </span><span class="nn">transformers</span><span class="w"> </span><span class="kn">import</span> <span class="n">AutoImageProcessor</span><span class="p">,</span> <span class="n">AutoModel</span>  <span class="c1"># type: ignore</span>
         <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                <span class="s2">&quot;DINOv2Embedder requires `torch` and `transformers`. &quot;</span>
-                <span class="s2">&quot;`pip install lookbook[embed]`.&quot;</span>
+                <span class="s2">"DINOv2Embedder requires `torch` and `transformers`. "</span>
+                <span class="s2">"`pip install lookbook[embed]`."</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_model&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"_model"</span><span class="p">):</span>
             <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="ow">or</span> <span class="n">_autodevice</span><span class="p">(</span><span class="n">torch</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span> <span class="o">=</span> <span class="n">AutoImageProcessor</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">AutoModel</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
@@ -166,8 +166,8 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_device</span> <span class="o">=</span> <span class="n">device</span>
 
         <span class="k">with</span> <span class="n">ref</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">img</span><span class="p">:</span>
-            <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">)</span>
-            <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">img</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">&quot;pt&quot;</span><span class="p">)</span>
+            <span class="n">img</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">)</span>
+            <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_processor</span><span class="p">(</span><span class="n">images</span><span class="o">=</span><span class="n">img</span><span class="p">,</span> <span class="n">return_tensors</span><span class="o">=</span><span class="s2">"pt"</span><span class="p">)</span>
             <span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_device</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
             <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
                 <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">(</span><span class="o">**</span><span class="n">inputs</span><span class="p">)</span>
@@ -179,7 +179,7 @@
 
 
 
-<span class="n">embedders</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;dinov2&quot;</span><span class="p">,</span> <span class="n">DINOv2Embedder</span><span class="p">())</span>
+<span class="n">embedders</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"dinov2"</span><span class="p">,</span> <span class="n">DINOv2Embedder</span><span class="p">())</span>
 </pre></div>
 
            </div>

@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.diagnose &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.diagnose &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,7 +107,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.diagnose</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Set-level diagnosis: what does the kept set cover, what&#39;s missing.</span>
+<span></span><span class="sd">"""Set-level diagnosis: what does the kept set cover, what's missing.</span>
 
 <span class="sd">Phase 2 ships cluster-coverage. The function takes the candidate pool and</span>
 <span class="sd">the kept subset, clusters the candidates by their embeddings, and reports</span>
@@ -116,7 +116,7 @@
 
 <span class="sd">This is the read-only counterpart to the selector — same data, different</span>
 <span class="sd">question. Selectors *choose*; diagnosers *describe*.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -139,7 +139,7 @@
     <span class="n">n_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12</span><span class="p">,</span>
     <span class="n">random_state</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Cluster the candidate embeddings into `n_clusters` and report coverage.</span>
+<span class="w">    </span><span class="sd">"""Cluster the candidate embeddings into `n_clusters` and report coverage.</span>
 
 <span class="sd">    Returns a dict with:</span>
 <span class="sd">      - `n_clusters`: actual number of clusters used (capped at len(candidates))</span>
@@ -149,17 +149,17 @@
 <span class="sd">      - `empty_clusters`: list of int (indexes of clusters with zero kept)</span>
 <span class="sd">      - `underrepresented_clusters`: clusters with kept_count == 0 and</span>
 <span class="sd">        candidate_count &gt;= 2 (the meaningful gaps)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">candidates</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
     <span class="n">kept</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">kept</span><span class="p">)</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">candidates</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{</span>
-            <span class="s2">&quot;n_clusters&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;n_clusters_filled&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-            <span class="s2">&quot;cluster_sizes_candidates&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;cluster_sizes_kept&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;empty_clusters&quot;</span><span class="p">:</span> <span class="p">[],</span>
-            <span class="s2">&quot;underrepresented_clusters&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"n_clusters"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"n_clusters_filled"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="s2">"cluster_sizes_candidates"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"cluster_sizes_kept"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"empty_clusters"</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">"underrepresented_clusters"</span><span class="p">:</span> <span class="p">[],</span>
         <span class="p">}</span>
 
     <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
@@ -176,7 +176,7 @@
 
         <span class="n">km</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span>
             <span class="n">n_clusters</span><span class="o">=</span><span class="n">n_clusters_eff</span><span class="p">,</span>
-            <span class="n">n_init</span><span class="o">=</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+            <span class="n">n_init</span><span class="o">=</span><span class="s2">"auto"</span><span class="p">,</span>
             <span class="n">random_state</span><span class="o">=</span><span class="n">random_state</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">labels</span> <span class="o">=</span> <span class="n">km</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
@@ -194,12 +194,12 @@
     <span class="n">underrep</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">empty</span> <span class="k">if</span> <span class="n">cluster_sizes_candidates</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">]</span>
 
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;n_clusters&quot;</span><span class="p">:</span> <span class="n">n_clusters_eff</span><span class="p">,</span>
-        <span class="s2">&quot;n_clusters_filled&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cluster_sizes_kept</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)),</span>
-        <span class="s2">&quot;cluster_sizes_candidates&quot;</span><span class="p">:</span> <span class="n">cluster_sizes_candidates</span><span class="p">,</span>
-        <span class="s2">&quot;cluster_sizes_kept&quot;</span><span class="p">:</span> <span class="n">cluster_sizes_kept</span><span class="p">,</span>
-        <span class="s2">&quot;empty_clusters&quot;</span><span class="p">:</span> <span class="n">empty</span><span class="p">,</span>
-        <span class="s2">&quot;underrepresented_clusters&quot;</span><span class="p">:</span> <span class="n">underrep</span><span class="p">,</span>
+        <span class="s2">"n_clusters"</span><span class="p">:</span> <span class="n">n_clusters_eff</span><span class="p">,</span>
+        <span class="s2">"n_clusters_filled"</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">cluster_sizes_kept</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)),</span>
+        <span class="s2">"cluster_sizes_candidates"</span><span class="p">:</span> <span class="n">cluster_sizes_candidates</span><span class="p">,</span>
+        <span class="s2">"cluster_sizes_kept"</span><span class="p">:</span> <span class="n">cluster_sizes_kept</span><span class="p">,</span>
+        <span class="s2">"empty_clusters"</span><span class="p">:</span> <span class="n">empty</span><span class="p">,</span>
+        <span class="s2">"underrepresented_clusters"</span><span class="p">:</span> <span class="n">underrep</span><span class="p">,</span>
     <span class="p">}</span></div>
 
 </pre></div>

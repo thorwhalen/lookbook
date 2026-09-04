@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.embedders.arcface &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.embedders.arcface &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,17 +107,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.embedders.arcface</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;ArcFace identity embedder.</span>
+<span></span><span class="sd">"""ArcFace identity embedder.</span>
 
 <span class="sd">ArcFace embeddings are the standard for face *identity* verification —</span>
-<span class="sd">neither CLIP nor DINOv2 reliably tells you &quot;this is the same person.&quot;</span>
-<span class="sd">For character-LoRA curation that&#39;s the load-bearing question.</span>
+<span class="sd">neither CLIP nor DINOv2 reliably tells you "this is the same person."</span>
+<span class="sd">For character-LoRA curation that's the load-bearing question.</span>
 
 <span class="sd">`InsightFaceArcFace` shares the underlying model weights with</span>
 <span class="sd">`InsightFaceDetect` (both go through the `FaceAnalysis` app). The</span>
 <span class="sd">embedder reads the `face_box` annotation from the manifest to know where</span>
 <span class="sd">to crop, then runs ArcFace on that crop.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -136,77 +136,77 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/embedders/arcface.html#lookbook.embedders.arcface.MockArcFaceEmbedder">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MockArcFaceEmbedder</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Deterministic mock identity embedder, no deps.</span>
+<span class="w">    </span><span class="sd">"""Deterministic mock identity embedder, no deps.</span>
 
 <span class="sd">    The vector is keyed by `image_id`, so:</span>
 <span class="sd">    - Same image always yields the same vector.</span>
 <span class="sd">    - Different images yield different vectors.</span>
-<span class="sd">    - There is no &quot;same person&quot; signal — different images of one person</span>
+<span class="sd">    - There is no "same person" signal — different images of one person</span>
 <span class="sd">      get unrelated vectors. Useful only for orchestration tests.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;arcface_mock&quot;</span>
+    <span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"arcface_mock"</span>
     <span class="n">cost_tier</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">512</span>
     <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lookbook:mock_arcface&quot;</span>
+    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"lookbook:mock_arcface"</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">config_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;mock_arcface:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"mock_arcface:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
-        <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">63</span><span class="p">))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="si">}</span><span class="s2">"</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">"big"</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">63</span><span class="p">))</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">v</span> <span class="o">/</span> <span class="n">n</span><span class="p">)</span> <span class="k">if</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">v</span></div>
 
 
 
-<span class="n">embedders</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;arcface_mock&quot;</span><span class="p">,</span> <span class="n">MockArcFaceEmbedder</span><span class="p">())</span>
+<span class="n">embedders</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"arcface_mock"</span><span class="p">,</span> <span class="n">MockArcFaceEmbedder</span><span class="p">())</span>
 
 
 <div class="viewcode-block" id="InsightFaceArcFace">
 <a class="viewcode-back" href="../../../module_docs/lookbook/embedders/arcface.html#lookbook.embedders.arcface.InsightFaceArcFace">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">InsightFaceArcFace</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Real ArcFace embeddings via insightface.</span>
+<span class="w">    </span><span class="sd">"""Real ArcFace embeddings via insightface.</span>
 
-<span class="sd">    The implementation is intentionally a thin wrapper. `insightface`&#39;s</span>
+<span class="sd">    The implementation is intentionally a thin wrapper. `insightface`'s</span>
 <span class="sd">    `FaceAnalysis.get(img)` returns Face objects with `.embedding` already</span>
-<span class="sd">    L2-normalized; we just pick the largest face&#39;s embedding.</span>
+<span class="sd">    L2-normalized; we just pick the largest face's embedding.</span>
 
-<span class="sd">    The &quot;right&quot; face is the one whose `bbox` overlaps the manifest&#39;s</span>
+<span class="sd">    The "right" face is the one whose `bbox` overlaps the manifest's</span>
 <span class="sd">    `face_box` if available; otherwise the largest by area.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;arcface&quot;</span>
+    <span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"arcface"</span>
     <span class="n">cost_tier</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
-    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;buffalo_l&quot;</span>
+    <span class="n">model_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"buffalo_l"</span>
     <span class="n">det_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">640</span>
-    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;insightface:arcface&quot;</span>
+    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"insightface:arcface"</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">config_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;arcface:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">det_size</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"arcface:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">det_size</span><span class="si">}</span><span class="s2">"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="kn">from</span><span class="w"> </span><span class="nn">insightface.app</span><span class="w"> </span><span class="kn">import</span> <span class="n">FaceAnalysis</span>  <span class="c1"># type: ignore</span>
         <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-                <span class="s2">&quot;InsightFaceArcFace requires `insightface`. &quot;</span>
-                <span class="s2">&quot;`pip install lookbook[person]`.&quot;</span>
+                <span class="s2">"InsightFaceArcFace requires `insightface`. "</span>
+                <span class="s2">"`pip install lookbook[person]`."</span>
             <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_app&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">"_app"</span><span class="p">):</span>
             <span class="n">app</span> <span class="o">=</span> <span class="n">FaceAnalysis</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="p">)</span>
             <span class="n">app</span><span class="o">.</span><span class="n">prepare</span><span class="p">(</span><span class="n">ctx_id</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">det_size</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">det_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">det_size</span><span class="p">))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_app</span> <span class="o">=</span> <span class="n">app</span>
 
         <span class="k">with</span> <span class="n">ref</span><span class="o">.</span><span class="n">open</span><span class="p">()</span> <span class="k">as</span> <span class="n">img</span><span class="p">:</span>
-            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">&quot;RGB&quot;</span><span class="p">))</span>
+            <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">img</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="s2">"RGB"</span><span class="p">))</span>
         <span class="n">arr_bgr</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">faces</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">arr_bgr</span><span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">faces</span><span class="p">:</span>
@@ -227,7 +227,7 @@
 
 
 
-<span class="n">embedders</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;arcface&quot;</span><span class="p">,</span> <span class="n">InsightFaceArcFace</span><span class="p">())</span>
+<span class="n">embedders</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"arcface"</span><span class="p">,</span> <span class="n">InsightFaceArcFace</span><span class="p">())</span>
 </pre></div>
 
            </div>

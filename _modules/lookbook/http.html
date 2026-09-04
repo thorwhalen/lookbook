@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.http &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.http &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,7 +107,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.http</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;HTTP surface for lookbook, built with `qh` over FastAPI.</span>
+<span></span><span class="sd">"""HTTP surface for lookbook, built with `qh` over FastAPI.</span>
 
 <span class="sd">Each HTTP route is a thin function that takes JSON-able args and returns</span>
 <span class="sd">a JSON-able dict. The route functions are the *only* thing this module</span>
@@ -115,7 +115,7 @@
 
 <span class="sd">Build the app with `mk_lookbook_app()` and run it with `serve()` (or use</span>
 <span class="sd">the `lookbook serve` CLI command).</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -142,15 +142,15 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_get_stores</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the server&#39;s `Stores` singleton, lazy-initialized.</span>
+<span class="w">    </span><span class="sd">"""Return the server's `Stores` singleton, lazy-initialized.</span>
 
-<span class="sd">    The HTTP server uses a single Stores instance backed by the user&#39;s app</span>
+<span class="sd">    The HTTP server uses a single Stores instance backed by the user's app</span>
 <span class="sd">    data folder. Override the data root by setting `LOOKBOOK_DATA_ROOT`</span>
 <span class="sd">    before starting the server.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">global</span> <span class="n">_stores</span>
     <span class="k">if</span> <span class="n">_stores</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LOOKBOOK_DATA_ROOT&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"LOOKBOOK_DATA_ROOT"</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span>
         <span class="n">_stores</span> <span class="o">=</span> <span class="n">get_stores</span><span class="p">(</span><span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">_stores</span>
 
@@ -158,7 +158,7 @@
 <div class="viewcode-block" id="reset_stores">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.reset_stores">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">reset_stores</span><span class="p">(</span><span class="n">stores</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Replace the server-wide stores. Used by tests; rare otherwise.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Replace the server-wide stores. Used by tests; rare otherwise."""</span>
     <span class="k">global</span> <span class="n">_stores</span>
     <span class="n">_stores</span> <span class="o">=</span> <span class="n">stores</span></div>
 
@@ -172,34 +172,34 @@
 <div class="viewcode-block" id="list_recipes">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.list_recipes">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">list_recipes</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;All available recipes / profiles, with their specs.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""All available recipes / profiles, with their specs."""</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="c1"># In-code RECIPES dict from __main__.</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.__main__</span><span class="w"> </span><span class="kn">import</span> <span class="n">RECIPES</span> <span class="k">as</span> <span class="n">_RECIPES</span>
 
     <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">spec</span> <span class="ow">in</span> <span class="n">_RECIPES</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">spec</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;in-code&quot;</span><span class="p">}</span>
+        <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">spec</span><span class="p">,</span> <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"in-code"</span><span class="p">}</span>
     <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">_profiles</span><span class="o">.</span><span class="n">list_profiles</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">out</span><span class="p">:</span>
             <span class="k">continue</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="n">spec</span> <span class="o">=</span> <span class="n">_profiles</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-            <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">spec</span><span class="p">,</span> <span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;profile&quot;</span><span class="p">}</span>
+            <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">spec</span><span class="p">,</span> <span class="s2">"source"</span><span class="p">:</span> <span class="s2">"profile"</span><span class="p">}</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;source&quot;</span><span class="p">:</span> <span class="s2">&quot;profile&quot;</span><span class="p">,</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;recipes&quot;</span><span class="p">:</span> <span class="n">out</span><span class="p">}</span></div>
+            <span class="n">out</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"profile"</span><span class="p">,</span> <span class="s2">"error"</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"recipes"</span><span class="p">:</span> <span class="n">out</span><span class="p">}</span></div>
 
 
 
 <div class="viewcode-block" id="list_plugins">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.list_plugins">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">list_plugins</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;All registered scorers / embedders / filters / selectors.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""All registered scorers / embedders / filters / selectors."""</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;scorers&quot;</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">scorers</span><span class="o">.</span><span class="n">names</span><span class="p">(),</span>
-        <span class="s2">&quot;embedders&quot;</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">embedders</span><span class="o">.</span><span class="n">names</span><span class="p">(),</span>
-        <span class="s2">&quot;filters&quot;</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">names</span><span class="p">(),</span>
-        <span class="s2">&quot;selectors&quot;</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="o">.</span><span class="n">names</span><span class="p">(),</span>
+        <span class="s2">"scorers"</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">scorers</span><span class="o">.</span><span class="n">names</span><span class="p">(),</span>
+        <span class="s2">"embedders"</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">embedders</span><span class="o">.</span><span class="n">names</span><span class="p">(),</span>
+        <span class="s2">"filters"</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">names</span><span class="p">(),</span>
+        <span class="s2">"selectors"</span><span class="p">:</span> <span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="o">.</span><span class="n">names</span><span class="p">(),</span>
     <span class="p">}</span></div>
 
 
@@ -207,15 +207,15 @@
 <div class="viewcode-block" id="ingest_source">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.ingest_source">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ingest_source</span><span class="p">(</span><span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Ingest a directory or file. Records id-&gt;path in `stores.images`.</span>
+<span class="w">    </span><span class="sd">"""Ingest a directory or file. Records id-&gt;path in `stores.images`.</span>
 
 <span class="sd">    Returns the list of resolved image ids.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">stores</span> <span class="o">=</span> <span class="n">_get_stores</span><span class="p">()</span>
     <span class="n">refs</span> <span class="o">=</span> <span class="n">ingest_to_store</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">stores</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;image_ids&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">],</span>
-        <span class="s2">&quot;n&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">refs</span><span class="p">),</span>
+        <span class="s2">"image_ids"</span><span class="p">:</span> <span class="p">[</span><span class="n">r</span><span class="o">.</span><span class="n">image_id</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">],</span>
+        <span class="s2">"n"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">refs</span><span class="p">),</span>
     <span class="p">}</span></div>
 
 
@@ -226,26 +226,26 @@
     <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="n">recipe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;funnel&quot;</span><span class="p">,</span>
+    <span class="n">recipe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"funnel"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run a recipe on a directory of images. Returns the run record.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Run a recipe on a directory of images. Returns the run record."""</span>
     <span class="n">spec</span> <span class="o">=</span> <span class="n">_resolve_recipe</span><span class="p">(</span><span class="n">recipe</span><span class="p">)</span>
     <span class="n">stores</span> <span class="o">=</span> <span class="n">_get_stores</span><span class="p">()</span>
     <span class="c1"># Ensure the id-&gt;path map is populated before running.</span>
     <span class="n">ingest_to_store</span><span class="p">(</span><span class="n">source_path</span><span class="p">,</span> <span class="n">stores</span><span class="p">)</span>
 
-    <span class="n">selector_spec</span> <span class="o">=</span> <span class="n">_normalize_selector_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;selector&quot;</span><span class="p">])</span>
-    <span class="n">filters</span> <span class="o">=</span> <span class="n">_normalize_filter_specs</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;filters&quot;</span><span class="p">])</span>
+    <span class="n">selector_spec</span> <span class="o">=</span> <span class="n">_normalize_selector_spec</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">"selector"</span><span class="p">])</span>
+    <span class="n">filters</span> <span class="o">=</span> <span class="n">_normalize_filter_specs</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">"filters"</span><span class="p">])</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">_curate</span><span class="p">(</span>
         <span class="n">source_path</span><span class="p">,</span>
         <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
-        <span class="n">scorer_ids</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">&quot;scorers&quot;</span><span class="p">]),</span>
-        <span class="n">embedder_ids</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;embedders&quot;</span><span class="p">,</span> <span class="p">[])),</span>
+        <span class="n">scorer_ids</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">spec</span><span class="p">[</span><span class="s2">"scorers"</span><span class="p">]),</span>
+        <span class="n">embedder_ids</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"embedders"</span><span class="p">,</span> <span class="p">[])),</span>
         <span class="n">filter_ids</span><span class="o">=</span><span class="nb">tuple</span><span class="p">(</span><span class="n">filters</span><span class="p">),</span>
         <span class="n">selector_id</span><span class="o">=</span><span class="n">selector_spec</span><span class="p">,</span>
-        <span class="n">diagnose_clusters</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;diagnose_clusters&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
-        <span class="n">constraints</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;constraints&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">diagnose_clusters</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"diagnose_clusters"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">constraints</span><span class="o">=</span><span class="n">spec</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"constraints"</span><span class="p">)</span> <span class="ow">or</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">stores</span><span class="o">=</span><span class="n">stores</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">to_record</span><span class="p">()</span></div>
@@ -254,19 +254,19 @@
 
 <div class="viewcode-block" id="score_image">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.score_image">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">score_image</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">metric_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Score a single image by metric id.</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">score_image</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">metric_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Score a single image by metric id.</span>
 
 <span class="sd">    Pass either `source_path` (file path on the server) or `image_id`</span>
 <span class="sd">    (must already have a path recorded via ingest).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="n">stores</span> <span class="o">=</span> <span class="n">_get_stores</span><span class="p">()</span>
     <span class="n">ref</span> <span class="o">=</span> <span class="n">_ref_from_request</span><span class="p">(</span><span class="n">stores</span><span class="p">,</span> <span class="n">source_path</span><span class="o">=</span><span class="n">source_path</span><span class="p">,</span> <span class="n">image_id</span><span class="o">=</span><span class="n">image_id</span><span class="p">)</span>
     <span class="n">scorer</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">scorers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">metric_id</span><span class="p">)</span>
-    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">scorers</span><span class="o">=</span><span class="p">[</span><span class="n">scorer</span><span class="p">],</span> <span class="n">selector</span><span class="o">=</span><span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;top_k&quot;</span><span class="p">))</span>
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">scorers</span><span class="o">=</span><span class="p">[</span><span class="n">scorer</span><span class="p">],</span> <span class="n">selector</span><span class="o">=</span><span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"top_k"</span><span class="p">))</span>
     <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">ref</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stores</span><span class="o">=</span><span class="n">stores</span><span class="p">)</span>
     <span class="n">v</span> <span class="o">=</span> <span class="n">value_of</span><span class="p">(</span><span class="n">stores</span><span class="o">.</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="n">metric_id</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;metric_id&quot;</span><span class="p">:</span> <span class="n">metric_id</span><span class="p">,</span> <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">v</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"image_id"</span><span class="p">:</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="s2">"metric_id"</span><span class="p">:</span> <span class="n">metric_id</span><span class="p">,</span> <span class="s2">"value"</span><span class="p">:</span> <span class="n">v</span><span class="p">}</span></div>
 
 
 
@@ -276,21 +276,21 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">reference_paths</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
     <span class="n">candidate_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">embedder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;arcface&quot;</span><span class="p">,</span>
+    <span class="n">embedder</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"arcface"</span><span class="p">,</span>
     <span class="n">threshold</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.85</span><span class="p">,</span>
-    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;max&quot;</span><span class="p">,</span>
-    <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rescale&quot;</span><span class="p">,</span>
+    <span class="n">aggregation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"max"</span><span class="p">,</span>
+    <span class="n">normalization</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"rescale"</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Identity/likeness of a candidate vs a locked reference (or pool).</span>
+<span class="w">    </span><span class="sd">"""Identity/likeness of a candidate vs a locked reference (or pool).</span>
 
 <span class="sd">    The reference-supervisor verb: returns a normalized similarity in</span>
 <span class="sd">    ``[0, 1]`` (1 = same identity) plus an advisory ``passed`` flag. Pass one</span>
 <span class="sd">    or more ``reference_paths`` (server-local image paths) and a single</span>
-<span class="sd">    ``candidate_path``. ``embedder`` selects the space — ``&quot;arcface&quot;`` for</span>
-<span class="sd">    faces (default), ``&quot;clip&quot;`` / ``&quot;dinov2&quot;`` for scenes/architecture.</span>
+<span class="sd">    ``candidate_path``. ``embedder`` selects the space — ``"arcface"`` for</span>
+<span class="sd">    faces (default), ``"clip"`` / ``"dinov2"`` for scenes/architecture.</span>
 
 <span class="sd">    The pass/fail is **advisory** — the caller decides whether to act on it.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook.scorers.identity</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
         <span class="n">compare_to_reference</span> <span class="k">as</span> <span class="n">_compare_to_reference</span><span class="p">,</span>
     <span class="p">)</span>
@@ -312,72 +312,72 @@
 <div class="viewcode-block" id="get_annotations">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.get_annotations">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_annotations</span><span class="p">(</span><span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;All annotations for one image (drawn from the manifest).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""All annotations for one image (drawn from the manifest)."""</span>
     <span class="n">stores</span> <span class="o">=</span> <span class="n">_get_stores</span><span class="p">()</span>
     <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">ann</span> <span class="ow">in</span> <span class="n">iter_annotations_for</span><span class="p">(</span><span class="n">stores</span><span class="o">.</span><span class="n">manifest</span><span class="p">,</span> <span class="n">image_id</span><span class="p">):</span>
         <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="p">{</span>
-                <span class="s2">&quot;metric_id&quot;</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">metric_id</span><span class="p">,</span>
-                <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
-                <span class="s2">&quot;config_hash&quot;</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">config_hash</span><span class="p">,</span>
-                <span class="s2">&quot;cost_tier&quot;</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">cost_tier</span><span class="p">,</span>
-                <span class="s2">&quot;backend&quot;</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span>
-                <span class="s2">&quot;timestamp&quot;</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span> <span class="k">if</span> <span class="n">ann</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="s2">"metric_id"</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">metric_id</span><span class="p">,</span>
+                <span class="s2">"value"</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+                <span class="s2">"config_hash"</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">config_hash</span><span class="p">,</span>
+                <span class="s2">"cost_tier"</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">cost_tier</span><span class="p">,</span>
+                <span class="s2">"backend"</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">backend</span><span class="p">,</span>
+                <span class="s2">"timestamp"</span><span class="p">:</span> <span class="n">ann</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span> <span class="k">if</span> <span class="n">ann</span><span class="o">.</span><span class="n">timestamp</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
             <span class="p">}</span>
         <span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="n">image_id</span><span class="p">,</span> <span class="s2">&quot;annotations&quot;</span><span class="p">:</span> <span class="n">out</span><span class="p">}</span></div>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"image_id"</span><span class="p">:</span> <span class="n">image_id</span><span class="p">,</span> <span class="s2">"annotations"</span><span class="p">:</span> <span class="n">out</span><span class="p">}</span></div>
 
 
 
 <div class="viewcode-block" id="list_runs">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.list_runs">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">list_runs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;All run ids stored on the server.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""All run ids stored on the server."""</span>
     <span class="n">stores</span> <span class="o">=</span> <span class="n">_get_stores</span><span class="p">()</span>
     <span class="n">keys</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">stores</span><span class="o">.</span><span class="n">runs</span><span class="p">)</span>
     <span class="c1"># Strip a trailing .json suffix when present, for cleaner response.</span>
-    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">)]</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;runs&quot;</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ids</span><span class="p">)}</span></div>
+    <span class="n">ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">".json"</span><span class="p">)]</span> <span class="k">if</span> <span class="n">k</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".json"</span><span class="p">)</span> <span class="k">else</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">keys</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"runs"</span><span class="p">:</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">ids</span><span class="p">)}</span></div>
 
 
 
 <div class="viewcode-block" id="get_run">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.get_run">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_run</span><span class="p">(</span><span class="n">run_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;One run record by id.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""One run record by id."""</span>
     <span class="n">stores</span> <span class="o">=</span> <span class="n">_get_stores</span><span class="p">()</span>
-    <span class="c1"># Try id, then id+&quot;.json&quot;.</span>
-    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s2">.json&quot;</span><span class="p">):</span>
+    <span class="c1"># Try id, then id+".json".</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">(</span><span class="n">run_id</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">run_id</span><span class="si">}</span><span class="s2">.json"</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">stores</span><span class="o">.</span><span class="n">runs</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">stores</span><span class="o">.</span><span class="n">runs</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;unknown run_id: </span><span class="si">{</span><span class="n">run_id</span><span class="si">!r}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"unknown run_id: </span><span class="si">{</span><span class="n">run_id</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="get_image">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.get_image">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_image</span><span class="p">(</span><span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return the raw bytes of an image by id.</span>
+<span class="w">    </span><span class="sd">"""Return the raw bytes of an image by id.</span>
 
-<span class="sd">    The server reads from `stores.images[image_id][&quot;path&quot;]`. If the entry</span>
+<span class="sd">    The server reads from `stores.images[image_id]["path"]`. If the entry</span>
 <span class="sd">    is missing, returns a 404-style error dict (FastAPI surfaces this as a</span>
 <span class="sd">    JSON response; a future iteration may switch to a streaming binary</span>
-<span class="sd">    response via FastAPI&#39;s `Response`).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    response via FastAPI's `Response`).</span>
+<span class="sd">    """</span>
     <span class="n">stores</span> <span class="o">=</span> <span class="n">_get_stores</span><span class="p">()</span>
     <span class="n">rec</span> <span class="o">=</span> <span class="n">stores</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_id</span><span class="p">)</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">rec</span> <span class="ow">or</span> <span class="s2">&quot;path&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown image_id&quot;</span><span class="p">,</span> <span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="n">image_id</span><span class="p">}</span>
-    <span class="n">path</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rec</span> <span class="ow">or</span> <span class="s2">"path"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"unknown image_id"</span><span class="p">,</span> <span class="s2">"image_id"</span><span class="p">:</span> <span class="n">image_id</span><span class="p">}</span>
+    <span class="n">path</span> <span class="o">=</span> <span class="n">rec</span><span class="p">[</span><span class="s2">"path"</span><span class="p">]</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;error&quot;</span><span class="p">:</span> <span class="s2">&quot;path no longer present on disk&quot;</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">}</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"error"</span><span class="p">:</span> <span class="s2">"path no longer present on disk"</span><span class="p">,</span> <span class="s2">"path"</span><span class="p">:</span> <span class="n">path</span><span class="p">}</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">"rb"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
     <span class="k">return</span> <span class="p">{</span>
-        <span class="s2">&quot;image_id&quot;</span><span class="p">:</span> <span class="n">image_id</span><span class="p">,</span>
-        <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span>
-        <span class="s2">&quot;n_bytes&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+        <span class="s2">"image_id"</span><span class="p">:</span> <span class="n">image_id</span><span class="p">,</span>
+        <span class="s2">"path"</span><span class="p">:</span> <span class="n">path</span><span class="p">,</span>
+        <span class="s2">"n_bytes"</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
         <span class="c1"># Bytes themselves are returned via a separate streaming route in</span>
         <span class="c1"># production. For Phase 4 we return only metadata so the response</span>
         <span class="c1"># stays JSON-friendly. The client can fetch the file directly when</span>
@@ -400,7 +400,7 @@
         <span class="k">return</span> <span class="n">_profiles</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
     <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
         <span class="n">known</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">_RECIPES</span><span class="p">)</span> <span class="o">|</span> <span class="nb">set</span><span class="p">(</span><span class="n">_profiles</span><span class="o">.</span><span class="n">list_profiles</span><span class="p">()))</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unknown recipe/profile: </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">. Known: </span><span class="si">{</span><span class="n">known</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown recipe/profile: </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s2">. Known: </span><span class="si">{</span><span class="n">known</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_normalize_filter_specs</span><span class="p">(</span><span class="n">items</span><span class="p">):</span>
@@ -419,19 +419,19 @@
     <span class="k">return</span> <span class="n">spec</span>
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">_ref_from_request</span><span class="p">(</span><span class="n">stores</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build an ImageRef from the HTTP request inputs.&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">_ref_from_request</span><span class="p">(</span><span class="n">stores</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">source_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">,</span> <span class="n">image_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">""</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Build an ImageRef from the HTTP request inputs."""</span>
     <span class="k">if</span> <span class="n">source_path</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">PathImageRef</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">source_path</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">image_id</span><span class="p">:</span>
         <span class="n">rec</span> <span class="o">=</span> <span class="n">stores</span><span class="o">.</span><span class="n">images</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">image_id</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">rec</span> <span class="ow">or</span> <span class="s2">&quot;path&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">rec</span> <span class="ow">or</span> <span class="s2">"path"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">rec</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;image_id </span><span class="si">{</span><span class="n">image_id</span><span class="si">!r}</span><span class="s2"> is not in the images store. &quot;</span>
-                <span class="sa">f</span><span class="s2">&quot;Call /ingest_source first.&quot;</span>
+                <span class="sa">f</span><span class="s2">"image_id </span><span class="si">{</span><span class="n">image_id</span><span class="si">!r}</span><span class="s2"> is not in the images store. "</span>
+                <span class="sa">f</span><span class="s2">"Call /ingest_source first."</span>
             <span class="p">)</span>
-        <span class="k">return</span> <span class="n">PathImageRef</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">rec</span><span class="p">[</span><span class="s2">&quot;path&quot;</span><span class="p">],</span> <span class="n">image_id</span><span class="o">=</span><span class="n">image_id</span><span class="p">)</span>
-    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;either source_path or image_id must be provided&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">PathImageRef</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">rec</span><span class="p">[</span><span class="s2">"path"</span><span class="p">],</span> <span class="n">image_id</span><span class="o">=</span><span class="n">image_id</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"either source_path or image_id must be provided"</span><span class="p">)</span>
 
 
 <span class="c1"># ---------------------------------------------------------------------------</span>
@@ -442,15 +442,15 @@
 <div class="viewcode-block" id="mk_lookbook_app">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.mk_lookbook_app">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mk_lookbook_app</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">app</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build a FastAPI app exposing the lookbook HTTP surface.</span>
+<span class="w">    </span><span class="sd">"""Build a FastAPI app exposing the lookbook HTTP surface.</span>
 
 <span class="sd">    Each function becomes a POST endpoint with a JSON body matching its</span>
 <span class="sd">    keyword arguments. Use the auto-generated `/docs` (Swagger) or</span>
-<span class="sd">    `/redoc` for interactive exploration. Disabling qh&#39;s convention-based</span>
+<span class="sd">    `/redoc` for interactive exploration. Disabling qh's convention-based</span>
 <span class="sd">    routing keeps the path scheme uniform — every route is `POST /&lt;verb&gt;`</span>
 <span class="sd">    and takes a JSON body — which is the pattern most agent clients</span>
 <span class="sd">    (and our future MCP layer) expect.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="kn">import</span><span class="w"> </span><span class="nn">qh</span>  <span class="c1"># local: keep qh out of `import lookbook` cost</span>
 
     <span class="n">funcs</span> <span class="o">=</span> <span class="p">[</span>
@@ -471,14 +471,14 @@
 
 <div class="viewcode-block" id="serve">
 <a class="viewcode-back" href="../../module_docs/lookbook/http.html#lookbook.http.serve">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">serve</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run the lookbook HTTP server (uvicorn under the hood).&quot;&quot;&quot;</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">serve</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">host</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"127.0.0.1"</span><span class="p">,</span> <span class="n">port</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Run the lookbook HTTP server (uvicorn under the hood)."""</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="kn">import</span><span class="w"> </span><span class="nn">uvicorn</span>  <span class="c1"># type: ignore</span>
     <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span>
-            <span class="s2">&quot;lookbook serve requires uvicorn. &quot;</span>
-            <span class="s2">&quot;`pip install lookbook[http]` or `pip install uvicorn fastapi`.&quot;</span>
+            <span class="s2">"lookbook serve requires uvicorn. "</span>
+            <span class="s2">"`pip install lookbook[http]` or `pip install uvicorn fastapi`."</span>
         <span class="p">)</span> <span class="kn">from</span><span class="w"> </span><span class="nn">e</span>
 
     <span class="n">app</span> <span class="o">=</span> <span class="n">mk_lookbook_app</span><span class="p">()</span>

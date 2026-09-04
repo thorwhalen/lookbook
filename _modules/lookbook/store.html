@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.store &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.store &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,18 +107,18 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.store</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Repository pattern for lookbook persistence.</span>
+<span></span><span class="sd">"""Repository pattern for lookbook persistence.</span>
 
-<span class="sd">Three stores hold the package&#39;s state. All three are MutableMappings so the</span>
+<span class="sd">Three stores hold the package's state. All three are MutableMappings so the</span>
 <span class="sd">backend (filesystem, SQLite, S3, Mongo, in-memory) is swappable:</span>
 
-<span class="sd">- `images`: image_id -&gt; record about the image, e.g. `{&quot;path&quot;: ...}`</span>
-<span class="sd">- `manifest`: &quot;image_id--metric_id&quot; -&gt; Annotation (as dict via codec)</span>
+<span class="sd">- `images`: image_id -&gt; record about the image, e.g. `{"path": ...}`</span>
+<span class="sd">- `manifest`: "image_id--metric_id" -&gt; Annotation (as dict via codec)</span>
 <span class="sd">- `runs`: run_id -&gt; run record (recipe, kept set, report)</span>
 
-<span class="sd">The default factory wires everything to JSON-on-disk under the user&#39;s app</span>
+<span class="sd">The default factory wires everything to JSON-on-disk under the user's app</span>
 <span class="sd">data folder (via config2py). Tests pass `dict()` everywhere to skip I/O.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -137,53 +137,53 @@
 <span class="c1"># ---------------------------------------------------------------------------</span>
 
 <span class="c1"># Separator must be filesystem-safe on every OS we care about. Windows</span>
-<span class="c1"># disallows `: \ / * ? &quot; &lt; &gt; |` in filenames, so we can&#39;t use `::`.</span>
+<span class="c1"># disallows `: \ / * ? " &lt; &gt; |` in filenames, so we can't use `::`.</span>
 <span class="c1"># `--` is safe on every OS, never appears in our image_ids (hex sha1</span>
-<span class="c1"># prefixes) or metric_ids (snake_case), and reads as &quot;joined&quot;.</span>
-<span class="n">_KEY_SEP</span> <span class="o">=</span> <span class="s2">&quot;--&quot;</span>
+<span class="c1"># prefixes) or metric_ids (snake_case), and reads as "joined".</span>
+<span class="n">_KEY_SEP</span> <span class="o">=</span> <span class="s2">"--"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_key_to_str</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="n">ManifestKey</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
     <span class="n">image_id</span><span class="p">,</span> <span class="n">metric_id</span> <span class="o">=</span> <span class="n">key</span>
-    <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">image_id</span><span class="si">}{</span><span class="n">_KEY_SEP</span><span class="si">}{</span><span class="n">metric_id</span><span class="si">}</span><span class="s2">.json&quot;</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">image_id</span><span class="si">}{</span><span class="n">_KEY_SEP</span><span class="si">}{</span><span class="n">metric_id</span><span class="si">}</span><span class="s2">.json"</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_str_to_key</span><span class="p">(</span><span class="n">s</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ManifestKey</span><span class="p">:</span>
-    <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">):</span>
-        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">&quot;.json&quot;</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">".json"</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[:</span> <span class="o">-</span><span class="nb">len</span><span class="p">(</span><span class="s2">".json"</span><span class="p">)]</span>
     <span class="n">image_id</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">metric_id</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">partition</span><span class="p">(</span><span class="n">_KEY_SEP</span><span class="p">)</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">image_id</span><span class="p">,</span> <span class="n">metric_id</span><span class="p">)</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_annotation_to_dict</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="n">Annotation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="n">d</span> <span class="o">=</span> <span class="n">asdict</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-    <span class="n">d</span><span class="p">[</span><span class="s2">&quot;timestamp&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+    <span class="n">d</span><span class="p">[</span><span class="s2">"timestamp"</span><span class="p">]</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
     <span class="k">return</span> <span class="n">d</span>
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_dict_to_annotation</span><span class="p">(</span><span class="n">d</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Annotation</span><span class="p">:</span>
-    <span class="n">ts</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;timestamp&quot;</span><span class="p">)</span>
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"timestamp"</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ts</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">ts</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">fromisoformat</span><span class="p">(</span><span class="n">ts</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">Annotation</span><span class="p">(</span>
-        <span class="n">image_id</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;image_id&quot;</span><span class="p">],</span>
-        <span class="n">metric_id</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;metric_id&quot;</span><span class="p">],</span>
-        <span class="n">value</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">&quot;value&quot;</span><span class="p">],</span>
-        <span class="n">config_hash</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;config_hash&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="n">cost_tier</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;cost_tier&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">image_id</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">"image_id"</span><span class="p">],</span>
+        <span class="n">metric_id</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">"metric_id"</span><span class="p">],</span>
+        <span class="n">value</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s2">"value"</span><span class="p">],</span>
+        <span class="n">config_hash</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"config_hash"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="n">cost_tier</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"cost_tier"</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
         <span class="n">timestamp</span><span class="o">=</span><span class="n">ts</span> <span class="ow">or</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">timezone</span><span class="o">.</span><span class="n">utc</span><span class="p">),</span>
-        <span class="n">backend</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;backend&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="n">backend</span><span class="o">=</span><span class="n">d</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"backend"</span><span class="p">,</span> <span class="s2">""</span><span class="p">),</span>
     <span class="p">)</span>
 
 
 <div class="viewcode-block" id="manifest_codec">
 <a class="viewcode-back" href="../../module_docs/lookbook/store.html#lookbook.manifest_codec">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">manifest_codec</span><span class="p">(</span><span class="n">store</span><span class="p">:</span> <span class="n">MutableMapping</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Wrap a string-keyed JSON-dict store so it speaks Annotations.</span>
+<span class="w">    </span><span class="sd">"""Wrap a string-keyed JSON-dict store so it speaks Annotations.</span>
 
-<span class="sd">    Keys flow as `(image_id, metric_id) &lt;-&gt; &quot;image_id--metric_id.json&quot;`.</span>
+<span class="sd">    Keys flow as `(image_id, metric_id) &lt;-&gt; "image_id--metric_id.json"`.</span>
 <span class="sd">    Values flow as `Annotation &lt;-&gt; dict`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">wrap_kvs</span><span class="p">(</span>
         <span class="n">store</span><span class="p">,</span>
         <span class="n">key_of_id</span><span class="o">=</span><span class="n">_str_to_key</span><span class="p">,</span>
@@ -203,7 +203,7 @@
 <a class="viewcode-back" href="../../module_docs/lookbook/store.html#lookbook.Stores">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Stores</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bundle of all stores lookbook uses for persistence.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""Bundle of all stores lookbook uses for persistence."""</span>
 
     <span class="n">images</span><span class="p">:</span> <span class="n">MutableMapping</span>
     <span class="n">manifest</span><span class="p">:</span> <span class="n">MutableMapping</span>
@@ -214,13 +214,13 @@
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">_make_embeddings_dict</span><span class="p">(</span><span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">MutableMapping</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Top-level mapping of space_id -&gt; per-space embedding store.</span>
+<span class="w">    </span><span class="sd">"""Top-level mapping of space_id -&gt; per-space embedding store.</span>
 
 <span class="sd">    The default is in-memory; persistent vector indexes are deferred to a</span>
 <span class="sd">    later phase (Phase 2). When `root` is given we still keep the top-level</span>
 <span class="sd">    in memory but each space-store gets its own subdirectory of JSON files</span>
 <span class="sd">    holding the raw lists.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="k">return</span> <span class="p">{}</span>
 
@@ -243,10 +243,10 @@
     <span class="n">runs_store</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MutableMapping</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">embeddings</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">MutableMapping</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Stores</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Build the lookbook Stores bundle.</span>
+<span class="w">    </span><span class="sd">"""Build the lookbook Stores bundle.</span>
 
 <span class="sd">    All arguments are optional. When `root` is None and no stores are</span>
-<span class="sd">    supplied, the user&#39;s app data folder is used. Pass `dict()` for any</span>
+<span class="sd">    supplied, the user's app data folder is used. Pass `dict()` for any</span>
 <span class="sd">    slot to keep that store in memory (useful for tests).</span>
 
 <span class="sd">    &gt;&gt;&gt; stores = get_stores(</span>
@@ -254,7 +254,7 @@
 <span class="sd">    ... )</span>
 <span class="sd">    &gt;&gt;&gt; stores.manifest is not None</span>
 <span class="sd">    True</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="n">images_store</span> <span class="ow">is</span> <span class="kc">None</span>
         <span class="ow">and</span> <span class="n">manifest_store</span> <span class="ow">is</span> <span class="kc">None</span>
@@ -264,26 +264,26 @@
     <span class="p">):</span>
         <span class="n">root</span> <span class="o">=</span> <span class="n">default_data_root</span><span class="p">()</span>
 
-    <span class="c1"># `images` holds image-id -&gt; metadata records (e.g. {&quot;path&quot;: ...}).</span>
+    <span class="c1"># `images` holds image-id -&gt; metadata records (e.g. {"path": ...}).</span>
     <span class="c1"># The HTTP layer uses this to serve bytes by id. Users who want to</span>
     <span class="c1"># persist actual image bytes can pass a `Files`-backed store.</span>
     <span class="n">images</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">images_store</span>
         <span class="k">if</span> <span class="n">images_store</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">else</span> <span class="p">(</span><span class="n">JsonFiles</span><span class="p">(</span><span class="n">subdir</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;images&quot;</span><span class="p">))</span> <span class="k">if</span> <span class="n">root</span> <span class="k">else</span> <span class="p">{})</span>
+        <span class="k">else</span> <span class="p">(</span><span class="n">JsonFiles</span><span class="p">(</span><span class="n">subdir</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">"images"</span><span class="p">))</span> <span class="k">if</span> <span class="n">root</span> <span class="k">else</span> <span class="p">{})</span>
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">manifest_store</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="n">manifest_store</span>
     <span class="k">elif</span> <span class="n">root</span><span class="p">:</span>
-        <span class="n">manifest</span> <span class="o">=</span> <span class="n">manifest_codec</span><span class="p">(</span><span class="n">JsonFiles</span><span class="p">(</span><span class="n">subdir</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;manifest&quot;</span><span class="p">)))</span>
+        <span class="n">manifest</span> <span class="o">=</span> <span class="n">manifest_codec</span><span class="p">(</span><span class="n">JsonFiles</span><span class="p">(</span><span class="n">subdir</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">"manifest"</span><span class="p">)))</span>
     <span class="k">else</span><span class="p">:</span>
         <span class="n">manifest</span> <span class="o">=</span> <span class="p">{}</span>
 
     <span class="n">runs</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">runs_store</span>
         <span class="k">if</span> <span class="n">runs_store</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">else</span> <span class="p">(</span><span class="n">JsonFiles</span><span class="p">(</span><span class="n">subdir</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">&quot;runs&quot;</span><span class="p">))</span> <span class="k">if</span> <span class="n">root</span> <span class="k">else</span> <span class="p">{})</span>
+        <span class="k">else</span> <span class="p">(</span><span class="n">JsonFiles</span><span class="p">(</span><span class="n">subdir</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="s2">"runs"</span><span class="p">))</span> <span class="k">if</span> <span class="n">root</span> <span class="k">else</span> <span class="p">{})</span>
     <span class="p">)</span>
 
     <span class="k">if</span> <span class="n">embeddings</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

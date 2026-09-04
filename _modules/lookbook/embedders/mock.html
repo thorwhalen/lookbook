@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.embedders.mock &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.embedders.mock &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,12 +107,12 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.embedders.mock</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;Deterministic mock embedder for tests and end-to-end orchestration.</span>
+<span></span><span class="sd">"""Deterministic mock embedder for tests and end-to-end orchestration.</span>
 
 <span class="sd">`MockEmbedder` returns a vector seeded by `image_id`, so the same image</span>
 <span class="sd">always yields the same vector and similar `image_id`s yield similar</span>
 <span class="sd">vectors (a tiny bit). It does not require any ML dependency.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -129,26 +129,26 @@
 <a class="viewcode-back" href="../../../module_docs/lookbook/embedders/mock.html#lookbook.embedders.mock.MockEmbedder">[docs]</a>
 <span class="nd">@dataclass</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MockEmbedder</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Deterministic, dependency-free embedder for tests.</span>
+<span class="w">    </span><span class="sd">"""Deterministic, dependency-free embedder for tests.</span>
 
 <span class="sd">    The vector is derived from a SHA1 of `image_id` (mixed with `seed`),</span>
 <span class="sd">    expanded to `dim` dimensions, and L2-normalized.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
-    <span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;mock&quot;</span>
+    <span class="n">space_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"mock"</span>
     <span class="n">cost_tier</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">64</span>
     <span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lookbook:mock&quot;</span>
+    <span class="n">backend</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">"lookbook:mock"</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">config_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;mock:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"mock:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">"</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">embed</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ref</span><span class="p">:</span> <span class="n">ImageRef</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-        <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="si">}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">seed</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="si">}</span><span class="s2">"</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s2">"utf-8"</span><span class="p">))</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
         <span class="c1"># Expand the 20-byte digest deterministically to `dim` floats.</span>
-        <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;big&quot;</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">63</span><span class="p">))</span>
+        <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="nb">int</span><span class="o">.</span><span class="n">from_bytes</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">"big"</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">63</span><span class="p">))</span>
         <span class="n">v</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">standard_normal</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
         <span class="c1"># L2-normalize so cosine similarity == dot product.</span>
         <span class="n">n</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
@@ -156,7 +156,7 @@
 
 
 
-<span class="n">embedders</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">&quot;mock&quot;</span><span class="p">,</span> <span class="n">MockEmbedder</span><span class="p">())</span>
+<span class="n">embedders</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="s2">"mock"</span><span class="p">,</span> <span class="n">MockEmbedder</span><span class="p">())</span>
 </pre></div>
 
            </div>

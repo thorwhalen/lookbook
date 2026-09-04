@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
@@ -15,7 +15,7 @@
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../_static/documentation_options.js?v=0c446633"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -604,11 +604,11 @@ slot to keep that store in memory (useful for tests).</p>
 <dd><p>Materialize a source into a list of ImageRefs.</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">tempfile</span><span class="o">,</span><span class="w"> </span><span class="nn">os</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">d</span><span class="p">:</span>
-<span class="gp">... </span>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;a.jpg&#39;</span><span class="p">,</span> <span class="s1">&#39;b.png&#39;</span><span class="p">,</span> <span class="s1">&#39;note.txt&#39;</span><span class="p">]:</span>
-<span class="gp">... </span>        <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">'a.jpg'</span><span class="p">,</span> <span class="s1">'b.png'</span><span class="p">,</span> <span class="s1">'note.txt'</span><span class="p">]:</span>
+<span class="gp">... </span>        <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">name</span><span class="p">),</span> <span class="s1">'wb'</span><span class="p">)</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 <span class="gp">... </span>    <span class="n">refs</span> <span class="o">=</span> <span class="n">ingest</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">sorted</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">path</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">refs</span><span class="p">)</span>
-<span class="go">[&#39;a.jpg&#39;, &#39;b.png&#39;]</span>
+<span class="go">['a.jpg', 'b.png']</span>
 </pre></div>
 </div>
 </dd></dl>

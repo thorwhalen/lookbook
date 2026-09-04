@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lookbook.facade &mdash; lookbook 0.0.10 documentation</title>
+  <title>lookbook.facade &mdash; lookbook 0.0.11 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
   
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=a83ce22a"></script>
+      <script src="../../_static/documentation_options.js?v=0c446633"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
@@ -107,7 +107,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for lookbook.facade</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;High-level facades — the one-call entry points into the pipeline.</span>
+<span></span><span class="sd">"""High-level facades — the one-call entry points into the pipeline.</span>
 
 <span class="sd">`curate` is the general one: ingest a source, run scorers/embedders/filters,</span>
 <span class="sd">select K. `curate_for_character` and `curate_for_environment` are opinionated</span>
@@ -117,7 +117,7 @@
 <span class="sd">import it from. Plugins are named, never subclassed: each `*_ids` argument</span>
 <span class="sd">takes registry names, optionally paired with config overrides as a</span>
 <span class="sd">`(name, kwargs)` tuple.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">"""</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
@@ -133,18 +133,18 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">lookbook</span><span class="w"> </span><span class="kn">import</span> <span class="n">registry</span>
 
 
-<span class="n">PluginSpec</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span>  <span class="c1"># &quot;name&quot; or (&quot;name&quot;, {&quot;kw&quot;: value})</span>
+<span class="n">PluginSpec</span> <span class="o">=</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span>  <span class="c1"># "name" or ("name", {"kw": value})</span>
 
 
 <div class="viewcode-block" id="resolve_plugin">
 <a class="viewcode-back" href="../../module_docs/lookbook/facade.html#lookbook.resolve_plugin">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">resolve_plugin</span><span class="p">(</span><span class="n">reg</span><span class="p">,</span> <span class="n">spec</span><span class="p">:</span> <span class="n">PluginSpec</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">fresh</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Look up a plugin from a registry, optionally with config overrides.</span>
+<span class="w">    </span><span class="sd">"""Look up a plugin from a registry, optionally with config overrides.</span>
 
 <span class="sd">    `spec` is either a registered name or a `(name, kwargs)` tuple. With</span>
 <span class="sd">    `fresh=True` (used for filters with internal state), returns a brand</span>
 <span class="sd">    new instance even when no overrides are given.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spec</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">name</span><span class="p">,</span> <span class="n">overrides</span> <span class="o">=</span> <span class="n">spec</span><span class="p">,</span> <span class="p">{}</span>
     <span class="k">else</span><span class="p">:</span>
@@ -163,27 +163,27 @@
     <span class="n">source</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
-    <span class="n">scorer_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PluginSpec</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;random_score&quot;</span><span class="p">,),</span>
+    <span class="n">scorer_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PluginSpec</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"random_score"</span><span class="p">,),</span>
     <span class="n">embedder_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PluginSpec</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">filter_ids</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="n">PluginSpec</span><span class="p">]</span> <span class="o">=</span> <span class="p">(),</span>
-    <span class="n">selector_id</span><span class="p">:</span> <span class="n">PluginSpec</span> <span class="o">=</span> <span class="s2">&quot;top_k&quot;</span><span class="p">,</span>
+    <span class="n">selector_id</span><span class="p">:</span> <span class="n">PluginSpec</span> <span class="o">=</span> <span class="s2">"top_k"</span><span class="p">,</span>
     <span class="n">diagnose_clusters</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">stores</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Stores</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">constraints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;High-level facade: ingest a source, run a pipeline, return the result.</span>
+<span class="w">    </span><span class="sd">"""High-level facade: ingest a source, run a pipeline, return the result.</span>
 
-<span class="sd">    Each plugin id may be either a string (&quot;blur&quot;) or a (name, kwargs)</span>
-<span class="sd">    tuple ((&quot;blur&quot;, {&quot;max_side&quot;: 256})) to override the default config.</span>
+<span class="sd">    Each plugin id may be either a string ("blur") or a (name, kwargs)</span>
+<span class="sd">    tuple (("blur", {"max_side": 256})) to override the default config.</span>
 
 <span class="sd">    `diagnose_clusters &gt; 0` runs cluster-coverage diagnosis after selection</span>
-<span class="sd">    and writes the result into the report&#39;s `notes`.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    and writes the result into the report's `notes`.</span>
+<span class="sd">    """</span>
     <span class="n">refs</span> <span class="o">=</span> <span class="n">ingest</span><span class="p">(</span><span class="n">source</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="k">else</span> <span class="n">source</span>
     <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span>
         <span class="n">scorers</span><span class="o">=</span><span class="p">[</span><span class="n">resolve_plugin</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">scorers</span><span class="p">,</span> <span class="n">sp</span><span class="p">)</span> <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">scorer_ids</span><span class="p">],</span>
         <span class="n">embedders</span><span class="o">=</span><span class="p">[</span><span class="n">resolve_plugin</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">embedders</span><span class="p">,</span> <span class="n">sp</span><span class="p">)</span> <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">embedder_ids</span><span class="p">],</span>
-        <span class="c1"># Filters always get fresh instances so stateful ones (dedup) don&#39;t</span>
+        <span class="c1"># Filters always get fresh instances so stateful ones (dedup) don't</span>
         <span class="c1"># leak across runs.</span>
         <span class="n">filters</span><span class="o">=</span><span class="p">[</span><span class="n">resolve_plugin</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">filters</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="n">fresh</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">sp</span> <span class="ow">in</span> <span class="n">filter_ids</span><span class="p">],</span>
         <span class="n">selector</span><span class="o">=</span><span class="n">resolve_plugin</span><span class="p">(</span><span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="p">,</span> <span class="n">selector_id</span><span class="p">),</span>
@@ -201,10 +201,10 @@
     <span class="n">metric_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">stores</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Stores</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Score one image against one metric. Returns the bare value.</span>
+<span class="w">    </span><span class="sd">"""Score one image against one metric. Returns the bare value.</span>
 
 <span class="sd">    Caches into the manifest so repeated calls are free.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ref</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="n">ref</span> <span class="o">=</span> <span class="n">PathImageRef</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="n">ref</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">stores</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -215,7 +215,7 @@
             <span class="n">embeddings</span><span class="o">=</span><span class="p">{},</span>
         <span class="p">)</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">registry</span><span class="o">.</span><span class="n">scorers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">metric_id</span><span class="p">)</span>
-    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">scorers</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">selector</span><span class="o">=</span><span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;top_k&quot;</span><span class="p">))</span>
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">(</span><span class="n">scorers</span><span class="o">=</span><span class="p">[</span><span class="n">s</span><span class="p">],</span> <span class="n">selector</span><span class="o">=</span><span class="n">registry</span><span class="o">.</span><span class="n">selectors</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"top_k"</span><span class="p">))</span>
     <span class="n">pipeline</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">ref</span><span class="p">],</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stores</span><span class="o">=</span><span class="n">stores</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">value_of</span><span class="p">(</span><span class="n">stores</span><span class="o">.</span><span class="n">manifest</span><span class="p">,</span> <span class="n">ref</span><span class="o">.</span><span class="n">image_id</span><span class="p">,</span> <span class="n">metric_id</span><span class="p">)</span></div>
 
@@ -227,14 +227,14 @@
     <span class="n">source</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">face_detector</span><span class="p">:</span> <span class="n">PluginSpec</span> <span class="o">=</span> <span class="s2">&quot;insightface&quot;</span><span class="p">,</span>
+    <span class="n">face_detector</span><span class="p">:</span> <span class="n">PluginSpec</span> <span class="o">=</span> <span class="s2">"insightface"</span><span class="p">,</span>
     <span class="n">stores</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Stores</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">constraints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Curate the best reference image(s) of a *known* character from a pool.</span>
+<span class="w">    </span><span class="sd">"""Curate the best reference image(s) of a *known* character from a pool.</span>
 
-<span class="sd">    Opinionated facade over :func:`curate`, tuned for the &quot;pick the</span>
-<span class="sd">    reference image of this one character&quot; job (IP-adapter conditioning,</span>
+<span class="sd">    Opinionated facade over :func:`curate`, tuned for the "pick the</span>
+<span class="sd">    reference image of this one character" job (IP-adapter conditioning,</span>
 <span class="sd">    model-sheet seeding): every image is scored for resolution, sharpness,</span>
 <span class="sd">    exposure and face quality, then the top ``k`` are taken by the</span>
 <span class="sd">    composite ``face_quality`` metric.</span>
@@ -247,27 +247,27 @@
 
 <span class="sd">    `face_detector` names the registered face-box scorer:</span>
 
-<span class="sd">    - ``&quot;insightface&quot;`` — real RetinaFace detection; needs</span>
+<span class="sd">    - ``"insightface"`` — real RetinaFace detection; needs</span>
 <span class="sd">      ``pip install lookbook[person]``. The default.</span>
-<span class="sd">    - ``&quot;mock_face&quot;`` — the deterministic centred-box detector, for tests</span>
+<span class="sd">    - ``"mock_face"`` — the deterministic centred-box detector, for tests</span>
 <span class="sd">      and demos without the ML dependency.</span>
 
 <span class="sd">    Images with no detected face score ``0`` and sort last; the pool is</span>
 <span class="sd">    never filtered down to empty, so a small or awkward pool still yields</span>
 <span class="sd">    a best-effort pick.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">curate</span><span class="p">(</span>
         <span class="n">source</span><span class="p">,</span>
         <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
         <span class="n">scorer_ids</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;resolution&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;blur&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;exposure&quot;</span><span class="p">,</span>
+            <span class="s2">"resolution"</span><span class="p">,</span>
+            <span class="s2">"blur"</span><span class="p">,</span>
+            <span class="s2">"exposure"</span><span class="p">,</span>
             <span class="n">face_detector</span><span class="p">,</span>
-            <span class="s2">&quot;face_area&quot;</span><span class="p">,</span>
-            <span class="s2">&quot;face_quality&quot;</span><span class="p">,</span>
+            <span class="s2">"face_area"</span><span class="p">,</span>
+            <span class="s2">"face_quality"</span><span class="p">,</span>
         <span class="p">),</span>
-        <span class="n">selector_id</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;top_k&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;metric_id&quot;</span><span class="p">:</span> <span class="s2">&quot;face_quality&quot;</span><span class="p">}),</span>
+        <span class="n">selector_id</span><span class="o">=</span><span class="p">(</span><span class="s2">"top_k"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"metric_id"</span><span class="p">:</span> <span class="s2">"face_quality"</span><span class="p">}),</span>
         <span class="n">stores</span><span class="o">=</span><span class="n">stores</span><span class="p">,</span>
         <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
     <span class="p">)</span></div>
@@ -283,7 +283,7 @@
     <span class="n">stores</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Stores</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">constraints</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RunResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Curate the best reference image(s) for a non-person subject.</span>
+<span class="w">    </span><span class="sd">"""Curate the best reference image(s) for a non-person subject.</span>
 
 <span class="sd">    Opinionated facade over :func:`curate` for pools where face detection</span>
 <span class="sd">    is moot — environment plates, prop references, style boards. Each</span>
@@ -294,12 +294,12 @@
 <span class="sd">    Unlike :func:`curate_for_character` this needs no ML dependency — the</span>
 <span class="sd">    scorers run on Pillow + numpy (cv2 is used for sharpness when present,</span>
 <span class="sd">    with a numpy fallback otherwise).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
     <span class="k">return</span> <span class="n">curate</span><span class="p">(</span>
         <span class="n">source</span><span class="p">,</span>
         <span class="n">k</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
-        <span class="n">scorer_ids</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;resolution&quot;</span><span class="p">,</span> <span class="s2">&quot;blur&quot;</span><span class="p">,</span> <span class="s2">&quot;exposure&quot;</span><span class="p">,</span> <span class="s2">&quot;technical_quality&quot;</span><span class="p">),</span>
-        <span class="n">selector_id</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;top_k&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;metric_id&quot;</span><span class="p">:</span> <span class="s2">&quot;technical_quality&quot;</span><span class="p">}),</span>
+        <span class="n">scorer_ids</span><span class="o">=</span><span class="p">(</span><span class="s2">"resolution"</span><span class="p">,</span> <span class="s2">"blur"</span><span class="p">,</span> <span class="s2">"exposure"</span><span class="p">,</span> <span class="s2">"technical_quality"</span><span class="p">),</span>
+        <span class="n">selector_id</span><span class="o">=</span><span class="p">(</span><span class="s2">"top_k"</span><span class="p">,</span> <span class="p">{</span><span class="s2">"metric_id"</span><span class="p">:</span> <span class="s2">"technical_quality"</span><span class="p">}),</span>
         <span class="n">stores</span><span class="o">=</span><span class="n">stores</span><span class="p">,</span>
         <span class="n">constraints</span><span class="o">=</span><span class="n">constraints</span><span class="p">,</span>
     <span class="p">)</span></div>
