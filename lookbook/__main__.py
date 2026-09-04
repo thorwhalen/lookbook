@@ -6,7 +6,7 @@ import json
 import sys
 from typing import Sequence
 
-import argh
+import cw
 
 from lookbook import curate as _curate, get_stores, registry
 from lookbook import profiles as _profiles
@@ -273,11 +273,20 @@ def mcp(*, transport: str = "stdio") -> None:
     _mcp_serve(transport=transport)
 
 
+# The commands the CLI dispatches. Named so tests can assert on the list
+# rather than re-deriving it from the parser.
+COMMANDS = [curate, list_plugins, list_recipes, serve, mcp]
+
+
 def main():
-    parser = argh.ArghParser(prog="lookbook")
-    argh.add_commands(parser, [curate, list_plugins, list_recipes, serve, mcp])
-    argh.dispatch(parser)
+    """Entry point for the ``lookbook`` console script.
+
+    Returns the exit code (``cw.run`` returns it rather than exiting), which
+    is what the console-script shim and the ``__main__`` guard below expect.
+    """
+    parser = cw.mk_parser(COMMANDS, prog="lookbook")
+    return cw.run(parser)
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

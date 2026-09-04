@@ -1,0 +1,157 @@
+{
+  "cases": [
+    {
+      "argv": [],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ...\n",
+      "tier": 1,
+      "usage": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ..."
+    },
+    {
+      "argv": [
+        "--help"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ...\n\npositional arguments:\n  {curate,list-plugins,list-recipes,serve,mcp}\n    curate              Curate `source` into K reference images. Recipes (see `lookbook list-\n                        recipes`): - `random`: placeholder (Phase 0). - `funnel`,\n                        `funnel_relaxed`: Phase 1 cheap funnel, no GPU. - `diverse`,\n                        `diverse_clip`: Phase 2 — funnel + embeddings + facility- location\n                        selection. Downloads model weights on first use. - `diverse_mock`: same\n                        shape as `diverse`, no-download (tests / sanity). Prints a JSON record of\n                        the run to stdout. The manifest persists to the user's app data folder\n                        unless `--in-memory` is passed.\n    list-plugins        List all registered scorers / selectors / filters / embedders.\n    list-recipes        List built-in curation recipes and YAML profiles.\n    serve               Start the lookbook HTTP server. Routes are uniform `POST /<verb>` with\n                        JSON bodies. See `/docs` for the auto-generated Swagger UI. Override the\n                        data root with `LOOKBOOK_DATA_ROOT=...` before starting.\n    mcp                 Start the lookbook MCP server. Default stdio transport is what Claude\n                        Desktop and the Anthropic SDK spawn an MCP server with. Override the data\n                        root with `LOOKBOOK_DATA_ROOT=...` before starting.\n\noptions:\n  -h, --help            show this help message and exit\n",
+      "tier": 3,
+      "usage": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ..."
+    },
+    {
+      "argv": [
+        "-h"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ...\n\npositional arguments:\n  {curate,list-plugins,list-recipes,serve,mcp}\n    curate              Curate `source` into K reference images. Recipes (see `lookbook list-\n                        recipes`): - `random`: placeholder (Phase 0). - `funnel`,\n                        `funnel_relaxed`: Phase 1 cheap funnel, no GPU. - `diverse`,\n                        `diverse_clip`: Phase 2 — funnel + embeddings + facility- location\n                        selection. Downloads model weights on first use. - `diverse_mock`: same\n                        shape as `diverse`, no-download (tests / sanity). Prints a JSON record of\n                        the run to stdout. The manifest persists to the user's app data folder\n                        unless `--in-memory` is passed.\n    list-plugins        List all registered scorers / selectors / filters / embedders.\n    list-recipes        List built-in curation recipes and YAML profiles.\n    serve               Start the lookbook HTTP server. Routes are uniform `POST /<verb>` with\n                        JSON bodies. See `/docs` for the auto-generated Swagger UI. Override the\n                        data root with `LOOKBOOK_DATA_ROOT=...` before starting.\n    mcp                 Start the lookbook MCP server. Default stdio transport is what Claude\n                        Desktop and the Anthropic SDK spawn an MCP server with. Override the data\n                        root with `LOOKBOOK_DATA_ROOT=...` before starting.\n\noptions:\n  -h, --help            show this help message and exit\n",
+      "tier": 3,
+      "usage": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ..."
+    },
+    {
+      "argv": [
+        "curate",
+        "--help"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "usage: lookbook curate [-h] [-k K] [-r RECIPE] [--scorer [SCORER ...]] [-e [EMBEDDER ...]]\n                       [-f [FILTER ...]] [--selector SELECTOR] [-d DIAGNOSE_CLUSTERS] [-i]\n                       source\n\nCurate `source` into K reference images.\n\nRecipes (see `lookbook list-recipes`):\n  - `random`: placeholder (Phase 0).\n  - `funnel`, `funnel_relaxed`: Phase 1 cheap funnel, no GPU.\n  - `diverse`, `diverse_clip`: Phase 2 — funnel + embeddings + facility-\n    location selection. Downloads model weights on first use.\n  - `diverse_mock`: same shape as `diverse`, no-download (tests / sanity).\n\nPrints a JSON record of the run to stdout. The manifest persists to\nthe user's app data folder unless `--in-memory` is passed.\n\npositional arguments:\n  source                -\n\noptions:\n  -h, --help            show this help message and exit\n  -k K, --k K           20\n  -r RECIPE, --recipe RECIPE\n                        'random'\n  --scorer [SCORER ...]\n                        ()\n  -e [EMBEDDER ...], --embedder [EMBEDDER ...]\n                        ()\n  -f [FILTER ...], --filter [FILTER ...]\n                        ()\n  --selector SELECTOR   ''\n  -d DIAGNOSE_CLUSTERS, --diagnose-clusters DIAGNOSE_CLUSTERS\n                        -1\n  -i, --in-memory       False\n",
+      "tier": 3,
+      "usage": "usage: lookbook curate [-h] [-k K] [-r RECIPE] [--scorer [SCORER ...]] [-e [EMBEDDER ...]] [-f [FILTER ...]] [--selector SELECTOR] [-d DIAGNOSE_CLUSTERS] [-i] source"
+    },
+    {
+      "argv": [
+        "list-plugins",
+        "--help"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "usage: lookbook list-plugins [-h]\n\nList all registered scorers / selectors / filters / embedders.\n\noptions:\n  -h, --help  show this help message and exit\n",
+      "tier": 3,
+      "usage": "usage: lookbook list-plugins [-h]"
+    },
+    {
+      "argv": [
+        "list-recipes",
+        "--help"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "usage: lookbook list-recipes [-h]\n\nList built-in curation recipes and YAML profiles.\n\noptions:\n  -h, --help  show this help message and exit\n",
+      "tier": 3,
+      "usage": "usage: lookbook list-recipes [-h]"
+    },
+    {
+      "argv": [
+        "serve",
+        "--help"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "usage: lookbook serve [-h] [--host HOST] [-p PORT]\n\nStart the lookbook HTTP server.\n\nRoutes are uniform `POST /<verb>` with JSON bodies. See `/docs` for\nthe auto-generated Swagger UI. Override the data root with\n`LOOKBOOK_DATA_ROOT=...` before starting.\n\noptions:\n  -h, --help            show this help message and exit\n  --host HOST           '127.0.0.1'\n  -p PORT, --port PORT  8000\n",
+      "tier": 3,
+      "usage": "usage: lookbook serve [-h] [--host HOST] [-p PORT]"
+    },
+    {
+      "argv": [
+        "mcp",
+        "--help"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "usage: lookbook mcp [-h] [-t TRANSPORT]\n\nStart the lookbook MCP server.\n\nDefault stdio transport is what Claude Desktop and the Anthropic SDK\nspawn an MCP server with. Override the data root with\n`LOOKBOOK_DATA_ROOT=...` before starting.\n\noptions:\n  -h, --help            show this help message and exit\n  -t TRANSPORT, --transport TRANSPORT\n                        'stdio'\n",
+      "tier": 3,
+      "usage": "usage: lookbook mcp [-h] [-t TRANSPORT]"
+    },
+    {
+      "argv": [
+        "no-such-command"
+      ],
+      "returncode": 2,
+      "stderr": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ...\nlookbook: error: argument {curate,list-plugins,list-recipes,serve,mcp}: invalid choice: 'no-such-command' (choose from curate, list-plugins, list-recipes, serve, mcp)\n",
+      "stdout": "",
+      "tier": 1,
+      "usage": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ... lookbook: error: argument {curate,list-plugins,list-recipes,serve,mcp}: invalid choice: 'no-such-command' (choose from curate, list-plugins, list-recipes, serve, mcp)"
+    },
+    {
+      "argv": [
+        "curate",
+        "--no-such-flag"
+      ],
+      "returncode": 2,
+      "stderr": "usage: lookbook curate [-h] [-k K] [-r RECIPE] [--scorer [SCORER ...]] [-e [EMBEDDER ...]]\n                       [-f [FILTER ...]] [--selector SELECTOR] [-d DIAGNOSE_CLUSTERS] [-i]\n                       source\nlookbook curate: error: the following arguments are required: source\n",
+      "stdout": "",
+      "tier": 1,
+      "usage": "usage: lookbook curate [-h] [-k K] [-r RECIPE] [--scorer [SCORER ...]] [-e [EMBEDDER ...]] [-f [FILTER ...]] [--selector SELECTOR] [-d DIAGNOSE_CLUSTERS] [-i] source lookbook curate: error: the following arguments are required: source"
+    },
+    {
+      "argv": [
+        "curate"
+      ],
+      "returncode": 2,
+      "stderr": "usage: lookbook curate [-h] [-k K] [-r RECIPE] [--scorer [SCORER ...]] [-e [EMBEDDER ...]]\n                       [-f [FILTER ...]] [--selector SELECTOR] [-d DIAGNOSE_CLUSTERS] [-i]\n                       source\nlookbook curate: error: the following arguments are required: source\n",
+      "stdout": "",
+      "tier": 1,
+      "usage": "usage: lookbook curate [-h] [-k K] [-r RECIPE] [--scorer [SCORER ...]] [-e [EMBEDDER ...]] [-f [FILTER ...]] [--selector SELECTOR] [-d DIAGNOSE_CLUSTERS] [-i] source lookbook curate: error: the following arguments are required: source"
+    },
+    {
+      "argv": [
+        "list-plugins"
+      ],
+      "returncode": 0,
+      "stderr": "",
+      "stdout": "scorers:   blur, exposure, face_area, face_quality, file_hash, head_pose, identity_similarity, insightface, mock_face, mock_head_pose, phash, random_score, resolution, technical_quality\nselectors: facility_location, quota, top_k\nfilters:   exposure_range, has_face, min_blur, min_face_area, min_face_confidence, min_resolution, no_exact_duplicate, no_near_duplicate, single_face_only\nembedders: arcface, arcface_mock, clip, dinov2, mock\n",
+      "tier": 1,
+      "usage": ""
+    },
+    {
+      "argv": [
+        "--version"
+      ],
+      "returncode": 2,
+      "stderr": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ...\nlookbook: error: unrecognized arguments: --version\n",
+      "stdout": "",
+      "tier": 1,
+      "usage": "usage: lookbook [-h] {curate,list-plugins,list-recipes,serve,mcp} ... lookbook: error: unrecognized arguments: --version"
+    }
+  ],
+  "cw_golden": 1,
+  "env": {
+    "COLUMNS": "100",
+    "NO_COLOR": "1",
+    "PYTHONHASHSEED": "0",
+    "PYTHONIOENCODING": "utf-8",
+    "PYTHONUTF8": "1",
+    "TERM": "dumb"
+  },
+  "newlines": "lf",
+  "note": "Recorded from the argh implementation (lookbook/__main__.py at main, before the cw migration) with cw.testing.characterize.",
+  "prog": [
+    "lookbook"
+  ],
+  "recorded_with": {
+    "implementation": "CPython",
+    "platform": "Darwin",
+    "python": "3.12.12"
+  }
+}

@@ -27,7 +27,7 @@ dependencies = [
     "dol",
     "meshed",
     "config2py",
-    "argh>=0.30",
+    "cw>=0.1.1,<0.2",
     "pydantic>=2.6",
     "pyyaml>=6.0",
 ]
