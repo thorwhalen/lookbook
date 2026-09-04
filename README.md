@@ -228,7 +228,7 @@ lookbook/
   io/                   ingest, ingest_to_store
   http.py               qh-built FastAPI surface; mk_lookbook_app, serve
   mcp.py                fastmcp-built MCP server; mk_lookbook_mcp, serve
-  __main__.py           CLI (argh): curate, list-plugins, list-recipes
+  __main__.py           CLI (cw): curate, list-plugins, list-recipes
 
 .claude/skills/         Claude Code skills for development & agent use
 misc/docs/              Design report + development plan
